@@ -1,0 +1,53 @@
+server:
+  port: 8000
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+spring:
+  application:
+    name: apigateway-service
+  config:
+    import: optional:configserver:http:/127.0.0.1:8888
+
+  cloud:
+    gateway:
+      default-filters:
+        - name: GlobalFilter
+          args:
+            baseMessage: Spring Cloud Gateway Global Filter
+            preLogger: true
+            postLogger: true
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "https://127.0.0.1:8080"
+            allowedMethods:
+              - GET
+              - POST
+              - DELETE
+              - PUT
+              - PATCH
+            allowedHeaders: '*'
+            allow-credentials: true
+      routes:
+        - id: member-service
+          uri: lb://MEMBER-SERVICE
+          predicates:
+            - Path=/member-service/**
+        - id: guest-service
+          uri: lb://guest-SERVICE
+          predicates:
+            - Path=/guest-service/**
+        - id: problem-service
+          uri: lb://PROBLEM-SERVICE
+          predicates:
+            - Path=/problem-service/**
+        - id: review-service
+          uri: lb://REVIEW-SERVICE
+          predicates:
+            - Path=/review-service/**
