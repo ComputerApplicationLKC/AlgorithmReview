@@ -6,7 +6,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://discovery:8761/eureka
 
 spring:
   application:
@@ -14,7 +14,16 @@ spring:
   config:
     import: optional:configserver:http:/127.0.0.1:8888
 
+  zipkin:
+    base-url: http://127.0.0.1:9411
+    enabled: true
+    sleuth:
+      sampler:
+        probability: 1.0
+
   cloud:
+    config:
+      name: bootstrap
     gateway:
       default-filters:
         - name: GlobalFilter
@@ -22,7 +31,7 @@ spring:
             baseMessage: Spring Cloud Gateway Global Filter
             preLogger: true
             postLogger: true
-      globalcors:
+      globals:
         cors-configurations:
           '[/**]':
             allowedOrigins: "https://127.0.0.1:8080"
@@ -35,19 +44,96 @@ spring:
             allowedHeaders: '*'
             allow-credentials: true
       routes:
+
+        - id: member-service
+          uri: lb://MEMBER-SERVICE
+          predicates:
+            - Path=/member-service/login
+            - Method=POST
+          filters:
+            - RewritePath=/member-service/(?<segment>.*),/$\{segment}
+        - id: member-service
+          uri: lb://MEMBER-SERVICE
+          predicates:
+            - Path=/member-service/reissue
+            - Method=GET
+          filters:
+            - RewritePath=/member-service/(?<segment>.*),/$\{segment}
+        - id: member-service
+          uri: lb://MEMBER-SERVICE
+          predicates:
+            - Path=/member-service/logout
+            - Method=POST
+          filters:
+            - RewritePath=/user-service/(?<segment>.*),/$\{segment}
+        - id: member-service
+          uri: lb://MEMBER-SERVICE
+          predicates:
+            - Path=/member-service/auth/reissue
+            - Method=GET
+          filters:
+            - RewritePath=/member-service/(?<segment>.*),/$\{segment}
+        - id: member-service
+          uri: lb://MEMBER-SERVICE
+          predicates:
+            - Path=/member-service/oauth2/authorization/*
+          filters:
+            - RewritePath=/member-service/(?<segment>.*),/$\{segment}
+        - id: member-service
+          uri: lb://MEMBER-SERVICE
+          predicates:
+            - Path=/member-service/*/oauth2/code/*
+          filters:
+            - RewritePath=/member-service/(?<segment>.*),/$\{segment}
         - id: member-service
           uri: lb://MEMBER-SERVICE
           predicates:
             - Path=/member-service/**
+          filters:
+            - AuthorizationHeaderFilter
+            - RewritePath=/member-service/(?<segment>.*),/$\{segment}
+
         - id: guest-service
-          uri: lb://guest-SERVICE
+          uri: lb://GUEST-SERVICE
           predicates:
             - Path=/guest-service/**
+          filters:
+            - AuthorizationHeaderFilter
+            - RewritePath=/guest-service/(?<segment>.*),/$\{segment}
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 3
+                redis-rate-limiter.burstCapacity: 3
+                key-resolver: "#{@tokenKeyResolver}"
+
         - id: problem-service
           uri: lb://PROBLEM-SERVICE
           predicates:
             - Path=/problem-service/**
+          filters:
+            - AuthorizationHeaderFilter
+            - RewritePath=/problem-service/(?<segment>.*),/$\{segment}
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 3
+                redis-rate-limiter.burstCapacity: 3
+                key-resolver: "#{@tokenKeyResolver}"
+
         - id: review-service
           uri: lb://REVIEW-SERVICE
           predicates:
             - Path=/review-service/**
+          filters:
+            - AuthorizationHeaderFilter
+            - RewritePath=/review-service/(?<segment>.*),/$\{segment}
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 3
+                redis-rate-limiter.burstCapacity: 3
+                key-resolver: "#{@tokenKeyResolver}"
+token:
+  access-expired-time: 3600000
+  refresh-expired-time: 604800000
+  secret: member-token
+  refresh-token-name: refresh-token
+  access-token-name: access-token

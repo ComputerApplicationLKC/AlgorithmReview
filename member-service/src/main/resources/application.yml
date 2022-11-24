@@ -4,11 +4,27 @@ server:
 spring:
   application:
     name: member-service
+  zipkin:
+    base-url: http://127.0.0.1:9411
+    enabled: true
+  sleuth:
+    sampler:
+      probability: 1.0
   config:
     import: optional:configserver:http://127.0.0.1:8888
     cloud:
       config:
         name: service
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 607577063410-i357uh5n6ad3eg1qo1suu3ddltcennkr.apps.googleusercontent.com
+            client-secret: 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
+            redirect_uri: http://127.0.0.1:8080/user/google/callback
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/test?serverTimezone=Asia/Seoul
@@ -21,6 +37,10 @@ spring:
     open-in-view: false
     defer-datasource-initialization: true
 
+  redis:
+    host: 127.0.0.1
+    port: 6379
+
 eureka:
   client:
     service-url:
@@ -29,3 +49,11 @@ eureka:
     register-with-eureka: true
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+
+token:
+  access-expired-time: 3600000
+  refresh-expired-time: 604800000
+  secret: member-token
+  refresh-token-name: refresh-token
+  access-token-name: access-token
