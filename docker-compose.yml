@@ -1,4 +1,4 @@
-version: "3"
+version: "3.9"
 
 services:
 
@@ -124,23 +124,6 @@ services:
       - eureka.client.serviceUrl.defaultZone=http://discovery:8761/eureka/
       - spring.config.import=optional:configserver:http://config:8888 
       - spring.zipkin.base-url=http://zipkin:9411    
-    depends_on:
-      - discovery
-      - config
-      - db   
-    tty: true
-
-  review:
-    build:
-      context: ./review-service
-    command: ./wait-for-it.sh -t 70 db:3306 -- gradle bootRun
-    container_name: review
-    networks:
-      - app-tier
-    environment:
-      - eureka.client.serviceUrl.defaultZone=http://discovery:8761/eureka/
-      - spring.config.import=optional:configserver:http://config:8888  
-      - spring.zipkin.base-url=http://zipkin:9411
     depends_on:
       - discovery
       - config

@@ -119,18 +119,6 @@ spring:
                 redis-rate-limiter.burstCapacity: 3
                 key-resolver: "#{@tokenKeyResolver}"
 
-        - id: review-service
-          uri: lb://REVIEW-SERVICE
-          predicates:
-            - Path=/review-service/**
-          filters:
-            - AuthorizationHeaderFilter
-            - RewritePath=/review-service/(?<segment>.*),/$\{segment}
-            - name: RequestRateLimiter
-              args:
-                redis-rate-limiter.replenishRate: 3
-                redis-rate-limiter.burstCapacity: 3
-                key-resolver: "#{@tokenKeyResolver}"
 token:
   access-expired-time: 3600000
   refresh-expired-time: 604800000
