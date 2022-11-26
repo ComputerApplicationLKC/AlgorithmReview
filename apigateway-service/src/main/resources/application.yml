@@ -6,24 +6,20 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://discovery:8761/eureka
 
 spring:
   application:
     name: apigateway-service
-  config:
-    import: optional:configserver:http:/127.0.0.1:8888
 
   zipkin:
-    base-url: http://127.0.0.1:9411
+    base-url: http://zipkin:9411
     enabled: true
-    sleuth:
-      sampler:
-        probability: 1.0
+  sleuth:
+    sampler:
+      probability: 1.0
 
   cloud:
-    config:
-      name: bootstrap
     gateway:
       default-filters:
         - name: GlobalFilter
@@ -34,7 +30,7 @@ spring:
       globals:
         cors-configurations:
           '[/**]':
-            allowedOrigins: "https://127.0.0.1:8080"
+            allowedOrigins: "http://api-gateway:8000"
             allowedMethods:
               - GET
               - POST
@@ -44,59 +40,59 @@ spring:
             allowedHeaders: '*'
             allow-credentials: true
       routes:
-
         - id: member-service
           uri: lb://MEMBER-SERVICE
           predicates:
-            - Path=/member-service/login
+            - Path=/member-service/api/login
             - Method=POST
           filters:
-            - RewritePath=/member-service/(?<segment>.*),/$\{segment}
+            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
         - id: member-service
           uri: lb://MEMBER-SERVICE
           predicates:
-            - Path=/member-service/reissue
+            - Path=/member-service/api/reissue
             - Method=GET
           filters:
-            - RewritePath=/member-service/(?<segment>.*),/$\{segment}
+            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
         - id: member-service
           uri: lb://MEMBER-SERVICE
           predicates:
             - Path=/member-service/logout
             - Method=POST
           filters:
-            - RewritePath=/user-service/(?<segment>.*),/$\{segment}
+            - RewritePath=/user-service/api/(?<segment>.*),/$\{segment}
         - id: member-service
           uri: lb://MEMBER-SERVICE
           predicates:
-            - Path=/member-service/auth/reissue
+            - Path=/member-service/api/auth/reissue
             - Method=GET
           filters:
-            - RewritePath=/member-service/(?<segment>.*),/$\{segment}
+            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
         - id: member-service
           uri: lb://MEMBER-SERVICE
           predicates:
-            - Path=/member-service/oauth2/authorization/*
+            - Path=/member-service/api/oauth2/authorization/*
           filters:
-            - RewritePath=/member-service/(?<segment>.*),/$\{segment}
+            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
         - id: member-service
           uri: lb://MEMBER-SERVICE
           predicates:
-            - Path=/member-service/*/oauth2/code/*
+            - Path=/member-service/api/*/oauth2/code/*
           filters:
-            - RewritePath=/member-service/(?<segment>.*),/$\{segment}
+            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
+
         - id: member-service
           uri: lb://MEMBER-SERVICE
           predicates:
-            - Path=/member-service/**
+            - Path=/member-service/api/**
           filters:
             - AuthorizationHeaderFilter
-            - RewritePath=/member-service/(?<segment>.*),/$\{segment}
+            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
 
         - id: guest-service
           uri: lb://GUEST-SERVICE
           predicates:
-            - Path=/guest-service/**
+            - Path=/guest-service/api/**
           filters:
             - AuthorizationHeaderFilter
             - RewritePath=/guest-service/(?<segment>.*),/$\{segment}
@@ -109,7 +105,7 @@ spring:
         - id: problem-service
           uri: lb://PROBLEM-SERVICE
           predicates:
-            - Path=/problem-service/**
+            - Path=/problem-service/api/**
           filters:
             - AuthorizationHeaderFilter
             - RewritePath=/problem-service/(?<segment>.*),/$\{segment}
@@ -119,9 +115,8 @@ spring:
                 redis-rate-limiter.burstCapacity: 3
                 key-resolver: "#{@tokenKeyResolver}"
 
-token:
-  access-expired-time: 3600000
-  refresh-expired-time: 604800000
-  secret: member-token
-  refresh-token-name: refresh-token
-  access-token-name: access-token
+management:
+  endpoints:
+    web:
+      exposures:
+        include: refresh, health, beans, httptrace

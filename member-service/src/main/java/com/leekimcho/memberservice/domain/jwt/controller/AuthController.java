@@ -1,7 +1,7 @@
 package com.leekimcho.memberservice.domain.jwt.controller;
 import com.leekimcho.memberservice.domain.jwt.service.AccessTokenService;
 import com.leekimcho.memberservice.domain.jwt.service.RefreshTokenService;
-import com.leekimcho.memberservice.domain.member.dto.JwtTokenDto;
+import com.leekimcho.memberservice.domain.member.dto.JwtPayload;
 import com.leekimcho.memberservice.global.dto.Result;
 import com.leekimcho.memberservice.global.utils.CookieProvider;
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ import java.text.SimpleDateFormat;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/auth")
+@RequestMapping("/member-service/auth")
 @Slf4j
 public class AuthController {
 
@@ -30,13 +30,13 @@ public class AuthController {
     @GetMapping("/reissue")
     public ResponseEntity<Result> refreshToken(@RequestHeader(value = "X-AUTH-TOKEN") String accessToken,
                                                @CookieValue(value = "refresh-token") String refreshToken) {
-        JwtTokenDto jwtTokenDto = refreshTokenService.refreshJwtToken(accessToken, refreshToken);
+        JwtPayload jwtPayload = refreshTokenService.refreshJwtToken(accessToken, refreshToken);
 
         ResponseCookie responseCookie = cookieProvider.createRefreshTokenCookie(refreshToken);
 
         return ResponseEntity.status(HttpStatus.OK)
                 .header(HttpHeaders.SET_COOKIE, responseCookie.toString())
-                .body(Result.createSuccessResult(new RefreshTokenResponse(jwtTokenDto)));
+                .body(Result.createSuccessResult(new RefreshTokenResponse(jwtPayload)));
     }
 
     @Data
@@ -46,10 +46,10 @@ public class AuthController {
         private String accessToken;
         private String expiredTime;
 
-        public RefreshTokenResponse(JwtTokenDto jwtTokenDto) {
-            this.accessToken = jwtTokenDto.getAccessToken();
+        public RefreshTokenResponse(JwtPayload jwtPayload) {
+            this.accessToken = jwtPayload.getAccessToken();
             this.expiredTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-                    .format(jwtTokenDto.getAccessTokenExpiredDate());
+                    .format(jwtPayload.getAccessTokenExpiredDate());
         }
     }
 

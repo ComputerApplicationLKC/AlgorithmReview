@@ -1,6 +1,6 @@
 package com.leekimcho.memberservice.domain.jwt.service;
 
-import com.leekimcho.memberservice.domain.member.dto.OAuthAttributeDto;
+import com.leekimcho.memberservice.domain.member.dto.GoogleTokenDto;
 import com.leekimcho.memberservice.domain.member.entity.Member;
 import com.leekimcho.memberservice.domain.member.repository.MemberRepository;
 import com.leekimcho.memberservice.domain.member.service.MemberServiceImpl;
@@ -57,7 +57,7 @@ public class OAuthService implements OAuth2UserService<OAuth2UserRequest, OAuth2
                 .getUserNameAttributeName();
 
         // OAuth2MemberService
-        OAuthAttributeDto attributeDto = OAuthAttributeDto.of(registrationId, MemberNameAttributeName,oAuth2User.getAttributes());
+        GoogleTokenDto attributeDto = GoogleTokenDto.of(registrationId, MemberNameAttributeName,oAuth2User.getAttributes());
 
         Member member = saveMember(attributeDto);
 
@@ -103,7 +103,7 @@ public class OAuthService implements OAuth2UserService<OAuth2UserRequest, OAuth2
 
 
     @Transactional
-    public Member saveMember(OAuthAttributeDto attributeDto){
+    public Member saveMember(GoogleTokenDto attributeDto){
         return memberRepository.save(
                 memberRepository.findByEmail(attributeDto.getEmail())
                         .orElse(attributeDto.toEntity())

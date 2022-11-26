@@ -1,0 +1,5 @@
+spring:
+  cloud:
+    config:
+      uri: http://config:8888
+      name: algorithm-review
