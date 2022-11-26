@@ -9,5 +9,5 @@ spring:
       server:
         native:
           search-location: file:///${user.home}/msa-config-repo
-        git:
-          uri: https://github.com/ohksj77/msa-config-repo
+#        git:
+#          uri: https://github.com/ohksj77/msa-config-repo

@@ -18,9 +18,9 @@ spring:
         registration:
           google:
             client-name: google
-            client-id: 607577063410-i357uh5n6ad3eg1qo1suu3ddltcennkr.apps.googleusercontent.com
-            client-secret: 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
-            redirect-uri: "http://localhost
+            client-id: ${CLIENT_ID}
+            client-secret: ${CLIENT_SECRET}
+            redirect-uri: "http://localhost"
 
 
   datasource:
