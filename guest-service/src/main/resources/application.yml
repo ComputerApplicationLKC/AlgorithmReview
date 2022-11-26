@@ -5,25 +5,32 @@ spring:
   application:
     name: guest-service
 
+  zipkin:
+    base-utl: http://zipkin:9411
+    enabled: true
+  sleuth:
+    sampler:
+      probability: 1.0
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/test?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://db:3306/test?serverTimezone=Asia/Seoul
     username: root
     password: 1234
+
   jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: create-drop
-    generate-ddl: true
-    open-in-view: false
+      ddl-auto: create
     properties:
       hibernate:
-        default_batch_fetch_size: 1000
-    defer-datasource-initialization: true
+        format_sql: true
 
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://discovery:8761/eureka
     fetch-registry: true
     register-with-eureka: true
   instance:

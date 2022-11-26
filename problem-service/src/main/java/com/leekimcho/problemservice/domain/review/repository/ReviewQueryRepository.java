@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.leekimcho.problemservice.review.entity.QReview.review;
+import static com.leekimcho.problemservice.domain.review.entity.QReview.review;
 
 
 @Repository

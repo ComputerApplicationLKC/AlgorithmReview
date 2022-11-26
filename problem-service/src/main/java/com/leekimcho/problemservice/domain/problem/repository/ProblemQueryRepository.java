@@ -10,8 +10,9 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.leekimcho.problemservice.problem.entity.QProblem.problem;
-import static com.leekimcho.problemservice.problem.entity.QProblemTag.problemTag;
+import static com.leekimcho.problemservice.domain.problem.entity.QProblem.problem;
+import static com.leekimcho.problemservice.domain.problem.entity.QProblemTag.problemTag;
+
 
 @Repository
 public class ProblemQueryRepository extends QuerydslRepositorySupport {

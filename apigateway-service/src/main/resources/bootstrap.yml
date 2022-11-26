@@ -1,5 +1,9 @@
 spring:
   cloud:
     config:
-      uri: http://127.0.0.1:8888
+      uri: http://config:8888
       name: algorithm-review
+
+  redis:
+    host: redis
+    port: 6379

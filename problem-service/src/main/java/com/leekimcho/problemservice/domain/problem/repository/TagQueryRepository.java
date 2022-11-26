@@ -9,7 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.leekimcho.problemservice.problem.entity.QProblemTag.problemTag;
+import static com.leekimcho.problemservice.domain.problem.entity.QProblemTag.problemTag;
+
 
 @Repository
 public class TagQueryRepository extends QuerydslRepositorySupport {

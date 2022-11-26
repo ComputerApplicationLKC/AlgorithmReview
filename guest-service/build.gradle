@@ -37,7 +37,8 @@ ext {
 }
 
 dependencies {
-	implementation group: 'org.springframework.kafka', name: 'spring-kafka', version: '3.0.0'
+	implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
+	implementation 'org.springframework.cloud:spring-cloud-starter-zipkin:2.2.8.RELEASE'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 	implementation 'org.mapstruct:mapstruct:1.5.3.Final'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
