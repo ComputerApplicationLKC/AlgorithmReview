@@ -47,7 +47,7 @@ services:
   discovery:
     build:
       context: ./discovery-service
-    command: ./wait-for-it.sh -t 70 db:3306 -- gradle bootRun
+    command: gradle bootRun
     container_name: discovery
     ports: 
       - 8761:8761
@@ -71,7 +71,7 @@ services:
   api-gateway:
     build:
       context: ./apigateway-service
-    command: ./wait-for-it.sh -t 70 db:3306 -- gradle bootRun
+    command: ./wait-for-it.sh -t 70 config:8888 -- gradle bootRun
     container_name: api-gateway
     ports: 
       - 8000:8000
@@ -85,7 +85,7 @@ services:
   guest:
     build:
       context: ./guest-service
-    command: ./wait-for-it.sh -t 70 db:3306 -- gradle bootRun
+    command: ./wait-for-it.sh -t 70 api-gateway:8000 -- gradle bootRun
     container_name: guest
     networks:
       - app-tier   
@@ -98,7 +98,7 @@ services:
   member:
     build:
       context: ./member-service
-    command: ./wait-for-it.sh -t 70 db:3306 -- gradle bootRun
+    command: ./wait-for-it.sh -t 70 api-gateway:8000 -- gradle bootRun
     container_name: member
     networks:
       - app-tier 
@@ -111,7 +111,7 @@ services:
   problem:
     build:
       context: ./problem-service
-    command: ./wait-for-it.sh -t 70 db:3306 -- gradle bootRun
+    command: ./wait-for-it.sh -t 70 api-gateway:8000 -- gradle bootRun
     container_name: problem
     networks:
       - app-tier

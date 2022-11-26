@@ -27,9 +27,6 @@ public class Problem extends BaseEntity {
     @Embedded
     private MemberDto writer;
 
-    @Column(updatable = false)
-    private Long memberId;
-
     private String title;
 
     private String link;

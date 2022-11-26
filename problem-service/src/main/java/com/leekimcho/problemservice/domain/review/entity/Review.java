@@ -1,6 +1,7 @@
 package com.leekimcho.problemservice.domain.review.entity;
 
 import com.leekimcho.problemservice.common.BaseEntity;
+import com.leekimcho.problemservice.common.dto.MemberDto;
 import com.leekimcho.problemservice.domain.problem.entity.Problem;
 import lombok.*;
 import org.hibernate.annotations.Type;
@@ -23,8 +24,8 @@ public class Review extends BaseEntity {
     @JoinColumn(name = "problem_id", updatable = false)
     private Problem problem;
 
-    @Column(name = "member_id", updatable = false)
-    private Long memberId;
+    @Embedded
+    private MemberDto member;
 
     @Lob
     @Type(type = "text")
