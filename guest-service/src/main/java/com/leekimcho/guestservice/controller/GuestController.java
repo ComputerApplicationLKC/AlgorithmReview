@@ -5,7 +5,6 @@ import com.leekimcho.guestservice.dto.GuestResponseDto;
 import com.leekimcho.guestservice.dto.ResponseDto;
 import com.leekimcho.guestservice.mapper.GuestMapper;
 import com.leekimcho.guestservice.service.GuestBookService;
-import com.leekimcho.guestservice.utils.auth.AuthCheck;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -21,7 +20,7 @@ import static java.util.stream.Collectors.toList;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/guests")
+@RequestMapping("/guest-service/api/guests")
 public class GuestController {
 
     private final GuestBookService guestBookService;
@@ -53,7 +52,6 @@ public class GuestController {
         );
     }
 
-    @AuthCheck
     @DeleteMapping("/{guestId}")
     public ResponseEntity<?> deleteGuestBook(@PathVariable Long guestId) {
         guestBookService.deleteGuestBook(guestId);

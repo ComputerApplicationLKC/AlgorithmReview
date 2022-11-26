@@ -13,7 +13,7 @@ import static com.leekimcho.problemservice.common.SuccessMessage.SUCCESS_GET_TAG
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/problem-service/api")
 public class TagController {
     private final TagService tagService;
 

@@ -4,7 +4,7 @@ import com.leekimcho.memberservice.domain.jwt.exception.AccessTokenNotValidExcep
 import com.leekimcho.memberservice.domain.jwt.exception.RefreshTokenNotValidException;
 import com.leekimcho.memberservice.domain.jwt.redis.RefreshToken;
 import com.leekimcho.memberservice.domain.jwt.repository.RefreshTokenRedisRepository;
-import com.leekimcho.memberservice.domain.member.dto.JwtTokenDto;
+import com.leekimcho.memberservice.domain.member.dto.JwtPayload;
 import com.leekimcho.memberservice.domain.member.entity.Member;
 import com.leekimcho.memberservice.domain.member.exception.NotExistMemberException;
 import com.leekimcho.memberservice.domain.member.repository.MemberRepository;
@@ -44,7 +44,7 @@ public class RefreshTokenServiceImpl  implements RefreshTokenService {
 
     @Transactional
     @Override
-    public JwtTokenDto refreshJwtToken(String accessToken, String refreshToken) {
+    public JwtPayload refreshJwtToken(String accessToken, String refreshToken) {
         String MemberId = jwtTokenProvider.getMemberId(accessToken);
 
         RefreshToken findRefreshToken = refreshTokenRedisRepository.findById(MemberId)
@@ -74,7 +74,7 @@ public class RefreshTokenServiceImpl  implements RefreshTokenService {
         String newAccessToken = jwtTokenProvider.createJwtAccessToken(MemberId, "/reissu", roles);
         Date expiredTime = jwtTokenProvider.getExpiredTime(newAccessToken);
 
-        return JwtTokenDto.builder()
+        return JwtPayload.builder()
                 .accessToken(newAccessToken)
                 .accessTokenExpiredDate(expiredTime)
                 .refreshToken(refreshToken)

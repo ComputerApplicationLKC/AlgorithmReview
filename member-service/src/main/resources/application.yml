@@ -10,11 +10,6 @@ spring:
   sleuth:
     sampler:
       probability: 1.0
-  config:
-    import: optional:configserver:http://127.0.0.1:8888
-    cloud:
-      config:
-        name: service
 
   security:
     oauth2:
@@ -23,7 +18,6 @@ spring:
           google:
             client-id: 607577063410-i357uh5n6ad3eg1qo1suu3ddltcennkr.apps.googleusercontent.com
             client-secret: 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
-            redirect_uri: http://127.0.0.1:8080/user/google/callback
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -50,10 +44,8 @@ eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
 
-
-token:
-  access-expired-time: 3600000
-  refresh-expired-time: 604800000
-  secret: member-token
-  refresh-token-name: refresh-token
-  access-token-name: access-token
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans

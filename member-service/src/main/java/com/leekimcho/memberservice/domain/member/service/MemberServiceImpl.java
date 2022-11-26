@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -51,6 +52,11 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
                 .stream()
                 .map(MemberDto::new)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public MemberDto register(MemberDto member) {
+        return MemberDto.of(memberRepository.save(member.toEntity()));
     }
 
 }

@@ -4,11 +4,9 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
-import java.util.Collection;
 
 @Entity
 @Getter
@@ -25,7 +23,7 @@ public class Member {
     private String name;
 
     @Enumerated(EnumType.STRING)
-    private AuthType oauthType = AuthType.GOOGLE;
+    private AuthType oauthType;
 
 
     @Column(insertable = false,updatable = false)

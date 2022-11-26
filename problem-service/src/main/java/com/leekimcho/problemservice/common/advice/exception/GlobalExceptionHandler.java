@@ -1,6 +1,7 @@
-package com.leekimcho.problemservice.common.advice;
+package com.leekimcho.problemservice.common.advice.exception;
 
 import com.leekimcho.problemservice.common.ResponseDto;
+import com.leekimcho.problemservice.common.advice.ExceptionCode;
 import com.leekimcho.problemservice.common.advice.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

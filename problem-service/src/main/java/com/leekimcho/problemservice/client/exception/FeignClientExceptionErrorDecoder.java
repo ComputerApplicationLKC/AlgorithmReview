@@ -1,7 +1,7 @@
-package com.leekimcho.memberservice.global.client.exception;
+package com.leekimcho.problemservice.client.exception;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.leekimcho.memberservice.global.dto.Result;
+import com.leekimcho.problemservice.common.Result;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import lombok.RequiredArgsConstructor;

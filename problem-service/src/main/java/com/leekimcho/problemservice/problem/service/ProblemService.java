@@ -1,6 +1,7 @@
 package com.leekimcho.problemservice.problem.service;
 
 import com.leekimcho.problemservice.common.advice.exception.EntityNotFoundException;
+import com.leekimcho.problemservice.common.dto.MemberDto;
 import com.leekimcho.problemservice.problem.dto.request.ProblemRequestDto;
 import com.leekimcho.problemservice.problem.entity.*;
 import com.leekimcho.problemservice.problem.repository.ProblemQueryRepository;
@@ -71,22 +72,22 @@ public class ProblemService {
     }
 
     @Transactional
-    public void updateStep(Long problemId, Long memberId, int step) {
-        Problem updateProblem = checkValidUser(problemId, memberId);
+    public void updateStep(Long problemId, MemberDto member, int step) {
+        Problem updateProblem = checkValidUser(problemId, member);
         updateProblem.updateStep(step);
         problemRepository.save(updateProblem);
     }
 
     @Transactional
-    public void updateNotificationDate(Long problemId, Long memberId,LocalDate notificationDate) {
-        Problem updateProblem = checkValidUser(problemId, memberId);
+    public void updateNotificationDate(Long problemId, MemberDto member,LocalDate notificationDate) {
+        Problem updateProblem = checkValidUser(problemId, member);
         updateProblem.updateNotificationDate(notificationDate);
         problemRepository.save(updateProblem);
     }
 
     @Transactional
-    public void deleteProblem(Long problemId, Long memberId) {
-        checkValidUser(problemId, memberId);
+    public void deleteProblem(Long problemId, MemberDto member) {
+        checkValidUser(problemId, member);
         problemRepository.deleteById(problemId);
     }
 
@@ -110,7 +111,7 @@ public class ProblemService {
         return problemQueryRepository.findAllByTag(modifiedDate, cursorId, tagName, page.getPageSize());
     }
 
-    private Problem checkValidUser(Long problemId, Long memberId) {
-        return problemRepository.findProblemByIdAndMemberId(problemId, memberId).orElseThrow(EntityNotFoundException::new);
+    private Problem checkValidUser(Long problemId, MemberDto member) {
+        return problemRepository.findProblemByIdAndMemberId(problemId, member.getId()).orElseThrow(EntityNotFoundException::new);
     }
 }

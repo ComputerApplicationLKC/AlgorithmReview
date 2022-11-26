@@ -1,6 +1,6 @@
-package com.leekimcho.memberservice.global.client.exception;
+package com.leekimcho.problemservice.client.exception;
 
-import com.leekimcho.memberservice.global.exception.CustomException;
+import com.leekimcho.problemservice.common.advice.exception.CustomException;
 import org.springframework.http.HttpStatus;
 
 public class FeignClientException extends CustomException {

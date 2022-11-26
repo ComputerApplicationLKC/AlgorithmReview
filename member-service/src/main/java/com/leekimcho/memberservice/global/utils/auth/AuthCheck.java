@@ -1,4 +1,4 @@
-package com.leekimcho.guestservice.utils.auth;
+package com.leekimcho.memberservice.global.utils.auth;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

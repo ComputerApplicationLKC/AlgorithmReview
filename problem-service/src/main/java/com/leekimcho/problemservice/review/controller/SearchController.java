@@ -20,7 +20,7 @@ import static com.leekimcho.problemservice.common.SuccessMessage.SUCCESS_GET_SEA
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/problem-service/api")
 public class SearchController {
 
     private final SearchService searchService;

@@ -1,7 +1,9 @@
 package com.leekimcho.problemservice.problem.controller;
 
+import com.leekimcho.problemservice.client.ServiceClient;
 import com.leekimcho.problemservice.common.ResponseDto;
 import com.leekimcho.problemservice.common.SuccessMessage;
+import com.leekimcho.problemservice.common.dto.MemberDto;
 import com.leekimcho.problemservice.problem.dto.request.ProblemNotificationUpdateDto;
 import com.leekimcho.problemservice.problem.dto.request.ProblemRequestDto;
 import com.leekimcho.problemservice.problem.dto.request.ProblemStepUpdateDto;
@@ -18,10 +20,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.lang.reflect.Member;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.leekimcho.problemservice.common.SuccessMessage.*;
 import static java.util.stream.Collectors.toList;
@@ -29,12 +29,12 @@ import static java.util.stream.Collectors.toList;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/problems")
+@RequestMapping("/problem-service/api/problems")
 public class ProblemController {
 
     private final ProblemService problemService;
-
     private final ProblemMapper problemMapper;
+    private final ServiceClient client;
 
     @GetMapping
     public ResponseEntity<?> getProblemList(@RequestParam(value = "step", defaultValue = "0") int step,
@@ -67,33 +67,41 @@ public class ProblemController {
 
     @AuthCheck
     @PostMapping
-    public ResponseEntity<?> saveProblem(@RequestBody @Valid ProblemRequestDto requestDto, Long memberId) {
+    public ResponseEntity<?> saveProblem(@RequestBody @Valid ProblemRequestDto requestDto) {
+        MemberDto member = client.getMemberContext();
+
         return ResponseEntity.ok().body(ResponseDto.of(
                 HttpStatus.OK,
                 SuccessMessage.SUCCESS_REGISTER_PROBLEM,
-                problemService.registerProblem(problemMapper.toEntity(requestDto, memberId), requestDto)
+                problemService.registerProblem(problemMapper.toEntity(requestDto, member), requestDto)
         ));
     }
 
     @AuthCheck
     @PutMapping("/{problemId}/step")
-    public ResponseEntity<?> updateStep(@PathVariable Long problemId, @RequestBody @Valid ProblemStepUpdateDto updateDto, Long memberId) {
-        problemService.updateStep(problemId, memberId, updateDto.getStep());
+    public ResponseEntity<?> updateStep(@PathVariable Long problemId, @RequestBody @Valid ProblemStepUpdateDto updateDto) {
+        MemberDto member = client.getMemberContext();
+
+        problemService.updateStep(problemId, member, updateDto.getStep());
 
         return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_UPDATE_PROBLEM));
     }
 
     @AuthCheck
     @PutMapping("/{problemId}/notification")
-    public ResponseEntity<?> updateNotificationDate(@PathVariable Long problemId, @RequestBody @Valid ProblemNotificationUpdateDto updateDto, Long memberId) {
-        problemService.updateNotificationDate(problemId, memberId, updateDto.getNotificationDate());
+    public ResponseEntity<?> updateNotificationDate(@PathVariable Long problemId, @RequestBody @Valid ProblemNotificationUpdateDto updateDto) {
+        MemberDto member = client.getMemberContext();
+
+        problemService.updateNotificationDate(problemId, member, updateDto.getNotificationDate());
 
         return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_UPDATE_PROBLEM));
     }
 
     @DeleteMapping("/{problemId}")
-    public ResponseEntity<?> deleteProblem(@PathVariable Long problemId, Long memberId) {
-        problemService.deleteProblem(problemId, memberId);
+    public ResponseEntity<?> deleteProblem(@PathVariable Long problemId) {
+        MemberDto member = client.getMemberContext();
+
+        problemService.deleteProblem(problemId, member);
 
         return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_DELETE_PROBLEM));
     }

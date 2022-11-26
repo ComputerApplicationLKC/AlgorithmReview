@@ -1,6 +1,8 @@
 package com.leekimcho.problemservice.review.controller;
 
+import com.leekimcho.problemservice.client.ServiceClient;
 import com.leekimcho.problemservice.common.ResponseDto;
+import com.leekimcho.problemservice.common.dto.MemberDto;
 import com.leekimcho.problemservice.problem.service.ProblemService;
 import com.leekimcho.problemservice.review.dto.ReviewRequestDto;
 import com.leekimcho.problemservice.review.mapper.ReviewMapper;
@@ -18,13 +20,14 @@ import static com.leekimcho.problemservice.common.SuccessMessage.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/problem-service/api")
 public class ReviewController {
 
     private final ProblemService problemService;
     private final ReviewService reviewService;
 
     private final ReviewMapper reviewMapper;
+    private final ServiceClient client;
 
     @AuthCheck
     @PostMapping("/problems/{problemId}/reviews")
@@ -37,9 +40,10 @@ public class ReviewController {
     @PutMapping("/problems/{problemId}/reviews/{reviewId}")
     public ResponseEntity<?> updateReview(@PathVariable("problemId") Long problemId,
                                           @PathVariable("reviewId") Long reviewId,
-                                          @RequestBody @Valid ReviewRequestDto requestDto,
-                                          Long memberId) {
-        problemService.updateNotificationDate(problemId, memberId, requestDto.getNotificationDate());
+                                          @RequestBody @Valid ReviewRequestDto requestDto) {
+        MemberDto member = client.getMemberContext();
+
+        problemService.updateNotificationDate(problemId, member, requestDto.getNotificationDate());
         reviewService.updateReview(reviewId, reviewMapper.toEntity(reviewId, requestDto));
         return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_UPDATE_REVIEW));
     }

@@ -1,6 +1,7 @@
 package com.leekimcho.problemservice.problem.entity;
 
 import com.leekimcho.problemservice.common.BaseEntity;
+import com.leekimcho.problemservice.common.dto.MemberDto;
 import com.leekimcho.problemservice.review.entity.Review;
 import lombok.*;
 
@@ -22,6 +23,9 @@ public class Problem extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "problem_id", updatable = false)
     private Long id;
+
+    @Embedded
+    private MemberDto writer;
 
     @Column(updatable = false)
     private Long memberId;
