@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum AuthType {
-    JWT("SOCIAL_KAKAO"), GOOGLE("SOCIAL_GOOGLE");
+    JWT("JWT"), GOOGLE("SOCIAL_GOOGLE");
 
     private String socialName;
 

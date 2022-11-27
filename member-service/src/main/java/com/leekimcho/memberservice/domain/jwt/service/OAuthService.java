@@ -95,9 +95,7 @@ public class OAuthService implements OAuth2UserService<OAuth2UserRequest, OAuth2
                 .collect(Collectors.toList()));
         Date expiredTime = jwtTokenProvider.getExpiredTime(accessToken);
 
-        response.sendRedirect("https://localhost:8080/auth?" +
-                "accessToken="+accessToken+
-                "&expiredTime="+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(expiredTime));
+        response.sendRedirect("http://localhost:8000/member-service/user/google/callback");
 
     }
 

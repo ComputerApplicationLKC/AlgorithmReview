@@ -2,12 +2,14 @@ package com.leekimcho.problemservice.common.dto;
 
 import lombok.Getter;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
 @Getter
 public class MemberDto {
-    private Long id;
+    @Column(name = "member_id")
+    private Long memberId;
     private String email;
     private String nickname;
 }
