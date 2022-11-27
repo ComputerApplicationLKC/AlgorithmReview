@@ -1,10 +1,10 @@
 package com.leekimcho.memberservice.global.utils.auth;
 
-import com.leekimcho.memberservice.domain.jwt.exception.UserAuthenticationException;
-import com.leekimcho.memberservice.domain.jwt.service.JwtService;
 import com.leekimcho.memberservice.domain.member.dto.JwtPayload;
 import com.leekimcho.memberservice.domain.member.entity.Member;
 import com.leekimcho.memberservice.domain.member.repository.MemberRepository;
+import com.leekimcho.memberservice.domain.member.service.JwtService;
+import com.leekimcho.memberservice.global.exception.UserAuthenticationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;

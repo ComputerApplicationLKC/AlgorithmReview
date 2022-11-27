@@ -8,6 +8,7 @@ const googleLogin = async (accessToken, nickname) => {
 
     const option = {
         url: url,
+        timeout: 1000,
         method: 'POST',
         data: { "accessToken": accessToken }
     }
@@ -21,6 +22,7 @@ const googleLogin = async (accessToken, nickname) => {
             window.location.href = '/'
         }
         else {
+            console.log('로그인 실패')
             console.log(response)
             window.location.href = '/'
         }

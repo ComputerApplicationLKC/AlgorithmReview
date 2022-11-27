@@ -3,12 +3,11 @@ package com.leekimcho.memberservice.domain.member.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.leekimcho.memberservice.domain.jwt.exception.JsonWriteException;
-import com.leekimcho.memberservice.domain.jwt.service.JwtService;
 import com.leekimcho.memberservice.domain.member.dto.JwtPayload;
 import com.leekimcho.memberservice.domain.member.dto.LoginSuccessDto;
 import com.leekimcho.memberservice.domain.member.entity.Member;
 import com.leekimcho.memberservice.global.config.properties.GoogleProperties;
+import com.leekimcho.memberservice.global.exception.JsonWriteException;
 import com.leekimcho.memberservice.global.exception.JwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,8 +25,10 @@ public class OauthService {
 
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
+
     private final MemberService memberService;
     private final JwtService jwtService;
+
     private final GoogleProperties googleProperties;
 
     public LoginSuccessDto googleLogin(String accessToken) {

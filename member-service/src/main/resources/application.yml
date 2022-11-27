@@ -20,11 +20,11 @@ spring:
       client:
         registration:
           google:
-            scope: profile, email
             client-id: ${CLIENT_ID}
             client-secret: ${CLIENT_SECRET}
             redirect-uri: http://localhost/login/oauth2/code/google
-
+            token-request-url: https://oauth2.googleapis.com/token
+            profile-request-url: https://www.googleapis.com/oauth2/v3/userinfo
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

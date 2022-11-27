@@ -53,63 +53,62 @@ spring:
         - id: member-service
           uri: lb://MEMBER-SERVICE
           predicates:
-            - Path=/member-service/api/admin
-            - Method=POST
+            - Path=/member-service/api/**
 #          filters:
 #            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
-        - id: member-service
-          uri: lb://MEMBER-SERVICE
-          predicates:
-            - Path=/member-service/api/check
-            - Method=GET
+#        - id: member-service
+#          uri: lb://MEMBER-SERVICE
+#          predicates:
+#            - Path=/member-service/api/check
+#            - Method=GET
 #          filters:
 #            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
-        - id: member-service
-          uri: lb://MEMBER-SERVICE
-          predicates:
-            - Path=/member-service/api/google
-            - Method=POST
+#        - id: member-service
+#          uri: lb://MEMBER-SERVICE
+#          predicates:
+#            - Path=/member-service/api/google
+#            - Method=POST
 #          filters:
 #            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
-        - id: member-service
-          uri: lb://MEMBER-SERVICE
-          predicates:
-            - Path=/member-service/api/member
-            - Method=POST, GET
+#        - id: member-service
+#          uri: lb://MEMBER-SERVICE
+#          predicates:
+#            - Path=/member-service/api/member
+#            - Method=POST, GET
 #          filters:
 #            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
-        - id: member-service
-          uri: lb://MEMBER-SERVICE
-          predicates:
-            - Path=/member-service/api/member-context
-            - Method=GET
+#        - id: member-service
+#          uri: lb://MEMBER-SERVICE
+#          predicates:
+#            - Path=/member-service/api/member-context
+#            - Method=GET
 #          filters:
 #            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
-        - id: member-service
-          uri: lb://MEMBER-SERVICE
-          predicates:
-            - Path=/member-service/api/user/google/callback
+#        - id: member-service
+#          uri: lb://MEMBER-SERVICE
+#          predicates:
+#            - Path=/member-service/api/user/google/callback
 #          filters:
 #            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
-        - id: member-service
-          uri: lb://MEMBER-SERVICE
-          predicates:
-            - Path=/member-service/api/auth/reissue
-            - Method=GET
+#        - id: member-service
+#          uri: lb://MEMBER-SERVICE
+#          predicates:
+#            - Path=/member-service/api/auth/reissue
+#            - Method=GET
 #          filters:
 #            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
-        - id: member-service
-          uri: lb://MEMBER-SERVICE
-          predicates:
-            - Path=/member-service/api/auth/logout
-            - Method=POST
+#        - id: member-service
+#          uri: lb://MEMBER-SERVICE
+#          predicates:
+#            - Path=/member-service/api/auth/logout
+#            - Method=POST
 #          filters:
 #            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
-        - id: member-service
-          uri: lb://MEMBER-SERVICE
-          predicates:
-            - Path=/member-service/api/auth/check/access-token
-            - Method=GET
+#        - id: member-service
+#          uri: lb://MEMBER-SERVICE
+#          predicates:
+#            - Path=/member-service/api/auth/check/access-token
+#            - Method=GET
 #          filters:
 #            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
 
@@ -117,7 +116,7 @@ spring:
           uri: lb://GUEST-SERVICE
           predicates:
             - Path=/guest-service/api/**
-          filters:
+#          filters:
 #            - AuthorizationHeaderFilter
 #            - RewritePath=/guest-service/api/(?<segment>.*),/$\{segment}
 #            - name: RequestRateLimiter
@@ -130,7 +129,7 @@ spring:
           uri: lb://PROBLEM-SERVICE
           predicates:
             - Path=/problem-service/api/**
-          filters:
+#          filters:
 #            - AuthorizationHeaderFilter
 #            - RewritePath=/problem-service/api/(?<segment>.*),/$\{segment}
 #            - name: RequestRateLimiter

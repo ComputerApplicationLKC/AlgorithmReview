@@ -1,4 +1,5 @@
-package com.leekimcho.memberservice.domain.jwt.exception;
+package com.leekimcho.memberservice.global.exception;
+
 
 public class JsonWriteException extends BusinessException {
     public JsonWriteException() {

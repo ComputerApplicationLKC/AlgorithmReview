@@ -12,7 +12,7 @@ public interface MemberService {
     List<MemberDto> findMemberByMemberIds(List<Long> MemberIds);
     MemberDto register(MemberDto member);
 
-    Optional<Member> findMemberByEmail(String memberEmail);
+    Optional<Member> findMemberByEmail(String email);
 
     void registerAdmin(MemberDto dto, boolean flag);
 }

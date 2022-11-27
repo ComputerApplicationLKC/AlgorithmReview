@@ -92,7 +92,6 @@ public class MemberController {
     static class GetMemberResponse {
         private Long MemberId;
         private String MemberName;
-        private String phoneNumber;
 
         public GetMemberResponse(MemberDto memberDto) {
             this.MemberId = memberDto.getId();
