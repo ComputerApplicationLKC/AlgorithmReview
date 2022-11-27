@@ -1,9 +1,9 @@
-package com.leekimcho.memberservice.domain.jwt.service;
+package com.leekimcho.memberservice.domain.member.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.leekimcho.memberservice.domain.jwt.exception.JsonWriteException;
 import com.leekimcho.memberservice.domain.member.dto.JwtPayload;
+import com.leekimcho.memberservice.global.exception.JsonWriteException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
@@ -46,7 +46,7 @@ public class JwtService {
                     .setHeader(headerMap)
                     .setSubject(objectMapper.writeValueAsString(payload))
                     .setExpiration(expireTime)
-                    .signWith(signatureAlgorithm, signingKey)
+                    .signWith(signingKey, signatureAlgorithm)
                     .compact();
         } catch (JsonProcessingException e) {
             throw new JsonWriteException();

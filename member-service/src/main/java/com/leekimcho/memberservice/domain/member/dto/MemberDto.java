@@ -11,20 +11,20 @@ public class MemberDto {
     private Long id;
     private String email;
     private String password;
-    private String name;
+    private String nickname;
 
     public MemberDto(Member member) {
         this.id = member.getId();
         this.email = member.getEmail();
         this.password = member.getPassword();
-        this.name = member.getName();
+        this.nickname = member.getNickname();
     }
 
-    public MemberDto(Long id, String email, String password, String name) {
+    public MemberDto(Long id, String email, String password, String nickname) {
         this.id = id;
         this.email = email;
         this.password = password;
-        this.name = name;
+        this.nickname = nickname;
     }
 
     public static MemberDto of(Member member) {
@@ -34,8 +34,8 @@ public class MemberDto {
     public Member toEntity() {
         return Member.builder()
                 .email(this.email)
-                .name(this.name)
                 .password(this.password)
+                .nickname(this.nickname)
                 .build();
     }
 

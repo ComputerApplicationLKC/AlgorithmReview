@@ -4,7 +4,7 @@ const base = require('../../utils/base')
 
 export const checkMember = async () => {
     const url =
-        base.url + '/member-service/api/members/check';
+        base.url + '/member-service/api/check';
 
     const option = {
         url: url,

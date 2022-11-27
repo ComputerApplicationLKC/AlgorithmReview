@@ -31,6 +31,13 @@ public class MemberController {
     private final MemberService memberService;
     private final OauthService oauthService;
 
+
+    @PostMapping("/admin")
+    public ResponseEntity<Void> joinAdmin(@RequestBody MemberDto dto) {
+        memberService.registerAdmin(dto, true);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
     @AuthCheck
     @GetMapping("/check")
     public ResponseEntity<?> checkAuth() {
@@ -76,7 +83,7 @@ public class MemberController {
         public GetMemberByTokenResponse(MemberDto memberDto) {
             this.MemberId = memberDto.getId();
             this.email = memberDto.getEmail();
-            this.MemberName = memberDto.getName();
+            this.MemberName = memberDto.getNickname();
         }
     }
 
@@ -85,11 +92,10 @@ public class MemberController {
     static class GetMemberResponse {
         private Long MemberId;
         private String MemberName;
-        private String phoneNumber;
 
         public GetMemberResponse(MemberDto memberDto) {
             this.MemberId = memberDto.getId();
-            this.MemberName = memberDto.getName();
+            this.MemberName = memberDto.getNickname();
         }
     }
 

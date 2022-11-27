@@ -1,4 +1,4 @@
-package com.leekimcho.memberservice.domain.jwt.exception;
+package com.leekimcho.memberservice.global.exception;
 
 import lombok.Getter;
 

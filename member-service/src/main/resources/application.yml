@@ -5,6 +5,9 @@ spring:
   application:
     name: member-service
 
+  profiles:
+    include: oauth
+
   zipkin:
     base-url: http://zipkin:9411
     enabled: true
@@ -19,8 +22,9 @@ spring:
           google:
             client-id: ${CLIENT_ID}
             client-secret: ${CLIENT_SECRET}
-            redirect-uri: http://api-gateway:8000/user/google/callback
-
+            redirect-uri: http://localhost/login/oauth2/code/google
+            token-request-url: https://oauth2.googleapis.com/token
+            profile-request-url: https://www.googleapis.com/oauth2/v3/userinfo
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -32,7 +36,7 @@ spring:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
