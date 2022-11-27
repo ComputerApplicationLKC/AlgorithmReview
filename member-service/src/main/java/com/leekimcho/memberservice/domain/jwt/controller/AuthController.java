@@ -19,7 +19,7 @@ import java.text.SimpleDateFormat;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/member-service/auth")
+@RequestMapping("/member-service/api/auth")
 @Slf4j
 public class AuthController {
 

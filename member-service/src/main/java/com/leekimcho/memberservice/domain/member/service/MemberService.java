@@ -14,4 +14,5 @@ public interface MemberService {
 
     Optional<Member> findMemberByEmail(String memberEmail);
 
+    void registerAdmin(MemberDto dto, boolean flag);
 }

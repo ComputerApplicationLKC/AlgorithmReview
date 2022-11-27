@@ -35,7 +35,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Member not found in the database"));
 
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(Member.getDtype()));
+        authorities.add(new SimpleGrantedAuthority(Member.getRoleType().toString()));
         return new org.springframework.security.core.userdetails.User(Member.getId().toString(), Member.getPassword(), authorities);
     }
 
@@ -63,6 +63,11 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     @Override
     public Optional<Member> findMemberByEmail(String memberEmail) {
         return memberRepository.findByEmail(memberEmail);
+    }
+
+    @Override
+    public void registerAdmin(MemberDto dto, boolean flag) {
+        memberRepository.save(new Member(dto, flag));
     }
 
 }
