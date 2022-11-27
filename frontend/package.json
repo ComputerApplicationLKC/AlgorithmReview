@@ -11,6 +11,8 @@
     "antd": "^4.16.8",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.2",
+    "gapi": "^0.0.3",
+    "gapi-script": "^1.2.0",
     "package.json": "^2.0.1",
     "query-string": "^4.3.4",
     "react": "^17.0.2",

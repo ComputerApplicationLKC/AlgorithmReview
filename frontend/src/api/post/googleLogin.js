@@ -21,6 +21,7 @@ const googleLogin = async (accessToken, nickname) => {
             window.location.href = '/'
         }
         else {
+            console.log(response)
             window.location.href = '/'
         }
     } catch (e) {

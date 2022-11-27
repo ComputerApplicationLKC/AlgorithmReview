@@ -5,6 +5,9 @@ spring:
   application:
     name: member-service
 
+  profiles:
+    include: oauth
+
   zipkin:
     base-url: http://zipkin:9411
     enabled: true
@@ -17,9 +20,10 @@ spring:
       client:
         registration:
           google:
+            scope: profile, email
             client-id: ${CLIENT_ID}
             client-secret: ${CLIENT_SECRET}
-            redirect-uri: http://api-gateway:8000/user/google/callback
+            redirect-uri: http://localhost/login/oauth2/code/google
 
 
   datasource:
