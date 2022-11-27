@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
-    @Query(value = "SELECT * FROM review r r.review_id = :reviewId AND r.member_id = :memberId", nativeQuery = true)
+    @Query(value = "SELECT * FROM review r WHERE r.review_id = :reviewId AND r.member_id = :memberId", nativeQuery = true)
     Optional<Review> findReviewByIdAndMemberId(Long reviewId, Long memberId);
 }

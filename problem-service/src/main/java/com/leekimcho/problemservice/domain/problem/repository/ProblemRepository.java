@@ -17,7 +17,7 @@ public interface ProblemRepository extends JpaRepository<Problem, Long> {
     // 업데이트 날짜가 같은 경우를 고려해 (포함되지 않아야 할) cursorId 추가
     List<Problem> findByModifiedDateBeforeAndIdNotOrderByModifiedDateDesc(LocalDateTime modifiedDate, Long id, Pageable pageable); // 커서 기반 페이징 (업데이트순)
 
-    @Query(value = "SELECT Problem as p FROM Problem WHERE p.id = :id and p.writer.memberId = :memberId")
+    @Query(value = "SELECT p FROM Problem p WHERE p.id = :id and p.writer.memberId = :memberId")
     Optional<Problem> findProblemByIdAndMemberId(Long id, Long memberId);
 
     void deleteProblemById(Long id);

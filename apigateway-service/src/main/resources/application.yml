@@ -12,6 +12,15 @@ spring:
   application:
     name: apigateway-service
 
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${CLIENT_ID}
+            client-secret: ${CLIENT_SECRET}
+            redirect-uri: http://localhost/user/google/callback
+
   zipkin:
     base-url: http://zipkin:9411
     enabled: true
