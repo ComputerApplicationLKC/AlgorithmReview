@@ -114,6 +114,6 @@ public class ProblemService {
     }
 
     private Problem checkValidUser(Long problemId, MemberDto member) {
-        return problemRepository.findProblemByIdAndMemberId(problemId, member.getId()).orElseThrow(EntityNotFoundException::new);
+        return problemRepository.findProblemByIdAndMemberId(problemId, member.getMemberId()).orElseThrow(EntityNotFoundException::new);
     }
 }

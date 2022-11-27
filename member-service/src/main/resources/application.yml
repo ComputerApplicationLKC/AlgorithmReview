@@ -17,10 +17,9 @@ spring:
       client:
         registration:
           google:
-            client-name: google
             client-id: ${CLIENT_ID}
             client-secret: ${CLIENT_SECRET}
-            redirect-uri: "http://localhost"
+            redirect-uri: http://localhost:8000/member-service/user/google/callback
 
 
   datasource:

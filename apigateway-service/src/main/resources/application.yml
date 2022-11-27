@@ -60,7 +60,7 @@ spring:
             - Path=/member-service/logout
             - Method=POST
           filters:
-            - RewritePath=/user-service/api/(?<segment>.*),/$\{segment}
+            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
         - id: member-service
           uri: lb://MEMBER-SERVICE
           predicates:
