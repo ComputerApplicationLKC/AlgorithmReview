@@ -1,11 +1,12 @@
 package com.leekimcho.problemservice.domain.review.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Getter @Setter
+@Getter @Setter @Builder
 public class SearchDto {
 
     private Long id;

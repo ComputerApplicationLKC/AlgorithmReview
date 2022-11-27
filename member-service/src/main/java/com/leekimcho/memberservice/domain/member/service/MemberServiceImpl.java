@@ -18,6 +18,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -57,6 +58,11 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     @Override
     public MemberDto register(MemberDto member) {
         return MemberDto.of(memberRepository.save(member.toEntity()));
+    }
+
+    @Override
+    public Optional<Member> findMemberByEmail(String memberEmail) {
+        return memberRepository.findByEmail(memberEmail);
     }
 
 }

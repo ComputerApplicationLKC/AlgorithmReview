@@ -21,4 +21,10 @@ public class JwtPayload {
         this.refreshToken = refreshToken;
         this.accessTokenExpiredDate = accessTokenExpiredDate;
     }
+
+    @Builder
+    public JwtPayload(Long id, String email) {
+        this.id = id;
+        this.email = email;
+    }
 }
