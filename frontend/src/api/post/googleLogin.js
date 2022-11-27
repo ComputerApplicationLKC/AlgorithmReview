@@ -4,11 +4,10 @@ const base = require('../../utils/base')
 
 const googleLogin = async (accessToken, nickname) => {
     const url =
-        base.url + '/member-service/api/members/google';
+        base.url + '/member-service/api/google';
 
     const option = {
         url: url,
-        timeout: 1000,
         method: 'POST',
         data: { "accessToken": accessToken }
     }

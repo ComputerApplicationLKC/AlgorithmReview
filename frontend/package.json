@@ -26,7 +26,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "esbuild src/index.js --bundle --outfile=out.js --loader:.js=jsx",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -47,5 +47,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "esbuild-loader": "^2.20.0",
+    "esbuild-wasm": "^0.15.16"
   }
 }

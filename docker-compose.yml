@@ -9,7 +9,7 @@ services:
       - app-tier
     container_name: frontend
     volumes:
-      - build_frontend:/frontend/build
+      - build_frontend:/frontend/dist
       - ./frontend/:/frontend/
       - ./frontend/node_modules/:/frontend/node_modules
     image: run
@@ -17,6 +17,8 @@ services:
       - 3000:3000
     environment:
       - WDS_SOCKET_PORT=0
+    env_file:
+      - .env
     stdin_open: true
     tty: true
 

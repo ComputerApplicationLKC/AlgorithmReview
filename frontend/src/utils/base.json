@@ -1,4 +1,4 @@
 {
-    "url" : "http://localhost:8000",
+    "url" : "http://api-gateway:8000",
     "client_id" : "557796254251-f2ktkuj37ha3fssgc080uro7ee4um5l4.apps.googleusercontent.com"
 }

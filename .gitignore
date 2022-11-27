@@ -1,3 +1,7 @@
 .env
 
 frontend/node_modules/
+
+frontend/dist/
+frontend/out.js
+frontend/out.css
