@@ -39,7 +39,7 @@ spring:
       globalcors:
         cors-configurations:
           '[/**]':
-            allowedOrigins: "http://:frontend"
+            allowedOrigins: "http://localhost"
             allow-credentials: true
             allowedMethods:
               - GET
