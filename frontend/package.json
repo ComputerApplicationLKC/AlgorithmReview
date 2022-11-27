@@ -26,7 +26,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "esbuild src/index.js --bundle --outfile=out.js --loader:.js=jsx",
+    "build": "esbuild src/index.js --bundle --outfile=build/out.js --loader:.js=jsx",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
