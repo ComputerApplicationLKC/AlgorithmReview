@@ -22,12 +22,22 @@ public class Member {
 
     private String name;
 
+    private String nickname;
+
     @Enumerated(EnumType.STRING)
     private AuthType oauthType;
 
 
     @Column(insertable = false,updatable = false)
     protected String dtype;
+
+    @Builder
+    public Member(String email, String password, String name, String nickname) {
+        this.email = email;
+        this.password = new BCryptPasswordEncoder().encode(password);
+        this.name = name;
+        this.nickname = nickname;
+    }
 
     @Builder
     public Member(String email, String password, String name) {
