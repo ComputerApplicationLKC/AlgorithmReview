@@ -29,7 +29,7 @@ import static java.util.stream.Collectors.toList;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/problem-service/api/problems")
+@RequestMapping("/api/problem-service/problems")
 public class ProblemController {
 
     private final ProblemService problemService;

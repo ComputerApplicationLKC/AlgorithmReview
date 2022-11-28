@@ -4,7 +4,7 @@ const base = require('../../utils/base')
 
 export const updateStepApi = async (idx, step) => {
     const url =
-        base.url + '/problem-service/api/problems/' + idx + '/step';
+        base.url + '/problem-service/problems/' + idx + '/step';
 
     console.log(idx, step)
     const option = {

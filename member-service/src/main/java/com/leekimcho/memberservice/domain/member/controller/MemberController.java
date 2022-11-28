@@ -25,7 +25,7 @@ import static com.leekimcho.memberservice.global.advice.message.SuccessMessage.S
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/member-service/api")
+@RequestMapping("/api/member-service")
 public class MemberController {
 
     private final MemberService memberService;
@@ -50,53 +50,53 @@ public class MemberController {
                 HttpStatus.OK, SUCCESS_ISSUE_TOKEN, oauthService.googleLogin(tokenDto.getAccessToken()))
         );
     }
-    @PostMapping("/member")
-    public ResponseEntity<Result<GetMemberResponse>> join(MemberDto member) {
-        MemberDto register = memberService.register(member);
-        return ResponseEntity.ok(Result.createSuccessResult(register));
-    }
-
-    @GetMapping("/member")
-    public ResponseEntity<Result<GetMemberByTokenResponse>> getMemberByToken(@Valid @RequestHeader(value="Member-id") String MemberId) {
-
-        MemberDto memberDto = memberService.findMemberByMemberId(Long.parseLong(MemberId));
-
-        GetMemberByTokenResponse getMemberByTokenResponse = new GetMemberByTokenResponse(memberDto);
-
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(Result.createSuccessResult(getMemberByTokenResponse));
-    }
-
-    @GetMapping("/member-context")
-    public ResponseEntity<Result<GetMemberResponse>> getMemberContext() {
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(Result.createSuccessResult(new GetMemberResponse(new MemberDto(MemberContext.currentMember.get()))));
-    }
-
-    @Data @NoArgsConstructor @AllArgsConstructor
-    static class GetMemberByTokenResponse {
-        private Long MemberId;
-        private String email;
-        private String MemberName;
-        private String phoneNumber;
-
-        public GetMemberByTokenResponse(MemberDto memberDto) {
-            this.MemberId = memberDto.getId();
-            this.email = memberDto.getEmail();
-            this.MemberName = memberDto.getNickname();
-        }
-    }
-
-
-    @Data @NoArgsConstructor @AllArgsConstructor
-    static class GetMemberResponse {
-        private Long MemberId;
-        private String MemberName;
-
-        public GetMemberResponse(MemberDto memberDto) {
-            this.MemberId = memberDto.getId();
-            this.MemberName = memberDto.getNickname();
-        }
-    }
+//    @PostMapping("/member")
+//    public ResponseEntity<Result<GetMemberResponse>> join(MemberDto member) {
+//        MemberDto register = memberService.register(member);
+//        return ResponseEntity.ok(Result.createSuccessResult(register));
+//    }
+//
+//    @GetMapping("/member")
+//    public ResponseEntity<Result<GetMemberByTokenResponse>> getMemberByToken(@Valid @RequestHeader(value="Member-id") String MemberId) {
+//
+//        MemberDto memberDto = memberService.findMemberByMemberId(Long.parseLong(MemberId));
+//
+//        GetMemberByTokenResponse getMemberByTokenResponse = new GetMemberByTokenResponse(memberDto);
+//
+//        return ResponseEntity.status(HttpStatus.OK)
+//                .body(Result.createSuccessResult(getMemberByTokenResponse));
+//    }
+//
+//    @GetMapping("/member-context")
+//    public ResponseEntity<Result<GetMemberResponse>> getMemberContext() {
+//        return ResponseEntity.status(HttpStatus.OK)
+//                .body(Result.createSuccessResult(new GetMemberResponse(new MemberDto(MemberContext.currentMember.get()))));
+//    }
+//
+//    @Data @NoArgsConstructor @AllArgsConstructor
+//    static class GetMemberByTokenResponse {
+//        private Long MemberId;
+//        private String email;
+//        private String MemberName;
+//        private String phoneNumber;
+//
+//        public GetMemberByTokenResponse(MemberDto memberDto) {
+//            this.MemberId = memberDto.getId();
+//            this.email = memberDto.getEmail();
+//            this.MemberName = memberDto.getNickname();
+//        }
+//    }
+//
+//
+//    @Data @NoArgsConstructor @AllArgsConstructor
+//    static class GetMemberResponse {
+//        private Long MemberId;
+//        private String MemberName;
+//
+//        public GetMemberResponse(MemberDto memberDto) {
+//            this.MemberId = memberDto.getId();
+//            this.MemberName = memberDto.getNickname();
+//        }
+//    }
 
 }

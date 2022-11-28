@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Arrays;
 
 @AllArgsConstructor
-@RequestMapping("/member-service/api")
+@RequestMapping("/api/member-service")
 @RestController
 public class ProfileController {
 

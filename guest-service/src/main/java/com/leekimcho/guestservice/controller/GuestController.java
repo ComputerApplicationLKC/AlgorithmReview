@@ -20,7 +20,7 @@ import static java.util.stream.Collectors.toList;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/guest-service/api/guests")
+@RequestMapping("/api/guest-service/guests")
 public class GuestController {
 
     private final GuestBookService guestBookService;

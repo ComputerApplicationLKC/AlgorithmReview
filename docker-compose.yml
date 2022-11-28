@@ -5,8 +5,6 @@ services:
   frontend:
     build:
       context: ./frontend
-    networks:
-      - app-tier
     container_name: frontend
     volumes:
       - build_frontend:/frontend/build
@@ -17,8 +15,6 @@ services:
       - 3000:3000
     environment:
       - WDS_SOCKET_PORT=0
-    env_file:
-      - .env
     stdin_open: true
     tty: true
 

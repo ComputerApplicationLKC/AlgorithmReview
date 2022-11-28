@@ -4,7 +4,7 @@ const base = require('../../utils/base')
 
 const googleLogin = async (accessToken, nickname) => {
     const url =
-        base.url + '/member-service/api/google';
+        base.url + '/member-service/google';
 
     const option = {
         url: url,
@@ -21,7 +21,6 @@ const googleLogin = async (accessToken, nickname) => {
             window.location.href = '/'
         }
         else {
-            console.log('로그인 실패')
             console.log(response)
             window.location.href = '/'
         }

@@ -13,6 +13,6 @@ public class GoogleProperties {
     private String clientId;
     private String clientSecret;
     private String redirectUri;
-    private String tokenRequestUrl;
-    private String profileRequestUrl;
+    private String tokenRequestUrl = "https://oauth2.googleapis.com/token";
+    private String profileRequestUrl = "https://www.googleapis.com/oauth2/v3/userinfo";
 }

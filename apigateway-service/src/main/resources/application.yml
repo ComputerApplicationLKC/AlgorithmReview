@@ -53,90 +53,17 @@ spring:
         - id: member-service
           uri: lb://MEMBER-SERVICE
           predicates:
-            - Path=/member-service/api/**
-#          filters:
-#            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
-#        - id: member-service
-#          uri: lb://MEMBER-SERVICE
-#          predicates:
-#            - Path=/member-service/api/check
-#            - Method=GET
-#          filters:
-#            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
-#        - id: member-service
-#          uri: lb://MEMBER-SERVICE
-#          predicates:
-#            - Path=/member-service/api/google
-#            - Method=POST
-#          filters:
-#            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
-#        - id: member-service
-#          uri: lb://MEMBER-SERVICE
-#          predicates:
-#            - Path=/member-service/api/member
-#            - Method=POST, GET
-#          filters:
-#            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
-#        - id: member-service
-#          uri: lb://MEMBER-SERVICE
-#          predicates:
-#            - Path=/member-service/api/member-context
-#            - Method=GET
-#          filters:
-#            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
-#        - id: member-service
-#          uri: lb://MEMBER-SERVICE
-#          predicates:
-#            - Path=/member-service/api/user/google/callback
-#          filters:
-#            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
-#        - id: member-service
-#          uri: lb://MEMBER-SERVICE
-#          predicates:
-#            - Path=/member-service/api/auth/reissue
-#            - Method=GET
-#          filters:
-#            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
-#        - id: member-service
-#          uri: lb://MEMBER-SERVICE
-#          predicates:
-#            - Path=/member-service/api/auth/logout
-#            - Method=POST
-#          filters:
-#            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
-#        - id: member-service
-#          uri: lb://MEMBER-SERVICE
-#          predicates:
-#            - Path=/member-service/api/auth/check/access-token
-#            - Method=GET
-#          filters:
-#            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
+            - Path=/api/member-service/**
 
         - id: guest-service
           uri: lb://GUEST-SERVICE
           predicates:
-            - Path=/guest-service/api/**
-#          filters:
-#            - AuthorizationHeaderFilter
-#            - RewritePath=/guest-service/api/(?<segment>.*),/$\{segment}
-#            - name: RequestRateLimiter
-#              args:
-#                redis-rate-limiter.replenishRate: 3
-#                redis-rate-limiter.burstCapacity: 3
-#                key-resolver: "#{@tokenKeyResolver}"
+            - Path=/api/guest-service/**
 
         - id: problem-service
           uri: lb://PROBLEM-SERVICE
           predicates:
-            - Path=/problem-service/api/**
-#          filters:
-#            - AuthorizationHeaderFilter
-#            - RewritePath=/problem-service/api/(?<segment>.*),/$\{segment}
-#            - name: RequestRateLimiter
-#              args:
-#                redis-rate-limiter.replenishRate: 3
-#                redis-rate-limiter.burstCapacity: 3
-#                key-resolver: "#{@tokenKeyResolver}"
+            - Path=/api/problem-service/**
 
 management:
   endpoints:

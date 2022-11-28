@@ -4,7 +4,7 @@ const base = require('../../utils/base')
 
 export const getProblemCountApi = async () => {
     const url =
-        base.url + '/problem-service/api/problems/count';
+        base.url + '/problem-service/problems/count';
     try {
         const response = await axios.get(`${url}`);
         return response.data.data;

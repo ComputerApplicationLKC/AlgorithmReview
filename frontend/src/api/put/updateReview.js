@@ -5,7 +5,7 @@ const base = require('../../utils/base')
 
 export const updateReviewApi = async (props) => {
     const url =
-        base.url + '/problem-service/api/problems/' + props.problemId + '/reviews/' + props.reviewId;
+        base.url + '/problem-service/problems/' + props.problemId + '/reviews/' + props.reviewId;
 
     const option = {
         url: url,

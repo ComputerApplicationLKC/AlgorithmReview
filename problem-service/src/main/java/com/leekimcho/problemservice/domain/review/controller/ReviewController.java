@@ -20,7 +20,7 @@ import static com.leekimcho.problemservice.common.SuccessMessage.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/problem-service/api")
+@RequestMapping("/api/problem-service")
 public class ReviewController {
 
     private final ProblemService problemService;

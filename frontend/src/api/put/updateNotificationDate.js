@@ -4,7 +4,7 @@ const base = require('../../utils/base')
 
 export const updateNotificationDateApi = async (idx, notificationDate) => {
     const url =
-        base.url + '/problem-service/api/problems/' + idx + '/notification';
+        base.url + '/problem-service/problems/' + idx + '/notification';
 
     console.log(idx, notificationDate)
     const option = {

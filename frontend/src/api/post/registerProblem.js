@@ -5,7 +5,7 @@ const base = require('../../utils/base')
 
 export const registerProblem = async (props) => {
     const url =
-        base.url + '/problem-service/api/problems';
+        base.url + '/problem-service/problems';
 
     console.log(props)
     const option = {
