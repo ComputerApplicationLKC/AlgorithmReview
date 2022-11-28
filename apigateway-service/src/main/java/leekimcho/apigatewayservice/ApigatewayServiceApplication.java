@@ -1,6 +1,5 @@
 package leekimcho.apigatewayservice;
 
-import leekimcho.apigatewayservice.handler.GlobalExceptionHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
@@ -18,11 +17,6 @@ public class ApigatewayServiceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ApigatewayServiceApplication.class, args);
-	}
-
-	@Bean
-	public ErrorWebExceptionHandler globalExceptionHandler() {
-		return new GlobalExceptionHandler();
 	}
 
 	@Bean

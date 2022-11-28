@@ -132,20 +132,6 @@ services:
       - app-tier
     tty: true
 
-  redis:
-    container_name: redis
-    image: redis:alpine
-    command: redis-server --port 6379
-    hostname: redis_boot
-    labels:
-      - "name=redis"
-      - "mode=standalone"
-    ports:
-      - 6379:6379
-    networks:
-      - app-tier
-    tty: true
-
 networks:
   app-tier:
     driver: bridge

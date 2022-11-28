@@ -12,19 +12,6 @@ spring:
   application:
     name: apigateway-service
 
-  profiles:
-    include: oauth
-
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            scope: profile, email
-            client-id: ${CLIENT_ID}
-            client-secret: ${CLIENT_SECRET}
-            redirect-uri: http://localhost/login/oauth2/code/google
-
   zipkin:
     base-url: http://zipkin:9411
     enabled: true
@@ -33,6 +20,13 @@ spring:
       probability: 1.0
 
   cloud:
+    inetutils:
+      ignored-interfaces:
+        - eth0
+        - eth1
+        - eth2
+        - eth3
+        - lo
     gateway:
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials

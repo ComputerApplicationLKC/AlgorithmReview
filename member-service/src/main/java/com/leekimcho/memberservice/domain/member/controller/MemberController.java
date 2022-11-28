@@ -32,6 +32,11 @@ public class MemberController {
     private final OauthService oauthService;
 
 
+    @GetMapping("/all")
+    public ResponseEntity<?> getAllMembers() {
+        return ResponseEntity.ok(memberService.getAllMembers());
+    }
+
     @PostMapping("/admin")
     public ResponseEntity<Void> joinAdmin(@RequestBody MemberDto dto) {
         memberService.registerAdmin(dto, true);

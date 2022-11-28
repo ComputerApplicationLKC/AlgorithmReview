@@ -5,8 +5,14 @@ spring:
   application:
     name: member-service
 
-  profiles:
-    include: oauth
+  cloud:
+    inetutils:
+      ignored-interfaces:
+        - eth0
+        - eth1
+        - eth2
+        - eth3
+        - lo
 
   zipkin:
     base-url: http://zipkin:9411
@@ -14,16 +20,6 @@ spring:
   sleuth:
     sampler:
       probability: 1.0
-
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-id: ${CLIENT_ID}
-            client-secret: ${CLIENT_SECRET}
-            redirect-uri: http://localhost/login/oauth2/code/google
-            scope: profile, email
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -40,10 +36,6 @@ spring:
       hibernate:
         format_sql: true
 
-  redis:
-    host: redis
-    port: 6379
-
 eureka:
   client:
     service-url:
@@ -52,4 +44,4 @@ eureka:
     register-with-eureka: true
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-
+    prefer-ip-address: true
