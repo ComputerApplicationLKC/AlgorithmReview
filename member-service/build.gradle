@@ -65,7 +65,7 @@ dependencies {
 	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
-
+	implementation group: 'org.springframework.cloud', name: 'spring-cloud-security', version: '2.2.5.RELEASE'
 }
 
 dependencyManagement {

@@ -47,7 +47,7 @@ public class Member {
         this.nickname = dto.getNickname();
         if (flag) {
             this.oauthType = AuthType.GOOGLE;
-            this.roleType = RoleType.ADMIN;
+            this.roleType = RoleType.ROLE_ADMIN;
         }
     }
 
