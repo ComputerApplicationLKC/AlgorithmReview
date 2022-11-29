@@ -4,7 +4,7 @@ const base = require('../../utils/base')
 
 export const checkMember = async () => {
     const url =
-        base.url + '/member-service/api/check';
+        base.url + '/member-service/check';
 
     const option = {
         url: url,
@@ -17,6 +17,7 @@ export const checkMember = async () => {
     try {
         const response = await axios(option);
         if (response.data.status !== 200) {
+            console.log("error while checking member");
             return false;
         }
         return true;

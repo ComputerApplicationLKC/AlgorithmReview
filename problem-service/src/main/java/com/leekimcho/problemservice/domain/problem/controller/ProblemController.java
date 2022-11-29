@@ -4,7 +4,6 @@ import com.leekimcho.problemservice.client.ServiceClient;
 import com.leekimcho.problemservice.common.ResponseDto;
 import com.leekimcho.problemservice.common.SuccessMessage;
 import com.leekimcho.problemservice.common.dto.MemberDto;
-import com.leekimcho.problemservice.domain.problem.dto.request.ProblemNotificationUpdateDto;
 import com.leekimcho.problemservice.domain.problem.dto.request.ProblemRequestDto;
 import com.leekimcho.problemservice.domain.problem.dto.request.ProblemStepUpdateDto;
 import com.leekimcho.problemservice.domain.problem.dto.response.ProblemOnlyDto;
@@ -29,7 +28,7 @@ import static java.util.stream.Collectors.toList;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/problem-service/api/problems")
+@RequestMapping("/api/problem-service/problems")
 public class ProblemController {
 
     private final ProblemService problemService;
@@ -83,16 +82,6 @@ public class ProblemController {
         MemberDto member = client.getMemberContext();
 
         problemService.updateStep(problemId, member, updateDto.getStep());
-
-        return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_UPDATE_PROBLEM));
-    }
-
-    @AuthCheck
-    @PutMapping("/{problemId}/notification")
-    public ResponseEntity<?> updateNotificationDate(@PathVariable Long problemId, @RequestBody @Valid ProblemNotificationUpdateDto updateDto) {
-        MemberDto member = client.getMemberContext();
-
-        problemService.updateNotificationDate(problemId, member, updateDto.getNotificationDate());
 
         return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_UPDATE_PROBLEM));
     }

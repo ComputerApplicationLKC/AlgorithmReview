@@ -1,5 +1,6 @@
 package com.leekimcho.memberservice.domain.member.dto;
 
+import brave.internal.Nullable;
 import com.leekimcho.memberservice.domain.member.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

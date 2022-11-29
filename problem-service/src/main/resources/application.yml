@@ -5,8 +5,17 @@ spring:
   application:
     name: problem-service
 
+  cloud:
+    inetutils:
+      ignored-interfaces:
+        - eth0
+        - eth1
+        - eth2
+        - eth3
+        - lo
+
   zipkin:
-    base-utl: http://zipkin:9411
+    base-url: http://zipkin:9411
     enabled: true
   sleuth:
     sampler:
@@ -35,3 +44,8 @@ eureka:
     register-with-eureka: true
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    prefer-ip-address: true
+
+logging:
+  level:
+    com.project.security.basic.feign: DEBUG

@@ -15,7 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String email;
@@ -47,7 +47,7 @@ public class Member {
         this.nickname = dto.getNickname();
         if (flag) {
             this.oauthType = AuthType.GOOGLE;
-            this.roleType = RoleType.ADMIN;
+            this.roleType = RoleType.ROLE_ADMIN;
         }
     }
 

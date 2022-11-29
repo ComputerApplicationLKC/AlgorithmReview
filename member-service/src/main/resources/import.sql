@@ -1,0 +1,2 @@
+insert into member(email, nickname, oauth_type, password, role_type) values("ohksj77@gmail.com", "ohskj77", "GOOGLE", "$10$xDR1oAsyype/efGW/IKP/.sGr0q46heawkUf.tkFimsUqiAg5po42", "ROLE_ADMIN");
+commit;

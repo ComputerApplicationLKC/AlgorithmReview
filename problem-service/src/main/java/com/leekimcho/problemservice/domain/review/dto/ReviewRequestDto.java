@@ -14,7 +14,4 @@ public class ReviewRequestDto {
     @NotBlank
     private String content;
 
-    @NotNull
-    private LocalDate notificationDate;
-
 }

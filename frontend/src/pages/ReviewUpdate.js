@@ -11,7 +11,6 @@ const ReviewUpdate = (props) => {
         const data = {
             reviewId: props.location.state.reviewId,
             problemId: props.location.state.problemId,
-            notificationDate: p.notificationDate,
             content: p.content
         }
         updateReviewApi(data)
@@ -20,7 +19,7 @@ const ReviewUpdate = (props) => {
     return (
         <div>
             <HeaderMain />
-            <ReviewForm onSumbitHandler={onSumbitHandler} problemId={props.match.params.problemId} notificationDate={props.location.state.notificationDate} content={props.location.state.content} title={props.location.state.title} />
+            <ReviewForm onSumbitHandler={onSumbitHandler} problemId={props.match.params.problemId} content={props.location.state.content} title={props.location.state.title} />
             <FooterMain />
         </div>
     );

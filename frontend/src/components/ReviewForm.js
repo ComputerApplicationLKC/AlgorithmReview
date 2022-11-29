@@ -10,9 +10,6 @@ function ReviewForm(props) {
 
     const problemId = props.problemId;
     const title = props.title;
-    const [notificationDate, setNotificationDate] = useState(props.notificationDate)
-
-    const onNotificationHandler = (e) => { setNotificationDate(e) }
 
     const onSumbitHandler = () => {
         const editorInstance = editorRef.current.getInstance();
@@ -20,31 +17,16 @@ function ReviewForm(props) {
         const data = {
             title: title,
             problemId: problemId,
-            notificationDate: notificationDate,
             content: editorInstance.getMarkdown()
         }
         console.log(data);
         props.onSumbitHandler(data)
     }
 
-    function Notification() {
-        return (
-            <CustomSelect onChange={onNotificationHandler} defaultValue={notificationDate}>
-                <option value="0" selected>알림 기한 설정</option>
-                <option value="5">일주일 후 알림</option>
-                <option value="4">이주일 후 알림</option>
-                <option value="3">한 달 후 알림</option>
-                <option value="2">두 달 후 알림</option>
-                <option value="1">세 달 후 알림</option>
-            </CustomSelect>
-        )
-    }
-
 
     return (
         <Container className="container">
             <Title>{title}</Title>
-            <Notification value={notificationDate} />
             <br />
             <Editor
                 initialValue={props.content}

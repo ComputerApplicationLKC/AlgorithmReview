@@ -15,4 +15,6 @@ public interface MemberService {
     Optional<Member> findMemberByEmail(String email);
 
     void registerAdmin(MemberDto dto, boolean flag);
+
+    List<MemberDto> getAllMembers();
 }

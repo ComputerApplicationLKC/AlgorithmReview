@@ -4,7 +4,7 @@ const base = require('../../utils/base')
 
 export const registerGuestApi = async (props) => {
     const url =
-        base.url + '/guest-service/api/guests';
+        base.url + '/guest-service/guests';
 
     console.log(props)
     const option = {

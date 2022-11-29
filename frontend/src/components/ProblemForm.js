@@ -19,13 +19,11 @@ function ProblemForm() {
     const [step, setStep] = useState(1);
     const [link, setLink] = useState("");
     const [tagList, setTagList] = useState([])
-    const [notificationDate, setNotificationDate] = useState("0");
 
     const onTagHandler = (e) => { setTag(e.currentTarget.value) }
     const onTitleHandler = (e) => { setTitle(e.currentTarget.value) }
     const onLinkHandler = (e) => { setLink(e.currentTarget.value) }
     const onStepHandler = (e) => { setStep(e) }
-    const onNotificationHandler = (e) => { setNotificationDate(e) }
 
     const onTitleKeyPress = (e) => {
         if (e.key == 'Enter') {
@@ -52,7 +50,6 @@ function ProblemForm() {
             title: title,
             link: link,
             step: step,
-            notificationDate: notificationDate,
             tagList: tagList,
             content: editorInstance.getMarkdown()
         }
@@ -68,21 +65,6 @@ function ProblemForm() {
         console.log(date, dateString);
     }
 
-    function Notification() {
-        return (
-            <>
-                <CustomSelect onChange={onNotificationHandler} defaultValue={notificationDate}>
-                    <option value="0" selected>알림 기한 설정</option>
-                    <option value="5">일주일 후 알림</option>
-                    <option value="4">이주일 후 알림</option>
-                    <option value="3">한 달 후 알림</option>
-                    <option value="2">두 달 후 알림</option>
-                    <option value="1">세 달 후 알림</option>
-                </CustomSelect>
-            </>
-        )
-    }
-
     const returnHtml = <Container className="container">
         <Title value={title} onChange={onTitleHandler} onKeyPress={onTitleKeyPress} placeholder="제목을 입력하세요"></Title>
         <TagLine />
@@ -91,7 +73,6 @@ function ProblemForm() {
         <LinkLine />
         <LinkInput value={link} onChange={onLinkHandler} placeholder="문제 링크를 입력하세요"></LinkInput>
         <LinkLine />
-        <Notification value={notificationDate} />
 
         <StepContainer><StepTitle>난이도</StepTitle><Step onChange={onStepHandler} /></StepContainer>
         <Editor

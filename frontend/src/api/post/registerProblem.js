@@ -1,11 +1,10 @@
 import axios from 'axios';
-import dateSetting from '../dateSetting';
 
 const base = require('../../utils/base')
 
 export const registerProblem = async (props) => {
     const url =
-        base.url + '/problem-service/api/problems';
+        base.url + '/problem-service/problems';
 
     console.log(props)
     const option = {
@@ -18,7 +17,6 @@ export const registerProblem = async (props) => {
             title: props.title,
             link: props.link,
             tagList: props.tagList,
-            notificationDate: dateSetting(props.notificationDate),
             step: props.step,
             content: props.content
         }

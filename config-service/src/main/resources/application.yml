@@ -8,4 +8,6 @@ spring:
     config:
       server:
         git:
-          uri: file://${user.home}/Desktop/msa-config-repo
+          uri: https://github.com/ohksj77/msa-config-repo
+          timeout: 15
+          default-label: main

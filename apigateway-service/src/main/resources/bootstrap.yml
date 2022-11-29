@@ -3,7 +3,3 @@ spring:
     config:
       uri: http://config:8888
       name: algorithm-review
-
-  redis:
-    host: redis
-    port: 6379

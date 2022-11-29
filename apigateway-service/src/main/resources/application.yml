@@ -12,19 +12,6 @@ spring:
   application:
     name: apigateway-service
 
-  profiles:
-    include: oauth
-
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            scope: profile, email
-            client-id: ${CLIENT_ID}
-            client-secret: ${CLIENT_SECRET}
-            redirect-uri: http://localhost/login/oauth2/code/google
-
   zipkin:
     base-url: http://zipkin:9411
     enabled: true
@@ -33,9 +20,21 @@ spring:
       probability: 1.0
 
   cloud:
+    inetutils:
+      ignored-interfaces:
+        - eth0
+        - eth1
+        - eth2
+        - eth3
+        - lo
     gateway:
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+        - name: GlobalFilter
+          args:
+            baseMessage: Algorithm Review LKC Running
+            preLogger: true
+            postLogger: true
       globalcors:
         cors-configurations:
           '[/**]':
@@ -53,90 +52,17 @@ spring:
         - id: member-service
           uri: lb://MEMBER-SERVICE
           predicates:
-            - Path=/member-service/api/**
-#          filters:
-#            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
-#        - id: member-service
-#          uri: lb://MEMBER-SERVICE
-#          predicates:
-#            - Path=/member-service/api/check
-#            - Method=GET
-#          filters:
-#            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
-#        - id: member-service
-#          uri: lb://MEMBER-SERVICE
-#          predicates:
-#            - Path=/member-service/api/google
-#            - Method=POST
-#          filters:
-#            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
-#        - id: member-service
-#          uri: lb://MEMBER-SERVICE
-#          predicates:
-#            - Path=/member-service/api/member
-#            - Method=POST, GET
-#          filters:
-#            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
-#        - id: member-service
-#          uri: lb://MEMBER-SERVICE
-#          predicates:
-#            - Path=/member-service/api/member-context
-#            - Method=GET
-#          filters:
-#            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
-#        - id: member-service
-#          uri: lb://MEMBER-SERVICE
-#          predicates:
-#            - Path=/member-service/api/user/google/callback
-#          filters:
-#            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
-#        - id: member-service
-#          uri: lb://MEMBER-SERVICE
-#          predicates:
-#            - Path=/member-service/api/auth/reissue
-#            - Method=GET
-#          filters:
-#            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
-#        - id: member-service
-#          uri: lb://MEMBER-SERVICE
-#          predicates:
-#            - Path=/member-service/api/auth/logout
-#            - Method=POST
-#          filters:
-#            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
-#        - id: member-service
-#          uri: lb://MEMBER-SERVICE
-#          predicates:
-#            - Path=/member-service/api/auth/check/access-token
-#            - Method=GET
-#          filters:
-#            - RewritePath=/member-service/api/(?<segment>.*),/$\{segment}
+            - Path=/api/member-service/**
 
         - id: guest-service
           uri: lb://GUEST-SERVICE
           predicates:
-            - Path=/guest-service/api/**
-#          filters:
-#            - AuthorizationHeaderFilter
-#            - RewritePath=/guest-service/api/(?<segment>.*),/$\{segment}
-#            - name: RequestRateLimiter
-#              args:
-#                redis-rate-limiter.replenishRate: 3
-#                redis-rate-limiter.burstCapacity: 3
-#                key-resolver: "#{@tokenKeyResolver}"
+            - Path=/api/guest-service/**
 
         - id: problem-service
           uri: lb://PROBLEM-SERVICE
           predicates:
-            - Path=/problem-service/api/**
-#          filters:
-#            - AuthorizationHeaderFilter
-#            - RewritePath=/problem-service/api/(?<segment>.*),/$\{segment}
-#            - name: RequestRateLimiter
-#              args:
-#                redis-rate-limiter.replenishRate: 3
-#                redis-rate-limiter.burstCapacity: 3
-#                key-resolver: "#{@tokenKeyResolver}"
+            - Path=/api/problem-service/**
 
 management:
   endpoints:

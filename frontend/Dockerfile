@@ -4,8 +4,8 @@ WORKDIR /frontend
 COPY . /frontend
 
 RUN npm install package.json
-RUN npm i -D esbuild-wasm
-RUN npm install react-router-dom
+# RUN npm i -D esbuild-wasm
+# RUN npm install react-router-dom
 
 COPY . ./
 

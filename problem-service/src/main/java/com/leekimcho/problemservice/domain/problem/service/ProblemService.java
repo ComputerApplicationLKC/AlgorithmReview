@@ -81,13 +81,6 @@ public class ProblemService {
     }
 
     @Transactional
-    public void updateNotificationDate(Long problemId, MemberDto member,LocalDate notificationDate) {
-        Problem updateProblem = checkValidUser(problemId, member);
-        updateProblem.updateNotificationDate(notificationDate);
-        problemRepository.save(updateProblem);
-    }
-
-    @Transactional
     public void deleteProblem(Long problemId, MemberDto member) {
         checkValidUser(problemId, member);
         problemRepository.deleteById(problemId);

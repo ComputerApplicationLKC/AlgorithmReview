@@ -34,7 +34,7 @@ export default function GoogleLoginBtn(props) {
                 clientId={clientId}
                 buttonText="Google"
                 responseType={"id_token"}
-                onSuccess={result => onSuccess(result)}
+                onSuccess={onSuccess}
                 onFailure={onFailure}/>
         </div>
     )

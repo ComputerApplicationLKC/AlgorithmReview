@@ -70,4 +70,9 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
         memberRepository.save(new Member(dto, flag));
     }
 
+    @Override
+    public List<MemberDto> getAllMembers() {
+        return memberRepository.findAll().stream().map(MemberDto::new).collect(Collectors.toList());
+    }
+
 }

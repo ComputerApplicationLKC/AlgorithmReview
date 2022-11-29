@@ -5,8 +5,6 @@ services:
   frontend:
     build:
       context: ./frontend
-    networks:
-      - app-tier
     container_name: frontend
     volumes:
       - build_frontend:/frontend/build
@@ -17,8 +15,6 @@ services:
       - 3000:3000
     environment:
       - WDS_SOCKET_PORT=0
-    env_file:
-      - .env
     stdin_open: true
     tty: true
 
@@ -132,20 +128,6 @@ services:
       - data_mysql:/var/lib/mysql
     env_file:
       - .env
-    networks:
-      - app-tier
-    tty: true
-
-  redis:
-    container_name: redis
-    image: redis:alpine
-    command: redis-server --port 6379
-    hostname: redis_boot
-    labels:
-      - "name=redis"
-      - "mode=standalone"
-    ports:
-      - 6379:6379
     networks:
       - app-tier
     tty: true

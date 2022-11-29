@@ -20,7 +20,7 @@ import static com.leekimcho.problemservice.common.SuccessMessage.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/problem-service/api")
+@RequestMapping("/api/problem-service")
 public class ReviewController {
 
     private final ProblemService problemService;
@@ -43,7 +43,6 @@ public class ReviewController {
                                           @RequestBody @Valid ReviewRequestDto requestDto) {
         MemberDto member = client.getMemberContext();
 
-        problemService.updateNotificationDate(problemId, member, requestDto.getNotificationDate());
         reviewService.updateReview(reviewId, reviewMapper.toEntity(reviewId, requestDto));
         return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_UPDATE_REVIEW));
     }
