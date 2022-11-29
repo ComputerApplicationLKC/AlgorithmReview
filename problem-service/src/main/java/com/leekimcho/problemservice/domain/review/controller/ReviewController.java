@@ -43,7 +43,6 @@ public class ReviewController {
                                           @RequestBody @Valid ReviewRequestDto requestDto) {
         MemberDto member = client.getMemberContext();
 
-        problemService.updateNotificationDate(problemId, member, requestDto.getNotificationDate());
         reviewService.updateReview(reviewId, reviewMapper.toEntity(reviewId, requestDto));
         return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_UPDATE_REVIEW));
     }

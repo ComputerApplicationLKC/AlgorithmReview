@@ -13,7 +13,6 @@ const ReviewRegister = (props) => {
         const data = {
             title: props.title,
             problemId: props.problemId,
-            notificationDate: props.notificationDate,
             content: props.content
         }
         registerReview(data)
@@ -21,7 +20,7 @@ const ReviewRegister = (props) => {
     return (
         <div>
             <HeaderMain />
-            <ReviewForm onSumbitHandler={onSumbitHandler} problemId={props.match.params.problemId} notificationDate="0" title={props.location.state.title} content="" />
+            <ReviewForm onSumbitHandler={onSumbitHandler} problemId={props.match.params.problemId} title={props.location.state.title} content="" />
             <FooterMain />
         </div>
     );

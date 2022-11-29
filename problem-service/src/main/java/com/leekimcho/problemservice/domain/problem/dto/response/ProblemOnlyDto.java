@@ -22,8 +22,6 @@ public class ProblemOnlyDto {
 
     private int step;
 
-    private LocalDate notificationDate;
-
     private LocalDateTime modifiedDate;
 
     @JsonIgnoreProperties({"problem"})

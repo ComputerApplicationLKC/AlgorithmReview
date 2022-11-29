@@ -17,6 +17,7 @@ export const checkMember = async () => {
     try {
         const response = await axios(option);
         if (response.data.status !== 200) {
+            console.log("error while checking member");
             return false;
         }
         return true;

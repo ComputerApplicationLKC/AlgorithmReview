@@ -17,7 +17,6 @@ public class ProblemMapper {
                 .step(requestDto.getStep())
                 .title(requestDto.getTitle())
                 .writer(member)
-                .notificationDate(requestDto.getNotificationDate())
                 .build();
     }
 
@@ -25,14 +24,12 @@ public class ProblemMapper {
         return ProblemDto.builder()
                 .step(problem.getStep())
                 .title(problem.getTitle())
-                .notificationDate(problem.getNotificationDate())
                 .build();
     }
 
     public ProblemOnlyDto toReviewExcludeDto(Problem problem) {
         return ProblemOnlyDto.builder()
                 .tagList(problem.getTagList())
-                .notificationDate(problem.getNotificationDate())
                 .title(problem.getTitle())
                 .step(problem.getStep())
                 .link(problem.getLink())

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import dateSetting from '../dateSetting';
 
 const base = require('../../utils/base')
 
@@ -14,7 +13,6 @@ export const updateReviewApi = async (props) => {
             "Authorization": sessionStorage.getItem("access_token")
         },
         data: {
-            notificationDate: dateSetting(props.notificationDate),
             content: props.content
         }
     }

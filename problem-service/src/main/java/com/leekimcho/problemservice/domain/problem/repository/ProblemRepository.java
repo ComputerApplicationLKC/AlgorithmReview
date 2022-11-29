@@ -22,8 +22,6 @@ public interface ProblemRepository extends JpaRepository<Problem, Long> {
 
     void deleteProblemById(Long id);
 
-    List<Problem> findAllByNotificationDate(LocalDate date);
-
     List<Problem> findAllByStepOrderByModifiedDateDesc(int step, Pageable pageable);
 
     List<Problem> findByIdLessThanAndStepOrderByIdDesc(Long id, int step, Pageable pageable); // 커서 기반 페이징

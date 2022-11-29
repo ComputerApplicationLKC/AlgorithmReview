@@ -23,9 +23,6 @@ public class ProblemRequestDto {
     private int step = 1;
 
     @NotNull
-    private LocalDate notificationDate;
-
-    @NotNull
     private ArrayList<String> tagList;
 
     @NotBlank

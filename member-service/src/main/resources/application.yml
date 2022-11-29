@@ -13,6 +13,9 @@ spring:
         - eth2
         - eth3
         - lo
+  sql:
+    init:
+      mode=always:
 
   zipkin:
     base-url: http://zipkin:9411

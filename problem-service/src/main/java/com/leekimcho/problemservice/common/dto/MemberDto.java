@@ -10,6 +10,5 @@ import javax.persistence.Embeddable;
 public class MemberDto {
     @Column(name = "member_id")
     private Long memberId;
-    private String email;
     private String nickname;
 }

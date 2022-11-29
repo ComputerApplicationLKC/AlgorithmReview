@@ -33,8 +33,6 @@ public class Problem extends BaseEntity {
 
     private int step;
 
-    private LocalDate notificationDate;
-
     @Builder.Default
     @OrderBy("createdDate desc")
     @OneToMany(mappedBy = "problem", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -51,10 +49,6 @@ public class Problem extends BaseEntity {
 
     public void updateStep(int step) {
         this.step = step;
-    }
-
-    public void updateNotificationDate(LocalDate notificationDate) {
-        this.notificationDate = notificationDate;
     }
 
 }

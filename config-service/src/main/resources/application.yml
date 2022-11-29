@@ -9,3 +9,5 @@ spring:
       server:
         git:
           uri: https://github.com/ohksj77/msa-config-repo
+          timeout: 15
+          default-label: main

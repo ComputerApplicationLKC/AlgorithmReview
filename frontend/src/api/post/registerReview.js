@@ -1,5 +1,4 @@
 import axios from 'axios';
-import dateSetting from '../dateSetting';
 
 const base = require('../../utils/base')
 
@@ -16,7 +15,6 @@ export const registerReview = async (props) => {
         },
         data: {
             title: props.title,
-            notificationDate: dateSetting(props.notificationDate),
             content: props.content
         }
     }

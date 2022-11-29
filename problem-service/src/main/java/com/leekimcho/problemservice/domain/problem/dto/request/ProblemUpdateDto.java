@@ -23,7 +23,4 @@ public class ProblemUpdateDto {
     @NotNull
     private ArrayList<String> tagList;
 
-    @NotNull
-    private LocalDate notificationDate;
-
 }

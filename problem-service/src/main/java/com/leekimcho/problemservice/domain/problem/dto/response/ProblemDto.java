@@ -21,8 +21,6 @@ public class ProblemDto {
 
     private int step;
 
-    private LocalDate notificationDate;
-
     @JsonIgnoreProperties({"problem"})
     private List<Review> reviewList;
 
