@@ -67,6 +67,7 @@ dependencies {
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 	implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'
 	implementation 'org.bouncycastle:bcprov-jdk16:1.46'
+	implementation 'com.google.code.gson:gson'
 }
 
 dependencyManagement {

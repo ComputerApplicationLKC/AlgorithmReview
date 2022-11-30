@@ -1,7 +1,7 @@
 token:
   access-expired-time: 3600000
   refresh-expired-time: 604800000
-  secret: env(Yzg4ZDc0YmEtMTU1NC00OGE0LWI1NDktYjkyNmY1ZDc3YzllYzg4ZDc0YmEtMTU1NC00OGE0LWI1NDktYjkyNmY1ZDc3Yzll)
+  secret: env(eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im9oa3NqNzdAZ21haWwuY29tIiwibmlja25hbWUiOiJvaGtzajc3In0.oV6aYDBxXXMSEP1nuB-rleaNj6EgYEG6zlP9DRazKfA)
   refresh-token-name: refresh-token
   access-token-name: access-token
 
