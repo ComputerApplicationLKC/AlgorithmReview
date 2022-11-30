@@ -4,10 +4,10 @@ server:
 spring:
   application:
     name: config-service
+  profiles:
+    active: native
   cloud:
     config:
       server:
-        git:
-          uri: https://github.com/ohksj77/msa-config-repo
-          timeout: 15
-          default-label: main
+        native:
+          search-locations: classpath:/config
