@@ -68,8 +68,7 @@ public class ProblemController {
 
     @PostMapping
     public ResponseEntity<?> saveProblem(@RequestBody @Valid ProblemRequestDto requestDto) {
-        String get = client.getMemberContext().getBody().replaceAll(System.getProperty("line.separator"), " ");;;
-        MemberDto member = gson.fromJson(get, MemberDto.class);
+        MemberDto member = client.getMemberContext().getBody();
 
         return ResponseEntity.ok().body(ResponseDto.of(
                 HttpStatus.OK,
@@ -80,8 +79,7 @@ public class ProblemController {
 
     @PutMapping("/{problemId}/step")
     public ResponseEntity<?> updateStep(@PathVariable Long problemId, @RequestBody @Valid ProblemStepUpdateDto updateDto) {
-        String get = client.getMemberContext().getBody().replaceAll(System.getProperty("line.separator"), " ");;;
-        MemberDto member = gson.fromJson(get, MemberDto.class);
+        MemberDto member = client.getMemberContext().getBody();
 
         problemService.updateStep(problemId, member, updateDto.getStep());
 
@@ -90,8 +88,7 @@ public class ProblemController {
 
     @DeleteMapping("/{problemId}")
     public ResponseEntity<?> deleteProblem(@PathVariable Long problemId) {
-        String get = client.getMemberContext().getBody().replaceAll(System.getProperty("line.separator"), " ");;;
-        MemberDto member = gson.fromJson(get, MemberDto.class);
+        MemberDto member = client.getMemberContext().getBody();
 
         problemService.deleteProblem(problemId, member);
 

@@ -50,6 +50,7 @@ public class JwtService {
                     .setHeader(headerMap)
                     .setSubject(objectMapper.writeValueAsString(payload))
                     .setExpiration(expireTime)
+                    .setIssuedAt(new Date())
                     .signWith(signingKey, signatureAlgorithm)
                     .compact();
         } catch (JsonProcessingException e) {
@@ -65,9 +66,8 @@ public class JwtService {
                     .parseClaimsJws(token)
                     .getBody();
 
-            String collect = Arrays.asList(claims.getSubject().split("\\.")).stream().collect(Collectors.joining());
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            collect = gson.toJson(collect).replaceAll(System.getProperty("line.separator"), " ");;
+            String collect = gson.toJson(claims.getSubject());
 
             return objectMapper.readValue(collect, JwtPayload.class);
         } catch (JsonProcessingException | IllegalArgumentException | MalformedJwtException e) {

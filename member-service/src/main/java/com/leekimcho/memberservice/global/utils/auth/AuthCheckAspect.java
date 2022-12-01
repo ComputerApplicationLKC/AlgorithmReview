@@ -1,5 +1,7 @@
 package com.leekimcho.memberservice.global.utils.auth;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.leekimcho.memberservice.domain.member.dto.JwtPayload;
 import com.leekimcho.memberservice.domain.member.entity.Member;
 import com.leekimcho.memberservice.domain.member.repository.MemberRepository;
@@ -10,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,13 +28,14 @@ public class AuthCheckAspect {
     private final JwtService jwtService;
     private final MemberRepository memberRepository;
     private final HttpServletRequest httpServletRequest;
+    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @Around("@annotation(com.leekimcho.memberservice.global.utils.auth.AuthCheck)")
     public Object loginCheck(ProceedingJoinPoint pjp) throws Throwable {
 
         String token = httpServletRequest.getHeader(AUTHORIZATION);
 
-        JwtPayload payload = jwtService.getPayload(token);
+        JwtPayload payload = jwtService.getPayload(gson.toJson(token.replaceAll(System.getProperty("line.separator"), " ")).replaceAll(System.getProperty("line.separator"), " "));
         log.info("AuthCheck(email) : " + payload.getEmail());
 
         Optional<Member> optionalMember = memberRepository.findByEmail(payload.getEmail());

@@ -46,7 +46,7 @@ public class OauthService {
             member = optional.get();
 
             String token = jwtService.createToken(new JwtPayload(member.getId(), email));
-            MemberContext.currentMember.set(member);
+//            MemberContext.currentMember.set(member);
 
             return LoginSuccessDto.builder()
                     .nickname(member.getNickname())

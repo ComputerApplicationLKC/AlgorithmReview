@@ -1,10 +1,5 @@
 token:
-  access-expired-time: 3600000
-  refresh-expired-time: 604800000
-  secret: env(eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im9oa3NqNzdAZ21haWwuY29tIiwibmlja25hbWUiOiJvaGtzajc3In0.oV6aYDBxXXMSEP1nuB-rleaNj6EgYEG6zlP9DRazKfA)
-  refresh-token-name: refresh-token
-  access-token-name: access-token
-
+  secret: 923f166a6b257aa248ace4f6706e261c0e5d535d2b48e6c202757c9c61718f49969be17cbf91950d7d7f4053a566acbb01307b902b7e4a31a4d5bbf76dc71789
 jasypt:
   encryptor:
     password:  enc(1AjPAl/KLDrtqZfisZsNxYihuniVEBFTrX9ppRW3rVzk5uAmgTv/AfVS14fUQNfp8dYKw2cq04nHkd4aZlLNt7TW4DqiTZFPLT3AoowhFV1ovCrhRBfCCIYk6fR9Zic+ChWeNztIuHhxvp36CqsqDNQ5hQm8+/V/eCmxHHxnh41cG7L3/qfyO9N/6qtGIa57)

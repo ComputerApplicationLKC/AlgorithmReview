@@ -9,15 +9,15 @@ import com.leekimcho.memberservice.global.dto.ResponseDto;
 import com.leekimcho.memberservice.global.utils.auth.AuthCheck;
 import com.leekimcho.memberservice.global.utils.auth.MemberContext;
 import lombok.Data;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.persistence.Column;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import static com.leekimcho.memberservice.global.advice.message.SuccessMessage.SUCCESS_AUTHORIZATION;
@@ -45,8 +45,15 @@ public class MemberController {
     }
 
     @GetMapping("/member-context")
-    public ResponseEntity<String> getMemberContext() {
-        return ResponseEntity.ok().body((new MemberDto(MemberContext.currentMember.get()).toString()));
+    public ResponseEntity<MemberDto> getMemberContext() {
+        return ResponseEntity.ok().body(new MemberDto(MemberContext.currentMember.get()));
+    }
+
+    @GetMapping("/jwt")
+    public String getJwt() {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        return request.getHeader("X-ACCESS-TOKEN");
+
     }
 
     @Data

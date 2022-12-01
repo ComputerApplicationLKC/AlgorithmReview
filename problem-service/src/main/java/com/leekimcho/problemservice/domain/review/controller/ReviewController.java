@@ -41,8 +41,7 @@ public class ReviewController {
     public ResponseEntity<?> updateReview(@PathVariable("problemId") Long problemId,
                                           @PathVariable("reviewId") Long reviewId,
                                           @RequestBody @Valid ReviewRequestDto requestDto) {
-        String get = client.getMemberContext().getBody().replaceAll(System.getProperty("line.separator"), " ");;;
-        MemberDto member = gson.fromJson(get, MemberDto.class);
+        MemberDto member = client.getMemberContext().getBody();
 
         reviewService.updateReview(reviewId, reviewMapper.toEntity(reviewId, requestDto));
         return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_UPDATE_REVIEW));
