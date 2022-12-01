@@ -3,6 +3,8 @@ package com.leekimcho.problemservice.domain.problem.repository;
 import com.leekimcho.problemservice.domain.problem.entity.ProblemTag;
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
@@ -17,6 +19,7 @@ public class TagQueryRepository extends QuerydslRepositorySupport {
 
     private final JPAQueryFactory queryFactory;
 
+    @Autowired
     public TagQueryRepository(JPAQueryFactory queryFactory) {
         super(ProblemTag.class);
         this.queryFactory = queryFactory;

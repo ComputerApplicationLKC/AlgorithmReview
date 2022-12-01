@@ -1,5 +1,7 @@
 package com.leekimcho.problemservice.domain.problem.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.leekimcho.problemservice.client.ServiceClient;
 import com.leekimcho.problemservice.common.ResponseDto;
 import com.leekimcho.problemservice.common.SuccessMessage;
@@ -9,7 +11,6 @@ import com.leekimcho.problemservice.domain.problem.dto.request.ProblemStepUpdate
 import com.leekimcho.problemservice.domain.problem.dto.response.ProblemOnlyDto;
 import com.leekimcho.problemservice.domain.problem.mapper.ProblemMapper;
 import com.leekimcho.problemservice.domain.problem.service.ProblemService;
-import com.leekimcho.problemservice.utils.auth.AuthCheck;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -34,6 +35,7 @@ public class ProblemController {
     private final ProblemService problemService;
     private final ProblemMapper problemMapper;
     private final ServiceClient client;
+    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @GetMapping
     public ResponseEntity<?> getProblemList(@RequestParam(value = "step", defaultValue = "0") int step,
@@ -64,10 +66,9 @@ public class ProblemController {
         ));
     }
 
-    @AuthCheck
     @PostMapping
     public ResponseEntity<?> saveProblem(@RequestBody @Valid ProblemRequestDto requestDto) {
-        MemberDto member = client.getMemberContext();
+        MemberDto member = client.getMemberContext().getBody();
 
         return ResponseEntity.ok().body(ResponseDto.of(
                 HttpStatus.OK,
@@ -76,10 +77,9 @@ public class ProblemController {
         ));
     }
 
-    @AuthCheck
     @PutMapping("/{problemId}/step")
     public ResponseEntity<?> updateStep(@PathVariable Long problemId, @RequestBody @Valid ProblemStepUpdateDto updateDto) {
-        MemberDto member = client.getMemberContext();
+        MemberDto member = client.getMemberContext().getBody();
 
         problemService.updateStep(problemId, member, updateDto.getStep());
 
@@ -88,7 +88,7 @@ public class ProblemController {
 
     @DeleteMapping("/{problemId}")
     public ResponseEntity<?> deleteProblem(@PathVariable Long problemId) {
-        MemberDto member = client.getMemberContext();
+        MemberDto member = client.getMemberContext().getBody();
 
         problemService.deleteProblem(problemId, member);
 

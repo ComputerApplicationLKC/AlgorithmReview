@@ -9,6 +9,7 @@ import com.leekimcho.memberservice.domain.member.entity.Member;
 import com.leekimcho.memberservice.global.config.properties.GoogleProperties;
 import com.leekimcho.memberservice.global.exception.JsonWriteException;
 import com.leekimcho.memberservice.global.exception.JwtException;
+import com.leekimcho.memberservice.global.utils.auth.MemberContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
@@ -45,6 +46,7 @@ public class OauthService {
             member = optional.get();
 
             String token = jwtService.createToken(new JwtPayload(member.getId(), email));
+//            MemberContext.currentMember.set(member);
 
             return LoginSuccessDto.builder()
                     .nickname(member.getNickname())

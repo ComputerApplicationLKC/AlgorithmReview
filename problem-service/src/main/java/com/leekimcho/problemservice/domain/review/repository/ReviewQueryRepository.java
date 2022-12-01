@@ -3,6 +3,7 @@ package com.leekimcho.problemservice.domain.review.repository;
 import com.leekimcho.problemservice.domain.review.entity.Review;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +17,7 @@ public class ReviewQueryRepository extends QuerydslRepositorySupport {
 
     private final JPAQueryFactory queryFactory;
 
+    @Autowired
     public ReviewQueryRepository(JPAQueryFactory queryFactory) {
         super(Review.class);
         this.queryFactory = queryFactory;

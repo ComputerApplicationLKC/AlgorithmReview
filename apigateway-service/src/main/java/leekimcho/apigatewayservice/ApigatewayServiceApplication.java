@@ -20,10 +20,10 @@ public class ApigatewayServiceApplication {
 		SpringApplication.run(ApigatewayServiceApplication.class, args);
 	}
 
-	@Bean
-	public KeyResolver tokenKeyResolver() {
-		return exchange -> Mono.just(exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0));
-	}
+//	@Bean
+//	public KeyResolver tokenKeyResolver() {
+//		return exchange -> Mono.just(exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0));
+//	}
 
 	@Bean
 	public HttpTraceRepository httpTraceRepository() {

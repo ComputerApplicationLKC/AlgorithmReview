@@ -1,20 +1,28 @@
 package com.leekimcho.memberservice.domain.member.service;
 
-import com.leekimcho.memberservice.domain.member.dto.MemberDto;
 import com.leekimcho.memberservice.domain.member.entity.Member;
+import com.leekimcho.memberservice.domain.member.repository.MemberRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface MemberService {
+@Service
+@RequiredArgsConstructor
+public class MemberService {
 
-    MemberDto findMemberByMemberId(Long MemberId);
-    List<MemberDto> findMemberByMemberIds(List<Long> MemberIds);
-    MemberDto register(MemberDto member);
+    private final MemberRepository memberRepository;
 
-    Optional<Member> findMemberByEmail(String email);
+    @Transactional(readOnly = true)
+    public Optional<Member> findMemberByEmail(String email) {
+        return memberRepository.findByEmail(email);
+    }
 
-    void registerAdmin(MemberDto dto, boolean flag);
+    @Transactional
+    public void saveMember(Member member) {
+        memberRepository.save(member);
+    }
 
-    List<MemberDto> getAllMembers();
 }

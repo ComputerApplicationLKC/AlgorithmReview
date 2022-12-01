@@ -3,6 +3,7 @@ package com.leekimcho.problemservice.domain.problem.repository;
 import com.leekimcho.problemservice.domain.problem.entity.Problem;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
@@ -19,6 +20,7 @@ public class ProblemQueryRepository extends QuerydslRepositorySupport {
 
     private final JPAQueryFactory queryFactory;
 
+    @Autowired
     public ProblemQueryRepository(JPAQueryFactory queryFactory) {
         super(Problem.class);
         this.queryFactory = queryFactory;

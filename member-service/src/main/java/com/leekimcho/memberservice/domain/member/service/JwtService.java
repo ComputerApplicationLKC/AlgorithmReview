@@ -2,6 +2,8 @@ package com.leekimcho.memberservice.domain.member.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.leekimcho.memberservice.domain.member.dto.JwtPayload;
 import com.leekimcho.memberservice.global.exception.JsonWriteException;
 import io.jsonwebtoken.Claims;
@@ -15,9 +17,11 @@ import org.springframework.stereotype.Service;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -46,6 +50,7 @@ public class JwtService {
                     .setHeader(headerMap)
                     .setSubject(objectMapper.writeValueAsString(payload))
                     .setExpiration(expireTime)
+                    .setIssuedAt(new Date())
                     .signWith(signingKey, signatureAlgorithm)
                     .compact();
         } catch (JsonProcessingException e) {
@@ -61,7 +66,10 @@ public class JwtService {
                     .parseClaimsJws(token)
                     .getBody();
 
-            return objectMapper.readValue(claims.getSubject(), JwtPayload.class);
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String collect = gson.toJson(claims.getSubject());
+
+            return objectMapper.readValue(collect, JwtPayload.class);
         } catch (JsonProcessingException | IllegalArgumentException | MalformedJwtException e) {
             throw new JsonWriteException();
         }
