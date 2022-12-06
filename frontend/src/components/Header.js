@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import 'antd/dist/antd.css';
+import '../api/get/logout';
+import logout from "../api/get/logout";
 
 function HeaderMain() {
 
@@ -71,6 +73,7 @@ function LoginCheck() {
 
     const onLogout = () => {
         sessionStorage.clear();
+        logout();
         window.location.reload();
     }
 

@@ -17,12 +17,11 @@ public class Member {
 
     private String email;
 
-    private String nickname;
+    private String username;
+
+    private String password;
 
     @Enumerated(EnumType.STRING)
-    private AuthType oauthType;
-
-    @Enumerated(EnumType.STRING)
-    private RoleType roleType;
+    private Role authority;
 
 }

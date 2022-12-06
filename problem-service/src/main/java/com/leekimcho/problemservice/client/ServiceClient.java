@@ -6,9 +6,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@FeignClient(name="member", path="/api/member-service")
+@FeignClient(name="member-service")
 public interface ServiceClient {
-    @feign.Headers("Content-Type: application/json")
-    @GetMapping(value = "/member-context", produces="application/json", consumes="application/json")
+    @GetMapping(value = "/api/member-service/member-context")
     ResponseEntity<MemberDto> getMemberContext();
 }

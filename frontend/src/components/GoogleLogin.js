@@ -18,10 +18,8 @@ export default function GoogleLoginBtn(props) {
         gapi.load("client:auth2", start);
     }, []);
 
-    console.log(props)
     const onSuccess = (response) => {
-        console.log(response)
-        googleLogin(response.accessToken, response.profileObj.name);
+        googleLogin(response.wt.cu, response.profileObj.name, response.accessToken);
     }
 
     const onFailure = (error) => {
