@@ -1,16 +1,15 @@
 import axios from 'axios';
-import checkMember from '../get/checkMember'
 
 const base = require('../../utils/base')
 
-const googleLogin = async (accessToken, nickname) => {
+const googleLogin = async (email, username, token) => {
     const url =
         base.url + '/member-service/google';
 
     const option = {
         url: url,
         method: 'POST',
-        data: { "accessToken": accessToken }
+        data: { "email": email, "username" : username, "token" : token }
     }
 
     try {
@@ -18,7 +17,7 @@ const googleLogin = async (accessToken, nickname) => {
         if (response.data.status === 200) {
             console.log('로그인 성공')
             sessionStorage.setItem("nickname", response.data.data.nickname)
-            sessionStorage.setItem("access_token", response.data.data.access_token)
+            sessionStorage.setItem("access_token", response.data.data.email)
             window.location.href = '/'
         }
         else {
@@ -26,7 +25,7 @@ const googleLogin = async (accessToken, nickname) => {
             window.location.href = '/'
         }
     } catch (e) {
-        sessionStorage.setItem("nickname", nickname)
+        sessionStorage.setItem("nickname", username)
         window.location.href = '/'
         return null;
     }

@@ -1,5 +1,6 @@
 package com.leekimcho.memberservice.domain.member.dto;
 
+import com.leekimcho.memberservice.domain.member.entity.Member;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -16,4 +17,10 @@ public class JwtPayload {
         this.id = id;
         this.email = email;
     }
+
+    public JwtPayload(Member member) {
+        this.id = member.getId();
+        this.email = member.getEmail();
+    }
+
 }

@@ -7,5 +7,5 @@ import lombok.Getter;
 @Getter
 public class LoginSuccessDto {
     private String nickname;
-    private String access_token;
+    private String email;
 }

@@ -56,7 +56,7 @@ services:
   config:
     build:
       context: ./config-service
-    command: ./wait-for-it.sh -t 50 db:3306 -- gradle bootRun
+    command: ./wait-for-it.sh -t 15 db:3306 -- gradle bootRun
     container_name: config
     ports:
       - 8888:8888
@@ -69,7 +69,7 @@ services:
   api-gateway:
     build:
       context: ./apigateway-service
-    command: ./wait-for-it.sh -t 40 config:8888 -- gradle bootRun
+    command: ./wait-for-it.sh -t 5 config:8888 -- gradle bootRun
     container_name: api-gateway
     ports: 
       - 8000:8000
@@ -83,7 +83,7 @@ services:
   guest:
     build:
       context: ./guest-service
-    command: ./wait-for-it.sh -t 30 api-gateway:8000 -- gradle bootRun
+    command: ./wait-for-it.sh -t 10 api-gateway:8000 -- gradle bootRun
     container_name: guest
     networks:
       - app-tier   
@@ -96,7 +96,7 @@ services:
   member:
     build:
       context: ./member-service
-    command: ./wait-for-it.sh -t 30 api-gateway:8000 -- gradle bootRun
+    command: ./wait-for-it.sh -t 10 api-gateway:8000 -- gradle bootRun
     container_name: member
     networks:
       - app-tier 
@@ -109,7 +109,7 @@ services:
   problem:
     build:
       context: ./problem-service
-    command: ./wait-for-it.sh -t 30 api-gateway:8000 -- gradle bootRun
+    command: ./wait-for-it.sh -t 10 api-gateway:8000 -- gradle bootRun
     container_name: problem
     networks:
       - app-tier
@@ -128,6 +128,19 @@ services:
       - data_mysql:/var/lib/mysql
     env_file:
       - .env
+    networks:
+      - app-tier
+    tty: true
+
+  keycloak:
+    image: jboss/keycloak
+    restart: always
+    container_name: keycloak
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+    ports:
+      - 8080:8080
     networks:
       - app-tier
     tty: true
