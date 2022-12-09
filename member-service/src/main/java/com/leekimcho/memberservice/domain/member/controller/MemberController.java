@@ -1,13 +1,9 @@
 package com.leekimcho.memberservice.domain.member.controller;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.leekimcho.memberservice.domain.member.dto.GoogleTokenDto;
 import com.leekimcho.memberservice.domain.member.entity.Member;
 import com.leekimcho.memberservice.domain.member.service.MemberService;
 import com.leekimcho.memberservice.domain.member.service.OauthService;
-import com.leekimcho.memberservice.global.advice.message.SuccessMessage;
-import com.leekimcho.memberservice.global.config.security.PrincipalDetails;
 import com.leekimcho.memberservice.global.dto.ResponseDto;
 import com.leekimcho.memberservice.global.utils.auth.AuthCheck;
 import com.leekimcho.memberservice.global.utils.auth.MemberContext;
@@ -17,14 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-
-import java.security.Principal;
 
 import static com.leekimcho.memberservice.global.advice.message.SuccessMessage.SUCCESS_AUTHORIZATION;
 import static com.leekimcho.memberservice.global.advice.message.SuccessMessage.SUCCESS_ISSUE_TOKEN;
@@ -63,8 +53,8 @@ public class MemberController {
     }
 
     @GetMapping("/member-context")
-    public ResponseEntity<MemberDto> getMemberContext(Principal principal) {
-        return ResponseEntity.ok().body(new MemberDto((PrincipalDetails) principal));
+    public ResponseEntity<MemberDto> getMemberContext() {
+        return ResponseEntity.ok().body(new MemberDto(MemberContext.currentMember.get()));
     }
 
     @Data
@@ -72,9 +62,9 @@ public class MemberController {
         private Long memberId;
         private String nickname;
 
-        public MemberDto(PrincipalDetails pd) {
-            this.memberId = pd.getUserId();
-            this.nickname = pd.getNickname();
+        public MemberDto(Member member) {
+            this.memberId = member.getId();
+            this.nickname = member.getUsername();
         }
 
     }
