@@ -66,10 +66,7 @@ public class JwtService {
                     .parseClaimsJws(token)
                     .getBody();
 
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            String collect = gson.toJson(claims.getSubject());
-
-            return objectMapper.readValue(collect, JwtPayload.class);
+            return objectMapper.readValue(claims.getSubject(), JwtPayload.class);
         } catch (JsonProcessingException | IllegalArgumentException | MalformedJwtException e) {
             throw new JsonWriteException();
         }
