@@ -35,7 +35,7 @@ public class AuthCheckAspect {
 
         String token = httpServletRequest.getHeader(AUTHORIZATION);
 
-        JwtPayload payload = jwtService.getPayload(gson.toJson(token.replaceAll(System.getProperty("line.separator"), " ")).replaceAll(System.getProperty("line.separator"), " "));
+        JwtPayload payload = jwtService.getPayload(token);
         log.info("AuthCheck(email) : " + payload.getEmail());
 
         Optional<Member> optionalMember = memberRepository.findByEmail(payload.getEmail());

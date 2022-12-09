@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @FeignClient(name="member-service")
 public interface ServiceClient {
-    @GetMapping(value = "/api/member-service/member-context")
+    @GetMapping(value = "/api/member-service/member-context", consumes="application/json")
     ResponseEntity<MemberDto> getMemberContext();
 }
