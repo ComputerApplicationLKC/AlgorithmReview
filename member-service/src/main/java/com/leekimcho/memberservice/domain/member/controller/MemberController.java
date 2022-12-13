@@ -53,8 +53,8 @@ public class MemberController {
     }
 
     @GetMapping("/member-context")
-    public ResponseEntity<MemberDto> getMemberContext() {
-        return ResponseEntity.ok().body(new MemberDto(MemberContext.currentMember.get()));
+    public MemberDto getMemberContext() {
+        return new MemberDto(MemberContext.currentMember.get());
     }
 
     @Data

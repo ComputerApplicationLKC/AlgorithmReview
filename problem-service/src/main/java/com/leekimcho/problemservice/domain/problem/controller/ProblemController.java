@@ -65,7 +65,7 @@ public class ProblemController {
 
     @PostMapping
     public ResponseEntity<?> saveProblem(@RequestBody @Valid ProblemRequestDto requestDto) {
-        MemberDto member = client.getMemberContext().getBody();
+        MemberDto member = client.getMemberContext();
 
         return ResponseEntity.ok().body(ResponseDto.of(
                 HttpStatus.OK,
@@ -76,7 +76,7 @@ public class ProblemController {
 
     @PutMapping("/{problemId}/step")
     public ResponseEntity<?> updateStep(@PathVariable Long problemId, @RequestBody @Valid ProblemStepUpdateDto updateDto) {
-        MemberDto member = client.getMemberContext().getBody();
+        MemberDto member = client.getMemberContext();
 
         problemService.updateStep(problemId, member, updateDto.getStep());
 
@@ -85,7 +85,7 @@ public class ProblemController {
 
     @DeleteMapping("/{problemId}")
     public ResponseEntity<?> deleteProblem(@PathVariable Long problemId) {
-        MemberDto member = client.getMemberContext().getBody();
+        MemberDto member = client.getMemberContext();
 
         problemService.deleteProblem(problemId, member);
 

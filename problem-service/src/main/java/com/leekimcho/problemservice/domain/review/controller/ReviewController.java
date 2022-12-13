@@ -38,7 +38,7 @@ public class ReviewController {
     public ResponseEntity<?> updateReview(@PathVariable("problemId") Long problemId,
                                           @PathVariable("reviewId") Long reviewId,
                                           @RequestBody @Valid ReviewRequestDto requestDto) {
-        MemberDto member = client.getMemberContext().getBody();
+        MemberDto member = client.getMemberContext();
 
         reviewService.updateReview(reviewId, reviewMapper.toEntity(reviewId, requestDto));
         return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_UPDATE_REVIEW));

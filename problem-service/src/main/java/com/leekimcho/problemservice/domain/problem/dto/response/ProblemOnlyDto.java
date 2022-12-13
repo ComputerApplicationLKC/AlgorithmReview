@@ -26,4 +26,5 @@ public class ProblemOnlyDto {
 
     @JsonIgnoreProperties({"problem"})
     private List<ProblemTag> tagList;
+
 }
