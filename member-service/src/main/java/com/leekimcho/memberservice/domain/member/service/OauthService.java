@@ -6,7 +6,6 @@ import com.leekimcho.memberservice.domain.member.entity.Member;
 import com.leekimcho.memberservice.global.utils.auth.MemberContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -17,7 +16,6 @@ import java.util.Optional;
 @Service
 public class OauthService {
     private final MemberService memberService;
-    private final AuthenticationManager authenticationManager;
 
 
     public LoginSuccessDto googleLogin(GoogleTokenDto dto) {
@@ -30,8 +28,7 @@ public class OauthService {
             log.info("[USER 로그인] {}", dto.getEmail());
             Member member = optional.get();
 
-
-            MemberContext.currentMember.set(member);
+//            MemberContext.currentMember.set(member);
 
             return LoginSuccessDto.builder()
                     .nickname(member.getUsername())

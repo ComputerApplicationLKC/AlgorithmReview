@@ -12,18 +12,6 @@ spring:
   application:
     name: apigateway-service
 
-  client:
-    registration:
-      gateway:
-        provider: keycloak
-        client-id: ${client id}
-        client-secret: ${client secret}
-        scope: openid
-    provider:
-      keycloak:
-        user-name-attribute: preferred_username
-        issuer-uri: https://${keycloak.base.url}/auth/realms/${realm}
-
   zipkin:
     base-url: http://zipkin:9411
     enabled: true

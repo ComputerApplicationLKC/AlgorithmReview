@@ -42,8 +42,8 @@ public class MemberController {
     }
 
     @GetMapping("/logout")
-    public ResponseEntity<MemberDto> logout(HttpSession session) {
-        session.invalidate();
+    public ResponseEntity<?> logout() {
+        MemberContext.currentMember.remove();
         return ResponseEntity.ok().build();
     }
 
@@ -53,18 +53,18 @@ public class MemberController {
     }
 
     @GetMapping("/member-context")
-    public ResponseEntity<MemberDto> getMemberContext() {
-        return ResponseEntity.ok().body(new MemberDto(MemberContext.currentMember.get()));
+    public MemberDto getMemberContext() {
+        return new MemberDto(MemberContext.currentMember.get());
     }
 
     @Data
     public static class MemberDto {
         private Long memberId;
-        private String nickname;
+        private String username;
 
         public MemberDto(Member member) {
             this.memberId = member.getId();
-            this.nickname = member.getUsername();
+            this.username = member.getUsername();
         }
 
     }

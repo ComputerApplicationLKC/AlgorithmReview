@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import checkMember from "../get/checkMember"
+
 const base = require('../../utils/base')
 
 const googleLogin = async (email, username, token) => {
@@ -18,6 +20,7 @@ const googleLogin = async (email, username, token) => {
             console.log('로그인 성공')
             sessionStorage.setItem("nickname", response.data.data.nickname)
             sessionStorage.setItem("access_token", response.data.data.email)
+            await checkMember()
             window.location.href = '/'
         }
         else {

@@ -24,11 +24,16 @@ public class ProblemMapper {
         return ProblemDto.builder()
                 .step(problem.getStep())
                 .title(problem.getTitle())
+                .id(problem.getId())
+                .link(problem.getLink())
+                .reviewList(problem.getReviewList())
+                .tagList(problem.getTagList())
                 .build();
     }
 
     public ProblemOnlyDto toReviewExcludeDto(Problem problem) {
         return ProblemOnlyDto.builder()
+                .id(problem.getId())
                 .tagList(problem.getTagList())
                 .title(problem.getTitle())
                 .step(problem.getStep())

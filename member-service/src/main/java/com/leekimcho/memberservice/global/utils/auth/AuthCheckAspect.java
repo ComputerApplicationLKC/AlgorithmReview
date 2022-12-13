@@ -2,10 +2,8 @@ package com.leekimcho.memberservice.global.utils.auth;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.leekimcho.memberservice.domain.member.dto.JwtPayload;
 import com.leekimcho.memberservice.domain.member.entity.Member;
 import com.leekimcho.memberservice.domain.member.repository.MemberRepository;
-import com.leekimcho.memberservice.domain.member.service.JwtService;
 import com.leekimcho.memberservice.global.exception.UserAuthenticationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,26 +22,21 @@ import java.util.Optional;
 public class AuthCheckAspect {
 
     private static final String AUTHORIZATION = "Authorization";
-
-    private final JwtService jwtService;
     private final MemberRepository memberRepository;
     private final HttpServletRequest httpServletRequest;
-    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @Around("@annotation(com.leekimcho.memberservice.global.utils.auth.AuthCheck)")
     public Object loginCheck(ProceedingJoinPoint pjp) throws Throwable {
 
-        String token = httpServletRequest.getHeader(AUTHORIZATION);
+        String email = httpServletRequest.getHeader(AUTHORIZATION);
 
-        JwtPayload payload = jwtService.getPayload(token);
-        log.info("AuthCheck(email) : " + payload.getEmail());
-
-        Optional<Member> optionalMember = memberRepository.findByEmail(payload.getEmail());
+        Optional<Member> optionalMember = memberRepository.findByEmail(email);
         if(optionalMember.isEmpty()) {
             throw new UserAuthenticationException();
         }
 
         MemberContext.currentMember.set(optionalMember.get());
+
         return pjp.proceed();
     }
 }

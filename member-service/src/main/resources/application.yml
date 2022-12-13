@@ -59,14 +59,3 @@ eureka:
 
 feign.httpclient.enabled: true
 feign.okhttp.enabled: true
-
-keycloak:
-  realm: ostock
-  auth-server-url: http://keycloak:8080/auth
-  ssl-required: external
-  resource: ostock
-  credentials:
-    secret: bOFKurrKgTNfNh8aiC88hufJFCR8neWB
-  use-resource-role-mappings: true
-  bearer-only: true
-  user-name-attribute: preferred_username
