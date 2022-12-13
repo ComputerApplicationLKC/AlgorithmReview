@@ -8,5 +8,5 @@ import javax.persistence.Embeddable;
 @Data
 public class MemberDto {
     private Long memberId;
-    private String nickname;
+    private String username;
 }

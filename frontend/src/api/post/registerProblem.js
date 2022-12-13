@@ -10,9 +10,6 @@ export const registerProblem = async (props) => {
     const option = {
         url: url,
         method: 'POST',
-        headers: {
-            "Authorization": sessionStorage.getItem("access_token")
-        },
         data: {
             title: props.title,
             link: props.link,

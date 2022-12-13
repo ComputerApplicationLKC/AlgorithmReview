@@ -1,7 +1,5 @@
 package com.leekimcho.problemservice.domain.review.controller;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.leekimcho.problemservice.client.ServiceClient;
 import com.leekimcho.problemservice.common.ResponseDto;
 import com.leekimcho.problemservice.common.dto.MemberDto;
@@ -29,7 +27,6 @@ public class ReviewController {
 
     private final ReviewMapper reviewMapper;
     private final ServiceClient client;
-    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @PostMapping("/problems/{problemId}/reviews")
     public ResponseEntity<?> saveReview(@PathVariable("problemId") Long problemId, @RequestBody @Valid ReviewRequestDto requestDto) {

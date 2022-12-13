@@ -1,7 +1,5 @@
 package com.leekimcho.problemservice.domain.problem.controller;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.leekimcho.problemservice.client.ServiceClient;
 import com.leekimcho.problemservice.common.ResponseDto;
 import com.leekimcho.problemservice.common.SuccessMessage;
@@ -35,7 +33,6 @@ public class ProblemController {
     private final ProblemService problemService;
     private final ProblemMapper problemMapper;
     private final ServiceClient client;
-    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @GetMapping
     public ResponseEntity<?> getProblemList(@RequestParam(value = "step", defaultValue = "0") int step,
