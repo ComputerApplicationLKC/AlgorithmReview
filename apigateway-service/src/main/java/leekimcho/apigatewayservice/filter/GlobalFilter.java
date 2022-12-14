@@ -9,6 +9,9 @@ import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 @Component
 @Slf4j
 public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Config> {
@@ -34,6 +37,8 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
 
                 if (config.isPostLogger()){
                     log.info("Global Filter End: response statuscode -> {}" , response.getStatusCode());
+                    String serviceName = Arrays.stream(request.getPath().toString().split("/")).filter(str -> str.contains("service")).collect(Collectors.joining());
+                    log.info("Global Filter End: statuscode and service -> {} -> {}" , response.getStatusCode(), serviceName);
                 }
             }));
 
