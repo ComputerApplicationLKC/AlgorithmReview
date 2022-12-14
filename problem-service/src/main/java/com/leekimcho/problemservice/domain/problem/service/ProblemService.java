@@ -17,7 +17,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import static java.util.stream.Collectors.toList;
@@ -74,15 +73,15 @@ public class ProblemService {
     }
 
     @Transactional
-    public void updateStep(Long problemId, MemberDto member, int step) {
-        Problem updateProblem = checkValidUser(problemId, member);
+    public void updateStep(Long problemId, int step) {
+        Problem updateProblem = findById(problemId);
         updateProblem.updateStep(step);
         problemRepository.save(updateProblem);
     }
 
     @Transactional
-    public void deleteProblem(Long problemId, MemberDto member) {
-        checkValidUser(problemId, member);
+    public void deleteProblem(Long problemId) {
+        findById(problemId);
         problemRepository.deleteById(problemId);
     }
 
@@ -106,7 +105,8 @@ public class ProblemService {
         return problemQueryRepository.findAllByTag(modifiedDate, cursorId, tagName, page.getPageSize());
     }
 
-    private Problem checkValidUser(Long problemId, MemberDto member) {
-        return problemRepository.findProblemByIdAndMemberId(problemId, member.getMemberId()).orElseThrow(EntityNotFoundException::new);
+    private Problem findById(Long problemId) {
+        return problemRepository.findById(problemId)
+                .orElseThrow(EntityNotFoundException::new);
     }
 }

@@ -83,7 +83,7 @@ public class ProblemController {
         CircuitBreaker circuitbreaker = circuitBreakerFactory.create("circuitbreaker");
         MemberDto member = circuitbreaker.run(() -> client.getMemberContext(), throwable -> new MemberDto(1L, "김승진"));
 
-        problemService.updateStep(problemId, member, updateDto.getStep());
+        problemService.updateStep(problemId, updateDto.getStep());
 
         return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_UPDATE_PROBLEM));
     }
@@ -93,7 +93,7 @@ public class ProblemController {
         CircuitBreaker circuitbreaker = circuitBreakerFactory.create("circuitbreaker");
         MemberDto member = circuitbreaker.run(() -> client.getMemberContext(), throwable -> new MemberDto(1L, "김승진"));
 
-        problemService.deleteProblem(problemId, member);
+        problemService.deleteProblem(problemId);
 
         return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_DELETE_PROBLEM));
     }
