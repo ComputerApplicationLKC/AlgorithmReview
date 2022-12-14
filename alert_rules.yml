@@ -1,6 +1,6 @@
 groups:
 - name: slack-alert
-
+  rules:
   - alert: ContainerAbsent
     expr: absent(container_last_seen)
     for: 2m
