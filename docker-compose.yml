@@ -153,6 +153,9 @@ services:
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
       - ./alert_rules.yml:/etc/prometheus/alert_rules.yml
+    depends_on:
+      - discovery
+    tty: true
 
   grafana:
     image: grafana/grafana
@@ -162,6 +165,7 @@ services:
       - 3000:3000
     networks:
       - app-tier
+    tty: true
 
   alertmanager:
     image: prom/alertmanager
@@ -174,6 +178,7 @@ services:
     - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
     networks:
     - app-tier
+    tty: true
 
 networks:
   app-tier:
