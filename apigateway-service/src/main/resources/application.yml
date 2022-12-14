@@ -53,19 +53,36 @@ spring:
           uri: lb://MEMBER-SERVICE
           predicates:
             - Path=/api/member-service/**
+        - id: member-service
+          uri: lb://MEMBER-SERVICE
+          predicates:
+            - Path=/member-service/actuator/**
+            - Method=GET,POST
 
         - id: guest-service
           uri: lb://GUEST-SERVICE
           predicates:
             - Path=/api/guest-service/**
+        - id: guest-service
+          uri: lb://GUEST-SERVICE
+          predicates:
+            - Path=/guest-service/actuator/**
+            - Method=GET,POST
 
         - id: problem-service
           uri: lb://PROBLEM-SERVICE
           predicates:
             - Path=/api/problem-service/**
+        - id: problem-service
+          uri: lb://PROBLEM-SERVICE
+          predicates:
+            - Path=/problem-service/actuator/**
+            - Method=GET,POST
 
 management:
   endpoints:
+    prometheus:
+      enabled: true
     web:
-      exposures:
-        include: refresh, health, beans, httptrace
+      exposure:
+        include: refresh, health, beans, httptrace, busrefresh, info, metrics, prometheus

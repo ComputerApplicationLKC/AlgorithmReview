@@ -1,5 +1,6 @@
 package com.leekimcho.problemservice.domain.review.mapper;
 
+import com.leekimcho.problemservice.common.dto.MemberDto;
 import com.leekimcho.problemservice.domain.problem.dto.request.ProblemRequestDto;
 import com.leekimcho.problemservice.domain.problem.entity.Problem;
 import com.leekimcho.problemservice.domain.review.dto.ReviewRequestDto;
@@ -18,10 +19,11 @@ public class ReviewMapper {
                 .build();
     }
 
-    public Review toEntity(Long id, ReviewRequestDto requestDto) {
+    public Review toEntity(Long id, ReviewRequestDto requestDto, MemberDto member) {
         return Review.builder()
                 .id(id)
                 .content(requestDto.getContent())
+                .member(member)
                 .build();
     }
 

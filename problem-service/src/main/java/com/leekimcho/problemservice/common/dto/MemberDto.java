@@ -1,11 +1,13 @@
 package com.leekimcho.problemservice.common.dto;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.Embeddable;
 
 @Embeddable
-@Data
+@Getter @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class MemberDto {
     private Long memberId;
     private String username;

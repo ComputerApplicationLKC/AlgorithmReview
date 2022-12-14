@@ -1,6 +1,7 @@
 package com.leekimcho.problemservice.domain.review.service;
 
 import com.leekimcho.problemservice.common.advice.exception.EntityNotFoundException;
+import com.leekimcho.problemservice.common.dto.MemberDto;
 import com.leekimcho.problemservice.domain.review.dto.ReviewRequestDto;
 import com.leekimcho.problemservice.domain.review.entity.Review;
 import com.leekimcho.problemservice.domain.review.mapper.ReviewMapper;
@@ -8,6 +9,8 @@ import com.leekimcho.problemservice.domain.review.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 
 @RequiredArgsConstructor
@@ -19,8 +22,8 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
 
     @Transactional
-    public void registerReview(Long problemId, ReviewRequestDto registerDto) {
-        reviewRepository.save(reviewMapper.toEntity(problemId, registerDto));
+    public void registerReview(Long problemId, ReviewRequestDto registerDto, MemberDto member) {
+        reviewRepository.save(reviewMapper.toEntity(problemId, registerDto, member));
     }
 
     @Transactional
@@ -29,8 +32,10 @@ public class ReviewService {
     }
 
     @Transactional
-    public void deleteReview(Long reviewId) {
-        reviewRepository.deleteById(reviewId);
+    public void deleteReview(Long reviewId, MemberDto member) {
+        reviewRepository.findReviewByIdAndMemberId(reviewId, member.getMemberId()).ifPresent(
+                review -> reviewRepository.delete(review)
+        );
     }
 
     @Transactional(readOnly = true)

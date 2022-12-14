@@ -1,7 +1,5 @@
 package com.leekimcho.memberservice.global.utils.auth;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.leekimcho.memberservice.domain.member.entity.Member;
 import com.leekimcho.memberservice.domain.member.repository.MemberRepository;
 import com.leekimcho.memberservice.global.exception.UserAuthenticationException;

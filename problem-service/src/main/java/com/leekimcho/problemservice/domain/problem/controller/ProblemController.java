@@ -11,6 +11,8 @@ import com.leekimcho.problemservice.domain.problem.mapper.ProblemMapper;
 import com.leekimcho.problemservice.domain.problem.service.ProblemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -33,6 +35,7 @@ public class ProblemController {
     private final ProblemService problemService;
     private final ProblemMapper problemMapper;
     private final ServiceClient client;
+    private final CircuitBreakerFactory circuitBreakerFactory;
 
     @GetMapping
     public ResponseEntity<?> getProblemList(@RequestParam(value = "step", defaultValue = "0") int step,
@@ -41,7 +44,6 @@ public class ProblemController {
                                             @RequestParam(value = "timestamp", required = false)
                                             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime modifiedDate,
                                             @RequestParam(value = "size", defaultValue = "12") int size){
-        // PageRequest.of()의 첫 번째 파라미터는 무조건 0으로, 즉 최초의 페이지로 처리를 해야 한다.
         List<ProblemOnlyDto> problemList = problemService.getProblemListByStepOrTag(modifiedDate, cursorId, step, tagName, PageRequest.of(0, size))
                 .stream().map(problemMapper::toReviewExcludeDto).collect(toList());
         return ResponseEntity.ok().body(ResponseDto.of(
@@ -65,7 +67,9 @@ public class ProblemController {
 
     @PostMapping
     public ResponseEntity<?> saveProblem(@RequestBody @Valid ProblemRequestDto requestDto) {
-        MemberDto member = client.getMemberContext();
+
+        CircuitBreaker circuitbreaker = circuitBreakerFactory.create("circuitbreaker");
+        MemberDto member = circuitbreaker.run(() -> client.getMemberContext(), throwable -> new MemberDto(1L, "김승진"));
 
         return ResponseEntity.ok().body(ResponseDto.of(
                 HttpStatus.OK,
@@ -76,7 +80,8 @@ public class ProblemController {
 
     @PutMapping("/{problemId}/step")
     public ResponseEntity<?> updateStep(@PathVariable Long problemId, @RequestBody @Valid ProblemStepUpdateDto updateDto) {
-        MemberDto member = client.getMemberContext();
+        CircuitBreaker circuitbreaker = circuitBreakerFactory.create("circuitbreaker");
+        MemberDto member = circuitbreaker.run(() -> client.getMemberContext(), throwable -> new MemberDto(1L, "김승진"));
 
         problemService.updateStep(problemId, member, updateDto.getStep());
 
@@ -85,7 +90,8 @@ public class ProblemController {
 
     @DeleteMapping("/{problemId}")
     public ResponseEntity<?> deleteProblem(@PathVariable Long problemId) {
-        MemberDto member = client.getMemberContext();
+        CircuitBreaker circuitbreaker = circuitBreakerFactory.create("circuitbreaker");
+        MemberDto member = circuitbreaker.run(() -> client.getMemberContext(), throwable -> new MemberDto(1L, "김승진"));
 
         problemService.deleteProblem(problemId, member);
 
