@@ -166,6 +166,7 @@ services:
   alertmanager:
     image: prom/alertmanager
     container_name: alertmanager
+    restart: on-failure
     user: root
     ports:
     - 9093:9093
