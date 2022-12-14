@@ -49,3 +49,11 @@ eureka:
 logging:
   level:
     com.project.security.basic.feign: DEBUG
+
+management:
+  endpoints:
+    prometheus:
+      enabled: true
+    web:
+      exposure:
+        include: refresh, health, beans, busrefresh, info, metrics, prometheus

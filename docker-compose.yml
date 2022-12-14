@@ -11,8 +11,9 @@ services:
       - ./frontend/:/frontend/
       - ./frontend/node_modules/:/frontend/node_modules
     image: run
+    restart: on-failure
     ports:
-      - 3000:3000
+      - 3030:3030
     environment:
       - WDS_SOCKET_PORT=0
     stdin_open: true
@@ -26,6 +27,7 @@ services:
       - build_frontend:/var/www/frontend
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     container_name: nginx
+    restart: on-failure
     depends_on:
       - frontend
       - api-gateway
@@ -36,6 +38,7 @@ services:
   zipkin:
     container_name: zipkin
     image: openzipkin/zipkin
+    restart: on-failure
     ports:
       - 9411:9411
     networks:
@@ -46,6 +49,7 @@ services:
     build:
       context: ./discovery-service
     command: gradle bootRun
+    restart: on-failure
     container_name: discovery
     ports: 
       - 8761:8761
@@ -57,6 +61,7 @@ services:
     build:
       context: ./config-service
     command: ./wait-for-it.sh -t 15 db:3306 -- gradle bootRun
+    restart: on-failure
     container_name: config
     ports:
       - 8888:8888
@@ -70,6 +75,7 @@ services:
     build:
       context: ./apigateway-service
     command: ./wait-for-it.sh -t 5 config:8888 -- gradle bootRun
+    restart: on-failure
     container_name: api-gateway
     ports: 
       - 8000:8000
@@ -84,6 +90,7 @@ services:
     build:
       context: ./guest-service
     command: ./wait-for-it.sh -t 10 api-gateway:8000 -- gradle bootRun
+    restart: on-failure
     container_name: guest
     networks:
       - app-tier   
@@ -97,6 +104,7 @@ services:
     build:
       context: ./member-service
     command: ./wait-for-it.sh -t 10 api-gateway:8000 -- gradle bootRun
+    restart: on-failure
     container_name: member
     networks:
       - app-tier 
@@ -110,6 +118,7 @@ services:
     build:
       context: ./problem-service
     command: ./wait-for-it.sh -t 10 api-gateway:8000 -- gradle bootRun
+    restart: on-failure
     container_name: problem
     networks:
       - app-tier
@@ -122,6 +131,7 @@ services:
   db:
     image: mysql
     container_name: db
+    restart: on-failure
     ports:
       - 3307:3306
     volumes:
@@ -131,6 +141,38 @@ services:
     networks:
       - app-tier
     tty: true
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    restart: on-failure
+    ports:
+      - 9090:9090
+    networks:
+      - app-tier
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./alert_rules.yml:/etc/prometheus/alert_rules.yml
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: on-failure
+    ports:
+      - 3000:3000
+    networks:
+      - app-tier
+
+  alertmanager:
+    image: prom/alertmanager
+    container_name: alertmanager
+    user: root
+    ports:
+    - 9093:9093
+    volumes:
+    - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    networks:
+    - app-tier
 
 networks:
   app-tier:

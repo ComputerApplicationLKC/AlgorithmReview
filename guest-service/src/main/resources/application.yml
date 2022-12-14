@@ -15,7 +15,7 @@ spring:
         - lo
 
   zipkin:
-    base-utl: http://zipkin:9411
+    base-url: http://zipkin:9411
     enabled: true
   sleuth:
     sampler:
@@ -45,3 +45,11 @@ eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     prefer-ip-address: true
+
+management:
+  endpoints:
+    prometheus:
+      enabled: true
+    web:
+      exposure:
+        include: refresh, health, beans, busrefresh, info, metrics, prometheus
