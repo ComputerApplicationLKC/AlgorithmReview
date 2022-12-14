@@ -48,8 +48,7 @@ eureka:
 
 management:
   endpoints:
-    prometheus:
-      enabled: true
     web:
       exposure:
-        include: refresh, health, beans, busrefresh, info, metrics, prometheus
+        include: prometheus
+      base-path: /actuator
