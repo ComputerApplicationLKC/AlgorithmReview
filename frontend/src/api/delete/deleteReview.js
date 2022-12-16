@@ -4,7 +4,7 @@ const base = require('../../utils/base')
 
 export const deleteReviewApi = async (idx) => {
     const url =
-        base.url + '/review-service/reviews/' + idx;
+        base.url + '/problem-service/reviews/' + idx;
 
     const option = {
         url: url,
