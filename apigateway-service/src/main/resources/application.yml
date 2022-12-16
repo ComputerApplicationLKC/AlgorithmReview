@@ -56,16 +56,28 @@ spring:
           uri: lb://MEMBER-SERVICE
           predicates:
             - Path=/api/member-service/**
+        - id: member-service
+          uri: lb://MEMBER-SERVICE
+          predicates:
+            - Path=/member-service/actuator/**
 
         - id: guest-service
           uri: lb://GUEST-SERVICE
           predicates:
             - Path=/api/guest-service/**
+        - id: guest-service
+          uri: lb://GUEST-SERVICE
+          predicates:
+            - Path=/guest-service/actuator/**
 
         - id: problem-service
           uri: lb://PROBLEM-SERVICE
           predicates:
             - Path=/api/problem-service/**
+        - id: problem-service
+          uri: lb://PROBLEM-SERVICE
+          predicates:
+            - Path=/problem-service/actuator/**
 
 management:
   endpoints:

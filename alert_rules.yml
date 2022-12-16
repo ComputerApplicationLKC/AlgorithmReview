@@ -2,23 +2,24 @@
 groups:
 - name: slack-alert
   rules:
+
   - alert: ContainerAbsent
-    expr: absent(container_last_seen)
-    for: 2m
+    expr: up == 0
+    for: 3m
     labels:
       severity: warning
     annotations:
-      summary: Container absent (instance {{ $labels.instance }})
-      description: "A container is absent for 2 min\n  INSTANCE = {{ $labels.instance }}\n  JOB = {{ $labels.job }}"
+      summary: Container absent
+      description: "A container is absent\n  INSTANCE = {{ $labels.instance }}\n  JOB = {{ $labels.job }}"
 
   - alert: ContainerCpuUsage
-    expr: (sum(rate(container_cpu_usage_seconds_total{name!=""}[3m])) BY (instance, name) * 100) > 80
+    expr: (sum(rate(container_cpu_usage_seconds_total{name!=""}[3m])) BY (instance, name) * 100) > 70
     for: 1m
     labels:
       severity: warning
     annotations:
       summary: Container CPU usage (instance {{ $labels.instance }})
-      description: "Container CPU usage is above 80%\n  INSTANCE = {{ $labels.instance }}\n  JOB = {{ $labels.job }}"
+      description: "Container CPU usage is above 70%\n  INSTANCE = {{ $labels.instance }}\n  JOB = {{ $labels.job }}"
 
   - alert: ContainerMemoryUsage
     expr: (sum(container_memory_working_set_bytes{name!=""}) BY (instance, name) / sum(container_spec_memory_limit_bytes > 0) BY (instance, name) * 100) > 80

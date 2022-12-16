@@ -24,18 +24,18 @@ scrape_configs:
 
   - job_name: 'member'
     scrape_interval: 15s
-    metrics_path: '/api/MEMBER-SERVICE/actuator/prometheus'
+    metrics_path: '/MEMBER-SERVICE/actuator/prometheus'
     static_configs:
     - targets: ['api-gateway:8000']
 
   - job_name: 'problem'
     scrape_interval: 15s
-    metrics_path: '/api/PROBLEM-SERVICE/actuator/prometheus'
+    metrics_path: '/PROBLEM-SERVICE/actuator/prometheus'
     static_configs:
     - targets: ['api-gateway:8000']
 
   - job_name: 'guest'
     scrape_interval: 15s
-    metrics_path: '/api/GUEST-SERVICE/actuator/prometheus'
+    metrics_path: '/GUEST-SERVICE/actuator/prometheus'
     static_configs:
     - targets: ['api-gateway:8000']

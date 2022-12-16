@@ -19,6 +19,14 @@ public class ReviewMapper {
                 .build();
     }
 
+    public Review toEntity(Problem problem, ReviewRequestDto requestDto, MemberDto member) {
+        return Review.builder()
+                .problem(problem)
+                .content(requestDto.getContent())
+                .member(member)
+                .build();
+    }
+
     public Review toEntity(Long id, ReviewRequestDto requestDto, MemberDto member) {
         return Review.builder()
                 .id(id)
