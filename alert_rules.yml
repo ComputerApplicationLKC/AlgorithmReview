@@ -3,13 +3,13 @@ groups:
 - name: slack-alert
   rules:
 
-  - alert: ContainerAbsent
+  - alert: Container Down
     expr: up == 0
     for: 3m
     labels:
       severity: warning
     annotations:
-      summary: Container absent
+      summary: Container Down
       description: "A container is absent\n  INSTANCE = {{ $labels.instance }}\n  JOB = {{ $labels.job }}"
 
   - alert: ContainerCpuUsage
