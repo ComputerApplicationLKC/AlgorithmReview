@@ -39,7 +39,7 @@ const Search = (props) => {
                     {searchList.map((search) => {
                         return (
                             <CardComponent>
-                                <Link href={`/problems/${search.id}`} style={{ textDecoration: 'none' }}><Title>{search.title}</Title></Link>
+                                <Link href={`/problems/${search.problemId}`} style={{ textDecoration: 'none' }}><Title>{search.title}</Title></Link>
                                 <Step value={search.step} />
                                 · <Link onClick={() => window.open(search.link)}>문제 링크</Link>
                                 <hr />
