@@ -38,8 +38,11 @@ public class ReviewMapper {
     public SearchDto toSearchDto(Review review) {
         return SearchDto.builder()
                 .id(review.getId())
+                .step(review.getProblem().getStep())
                 .content(review.getContent())
                 .problemId(review.getProblem().getId())
+                .link(review.getProblem().getLink())
+                .title(review.getProblem().getTitle())
                 .createdDate(review.getCreatedDate().toLocalDate())
                 .build();
     }
