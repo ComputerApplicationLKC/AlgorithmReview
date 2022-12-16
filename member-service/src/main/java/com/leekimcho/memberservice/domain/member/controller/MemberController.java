@@ -7,6 +7,7 @@ import com.leekimcho.memberservice.domain.member.service.OauthService;
 import com.leekimcho.memberservice.global.dto.ResponseDto;
 import com.leekimcho.memberservice.global.utils.auth.AuthCheck;
 import com.leekimcho.memberservice.global.utils.auth.MemberContext;
+import com.leekimcho.memberservice.messagequeue.KafkaProducer;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
+import javax.persistence.EntityNotFoundException;
 
 import static com.leekimcho.memberservice.global.advice.message.SuccessMessage.SUCCESS_AUTHORIZATION;
 import static com.leekimcho.memberservice.global.advice.message.SuccessMessage.SUCCESS_ISSUE_TOKEN;
@@ -27,6 +28,7 @@ public class MemberController {
 
     private final OauthService oauthService;
     private final MemberService memberService;
+    private final KafkaProducer kafkaProducer;
 
     @AuthCheck
     @GetMapping("/check")
@@ -53,8 +55,10 @@ public class MemberController {
     }
 
     @GetMapping("/member-context")
-    public MemberDto getMemberContext() {
-        return new MemberDto(MemberContext.currentMember.get());
+    public MemberDto getMemberContext(@RequestBody String email) {
+        MemberDto dto = new MemberDto(memberService.findMemberByEmail(email).orElseThrow(EntityNotFoundException::new));
+        kafkaProducer.send("problem-topic", dto);
+        return dto;
     }
 
     @Data

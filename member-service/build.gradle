@@ -61,6 +61,7 @@ dependencies {
 	implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'
 	implementation 'org.bouncycastle:bcprov-jdk16:1.46'
 	implementation 'io.micrometer:micrometer-registry-prometheus'
+	implementation 'org.springframework.kafka:spring-kafka'
 }
 
 dependencyManagement {
