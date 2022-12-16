@@ -6,7 +6,7 @@ import { Viewer } from '@toast-ui/react-editor';
 import { Rate } from 'antd';
 
 import HeaderMain from "../components/Header"
-import searchApi from '../api/get/getSearch'
+import searchApi from '../api/get/getSearch';
 import FooterMain from '../components/Footer';
 
 const Search = (props) => {

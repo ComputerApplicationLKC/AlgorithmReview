@@ -56,3 +56,5 @@ management:
       exposure:
         include: prometheus
       base-path: /actuator
+
+admin-email: ohksj77@gmail.com

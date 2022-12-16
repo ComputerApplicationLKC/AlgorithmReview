@@ -91,8 +91,6 @@ public class ProblemController {
 
     @DeleteMapping("/{problemId}")
     public ResponseEntity<?> deleteProblem(@PathVariable Long problemId, @RequestHeader String Authorization) {
-        CircuitBreaker circuitbreaker = circuitBreakerFactory.create("circuitbreaker");
-        MemberDto member = circuitbreaker.run(() -> client.getMemberContext(Authorization), throwable -> new MemberDto(1L, "김승진"));
 
         problemService.deleteProblem(problemId);
 

@@ -81,7 +81,6 @@ public class ProblemService {
 
     @Transactional
     public void deleteProblem(Long problemId) {
-        findById(problemId);
         problemRepository.deleteById(problemId);
     }
 

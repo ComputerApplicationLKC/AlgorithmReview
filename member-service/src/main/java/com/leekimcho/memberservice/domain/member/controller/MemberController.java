@@ -57,7 +57,7 @@ public class MemberController {
     @GetMapping("/member-context")
     public MemberDto getMemberContext(@RequestBody String email) {
         MemberDto dto = new MemberDto(memberService.findMemberByEmail(email).orElseThrow(EntityNotFoundException::new));
-        kafkaProducer.send("problem-topic", dto);
+        kafkaProducer.send("member-topic", dto);
         return dto;
     }
 

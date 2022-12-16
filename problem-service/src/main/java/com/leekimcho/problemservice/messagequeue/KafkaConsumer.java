@@ -7,6 +7,7 @@ import com.leekimcho.problemservice.common.advice.exception.EntityNotFoundExcept
 import com.leekimcho.problemservice.common.dto.MemberDto;
 import com.leekimcho.problemservice.domain.problem.entity.Problem;
 import com.leekimcho.problemservice.domain.problem.repository.ProblemRepository;
+import com.leekimcho.problemservice.domain.review.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -20,9 +21,10 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class KafkaConsumer {
 
-    private final ProblemRepository repository;
+    private final ProblemRepository problemRepository;
+    private final ReviewRepository reviewRepository;
 
-    @KafkaListener(topics = "problem-topic")
+    @KafkaListener(topics = "member-topic")
     public void updateMember(String kafkaMessage) {
         log.info("kafka Message -> {}", kafkaMessage);
 
@@ -36,14 +38,18 @@ public class KafkaConsumer {
         }
         Long memberId = (Long)map.get("memberId");
         String username = (String)map.get("username");
-        Problem problem = repository.findById((Long)map.get("problemId")).orElseThrow(EntityNotFoundException::new);
+        Problem problem = problemRepository.findById((Long)map.get("problemId")).orElseThrow(EntityNotFoundException::new);
 
         MemberDto writer = problem.getWriter();
         writer.setMemberId(memberId);
         writer.setUsername(username);
-        repository.save(problem);
+        problemRepository.save(problem);
 
-        problem.getReviewList().stream().forEach(review -> { review.getMember().setMemberId(memberId); review.getMember().setUsername(username); });
+        problem.getReviewList().stream().forEach(review -> {
+            review.getMember().setMemberId(memberId);
+            review.getMember().setUsername(username);
+            reviewRepository.save(review);
+        });
     }
 
 }

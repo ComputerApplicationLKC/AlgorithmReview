@@ -12,5 +12,5 @@ import java.util.Optional;
 public interface GuestBookRepository extends JpaRepository<GuestBook, Long> {
     List<GuestBook> findAllByOrderByCreatedDateDesc(Pageable pageable);
 
-    Optional<GuestBook> findByMemberId(Long memberId);
+    Optional<GuestBook> findByNickname(String nickname);
 }
