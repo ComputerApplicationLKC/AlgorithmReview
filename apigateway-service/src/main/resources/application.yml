@@ -7,6 +7,9 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://discovery:8761/eureka
+  instance:
+    lease-renewal-interval-in-seconds: 1
+    lease-expiration-duration-in-seconds: 2
 
 spring:
   application:
@@ -37,7 +40,7 @@ spring:
             postLogger: true
       globalcors:
         cors-configurations:
-          '[/**]':
+          "[/**]":
             allowedOrigins: "http://localhost"
             allow-credentials: true
             allowedMethods:
@@ -47,7 +50,7 @@ spring:
               - PUT
               - PATCH
               - OPTIONS
-            allowedHeaders: '*'
+            allowedHeaders: "*"
       routes:
         - id: member-service
           uri: lb://MEMBER-SERVICE
