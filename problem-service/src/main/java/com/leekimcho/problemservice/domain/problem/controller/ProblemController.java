@@ -11,6 +11,7 @@ import com.leekimcho.problemservice.domain.problem.mapper.ProblemMapper;
 import com.leekimcho.problemservice.domain.problem.service.ProblemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.data.domain.PageRequest;
@@ -66,10 +67,10 @@ public class ProblemController {
     }
 
     @PostMapping
-    public ResponseEntity<?> saveProblem(@RequestBody @Valid ProblemRequestDto requestDto) {
+    public ResponseEntity<?> saveProblem(@RequestBody @Valid ProblemRequestDto requestDto, @RequestHeader String Authorization) {
 
         CircuitBreaker circuitbreaker = circuitBreakerFactory.create("circuitbreaker");
-        MemberDto member = circuitbreaker.run(() -> client.getMemberContext(), throwable -> new MemberDto(1L, "김승진"));
+        MemberDto member = circuitbreaker.run(() -> client.getMemberContext(Authorization), throwable -> new MemberDto(1L, "김승진"));
 
         return ResponseEntity.ok().body(ResponseDto.of(
                 HttpStatus.OK,
@@ -79,9 +80,9 @@ public class ProblemController {
     }
 
     @PutMapping("/{problemId}/step")
-    public ResponseEntity<?> updateStep(@PathVariable Long problemId, @RequestBody @Valid ProblemStepUpdateDto updateDto) {
+    public ResponseEntity<?> updateStep(@PathVariable Long problemId, @RequestBody @Valid ProblemStepUpdateDto updateDto, @RequestHeader String Authorization) {
         CircuitBreaker circuitbreaker = circuitBreakerFactory.create("circuitbreaker");
-        MemberDto member = circuitbreaker.run(() -> client.getMemberContext(), throwable -> new MemberDto(1L, "김승진"));
+        MemberDto member = circuitbreaker.run(() -> client.getMemberContext(Authorization), throwable -> new MemberDto(1L, "김승진"));
 
         problemService.updateStep(problemId, updateDto.getStep());
 
@@ -89,9 +90,7 @@ public class ProblemController {
     }
 
     @DeleteMapping("/{problemId}")
-    public ResponseEntity<?> deleteProblem(@PathVariable Long problemId) {
-        CircuitBreaker circuitbreaker = circuitBreakerFactory.create("circuitbreaker");
-        MemberDto member = circuitbreaker.run(() -> client.getMemberContext(), throwable -> new MemberDto(1L, "김승진"));
+    public ResponseEntity<?> deleteProblem(@PathVariable Long problemId, @RequestHeader String Authorization) {
 
         problemService.deleteProblem(problemId);
 

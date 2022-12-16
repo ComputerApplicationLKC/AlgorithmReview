@@ -19,7 +19,7 @@ export const updateStepApi = async (idx, step) => {
     }
 
     try {
-        const response = await axios(option);
+        await axios(option);
     } catch (e) {
         return null;
     }

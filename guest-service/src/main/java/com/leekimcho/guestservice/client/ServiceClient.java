@@ -1,7 +1,7 @@
-package com.leekimcho.problemservice.client;
+package com.leekimcho.guestservice.client;
 
 
-import com.leekimcho.problemservice.common.dto.MemberDto;
+import com.leekimcho.guestservice.dto.MemberDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;

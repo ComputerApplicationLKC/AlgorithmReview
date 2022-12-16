@@ -15,7 +15,7 @@ export const deleteGuestApi = async (idx) => {
     }
 
     try {
-        const response = await axios(option);
+        await axios(option);
     } catch (e) {
         return null;
     }

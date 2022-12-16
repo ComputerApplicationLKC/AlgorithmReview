@@ -10,6 +10,9 @@ export const registerProblem = async (props) => {
     const option = {
         url: url,
         method: 'POST',
+        headers: {
+            "Authorization": sessionStorage.getItem("access_token")
+        },
         data: {
             title: props.title,
             link: props.link,
@@ -22,7 +25,7 @@ export const registerProblem = async (props) => {
     try {
         const response = await axios(option);
         console.log(response)
-        window.location.href = "/problems/" + response.data.data; // TODO 수정
+        window.location.href = "/problems/" + response.data.data;
     } catch (e) {
         return null;
     }

@@ -170,11 +170,36 @@ services:
     restart: on-failure
     user: root
     ports:
-    - 9093:9093
+      - 9093:9093
     volumes:
-    - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
+      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
     networks:
-    - app-tier
+      - app-tier
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    ports:
+      - 2181:2181
+    networks:
+     - app-tier
+  
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - 9092:9092
+    container_name: kafka
+    environment:
+      - KAFKA_ADVERTISED_HOST_NAME=kafka
+      - KAFKA_ADVERTISED_PORT=9092
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_CREATE_TOPICS=dresses:1:1,ratings:1:1
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    depends_on:
+      - zookeeper
+    networks:
+      - app-tier
 
 networks:
   app-tier:

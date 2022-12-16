@@ -1,11 +1,16 @@
 package com.leekimcho.guestservice.controller;
 
+import com.leekimcho.guestservice.client.ServiceClient;
 import com.leekimcho.guestservice.dto.GuestRequestDto;
 import com.leekimcho.guestservice.dto.GuestResponseDto;
+import com.leekimcho.guestservice.dto.MemberDto;
 import com.leekimcho.guestservice.dto.ResponseDto;
 import com.leekimcho.guestservice.mapper.GuestMapper;
 import com.leekimcho.guestservice.service.GuestBookService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +30,11 @@ public class GuestController {
 
     private final GuestBookService guestBookService;
     private final GuestMapper guestMapper;
+    private final ServiceClient client;
+    private final CircuitBreakerFactory circuitBreakerFactory;
+
+    @Value("${admin-email}")
+    private String email;
 
     @GetMapping
     public ResponseEntity<?> getGuestBookList(@RequestParam(value = "page", defaultValue = "0") int page,
@@ -46,10 +56,11 @@ public class GuestController {
 
     @PostMapping
     public ResponseEntity<?> saveGuestBook(@RequestBody @Valid GuestRequestDto requestDto) {
+        CircuitBreaker circuitbreaker = circuitBreakerFactory.create("circuitbreaker");
+        circuitbreaker.run(() -> client.getMemberContext(email), throwable -> new MemberDto(1L, ""));
+
         guestBookService.saveGuestBook(guestMapper.toEntity(requestDto));
-        return ResponseEntity.ok().body(ResponseDto.of(
-                HttpStatus.OK, SUCCESS_REGISTER_GUEST)
-        );
+        return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_REGISTER_GUEST));
     }
 
     @DeleteMapping("/{guestId}")

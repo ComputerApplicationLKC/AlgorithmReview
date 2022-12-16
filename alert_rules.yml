@@ -3,15 +3,6 @@ groups:
 - name: slack-alert
   rules:
 
-  - alert: Container Down
-    expr: up == 0
-    for: 3m
-    labels:
-      severity: warning
-    annotations:
-      summary: Container Down
-      description: "A container is absent\n  INSTANCE = {{ $labels.instance }}\n  JOB = {{ $labels.job }}"
-
   - alert: ContainerCpuUsage
     expr: (sum(rate(container_cpu_usage_seconds_total{name!=""}[3m])) BY (instance, name) * 100) > 70
     for: 1m

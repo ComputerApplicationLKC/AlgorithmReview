@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Getter
+@Getter @Setter
 @Builder
 @Entity
 public class GuestBook extends BaseEntity {
@@ -18,6 +18,9 @@ public class GuestBook extends BaseEntity {
 
     @Column
     private String nickname;
+
+    @Column(nullable = true)
+    private Long memberId;
 
     @Column
     private String content;

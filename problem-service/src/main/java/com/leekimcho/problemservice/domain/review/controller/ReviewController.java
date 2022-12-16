@@ -28,9 +28,9 @@ public class ReviewController {
     private final CircuitBreakerFactory circuitBreakerFactory;
 
     @PostMapping("/problems/{problemId}/reviews")
-    public ResponseEntity<?> saveReview(@PathVariable("problemId") Long problemId, @RequestBody @Valid ReviewRequestDto requestDto) {
+    public ResponseEntity<?> saveReview(@PathVariable("problemId") Long problemId, @RequestBody @Valid ReviewRequestDto requestDto, @RequestHeader String Authorization) {
         CircuitBreaker circuitbreaker = circuitBreakerFactory.create("circuitbreaker");
-        MemberDto member = circuitbreaker.run(() -> client.getMemberContext(), throwable -> new MemberDto(1L, "김승진"));
+        MemberDto member = circuitbreaker.run(() -> client.getMemberContext(Authorization), throwable -> new MemberDto(1L, "김승진"));
 
         reviewService.registerReview(problemId, requestDto, member);
 
@@ -40,18 +40,19 @@ public class ReviewController {
     @PutMapping("/problems/{problemId}/reviews/{reviewId}")
     public ResponseEntity<?> updateReview(@PathVariable("problemId") Long problemId,
                                           @PathVariable("reviewId") Long reviewId,
-                                          @RequestBody @Valid ReviewRequestDto requestDto) {
+                                          @RequestBody @Valid ReviewRequestDto requestDto,
+                                          @RequestHeader String Authorization) {
         CircuitBreaker circuitbreaker = circuitBreakerFactory.create("circuitbreaker");
-        MemberDto member = circuitbreaker.run(() -> client.getMemberContext(), throwable -> new MemberDto(1L, "김승진"));
+        MemberDto member = circuitbreaker.run(() -> client.getMemberContext(Authorization), throwable -> new MemberDto(1L, "김승진"));
 
         reviewService.updateReview(reviewId, reviewMapper.toEntity(reviewId, requestDto, member));
         return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_UPDATE_REVIEW));
     }
 
     @DeleteMapping("/reviews/{reviewId}")
-    public ResponseEntity<?> deleteReview(@PathVariable("reviewId") Long reviewId) {
+    public ResponseEntity<?> deleteReview(@PathVariable("reviewId") Long reviewId, @RequestHeader String Authorization) {
         CircuitBreaker circuitbreaker = circuitBreakerFactory.create("circuitbreaker");
-        MemberDto member = circuitbreaker.run(() -> client.getMemberContext(), throwable -> new MemberDto(1L, "김승진"));
+        MemberDto member = circuitbreaker.run(() -> client.getMemberContext(Authorization), throwable -> new MemberDto(1L, "김승진"));
 
         reviewService.deleteReview(reviewId, member);
         return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_DELETE_REVIEW));
