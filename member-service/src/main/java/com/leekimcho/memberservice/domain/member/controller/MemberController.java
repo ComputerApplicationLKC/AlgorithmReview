@@ -9,6 +9,7 @@ import com.leekimcho.memberservice.global.utils.auth.AuthCheck;
 import com.leekimcho.memberservice.global.utils.auth.MemberContext;
 import com.leekimcho.memberservice.messagequeue.KafkaProducer;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -54,14 +55,34 @@ public class MemberController {
         return ResponseEntity.ok(ResponseDto.of(HttpStatus.OK, SUCCESS_AUTHORIZATION, memberService.saveMember(member)));
     }
 
-    @GetMapping("/member-context")
+    @PostMapping("/member-context")
     public MemberDto getMemberContext(@RequestBody String email) {
         MemberDto dto = new MemberDto(memberService.findMemberByEmail(email).orElseThrow(EntityNotFoundException::new));
-        kafkaProducer.send("member-topic", dto);
+        return dto;
+    }
+
+    @PostMapping("/member-context/problem")
+    public MemberIdDto getMemberProblem(@RequestBody ContextRequest ctx) {
+        MemberIdDto dto = new MemberIdDto(memberService.findMemberByEmail(ctx.getEmail()).get(), ctx.getId());
+        kafkaProducer.send("problem-topic", dto);
+        return dto;
+    }
+
+    @PostMapping("/member-context/guest")
+    public MemberIdDto getMemberGuest(@RequestBody ContextRequest ctx) {
+        MemberIdDto dto = new MemberIdDto(memberService.findMemberByEmail(ctx.getEmail()).get(), ctx.getId());
+        kafkaProducer.send("guest-topic", dto);
         return dto;
     }
 
     @Data
+    public static class ContextRequest {
+        private String email;
+        private Long id;
+    }
+
+    @Data
+    @NoArgsConstructor
     public static class MemberDto {
         private Long memberId;
         private String username;
@@ -69,6 +90,22 @@ public class MemberController {
         public MemberDto(Member member) {
             this.memberId = member.getId();
             this.username = member.getUsername();
+        }
+
+        public MemberDto(Long memberId, String username) {
+            this.memberId = memberId;
+            this.username = username;
+        }
+
+    }
+
+    @Data
+    public static class MemberIdDto extends MemberDto{
+        private Long id;
+
+        public MemberIdDto(Member member, Long id) {
+            super(member.getId(), member.getUsername());
+            this.id = id;
         }
 
     }

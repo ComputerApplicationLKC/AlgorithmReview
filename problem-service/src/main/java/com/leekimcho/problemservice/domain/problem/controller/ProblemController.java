@@ -3,15 +3,16 @@ package com.leekimcho.problemservice.domain.problem.controller;
 import com.leekimcho.problemservice.client.ServiceClient;
 import com.leekimcho.problemservice.common.ResponseDto;
 import com.leekimcho.problemservice.common.SuccessMessage;
+import com.leekimcho.problemservice.common.dto.ContextRequest;
 import com.leekimcho.problemservice.common.dto.MemberDto;
 import com.leekimcho.problemservice.domain.problem.dto.request.ProblemRequestDto;
 import com.leekimcho.problemservice.domain.problem.dto.request.ProblemStepUpdateDto;
 import com.leekimcho.problemservice.domain.problem.dto.response.ProblemOnlyDto;
+import com.leekimcho.problemservice.domain.problem.entity.Problem;
 import com.leekimcho.problemservice.domain.problem.mapper.ProblemMapper;
 import com.leekimcho.problemservice.domain.problem.service.ProblemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.data.domain.PageRequest;
@@ -71,20 +72,21 @@ public class ProblemController {
 
         CircuitBreaker circuitbreaker = circuitBreakerFactory.create("circuitbreaker");
         MemberDto member = circuitbreaker.run(() -> client.getMemberContext(Authorization), throwable -> new MemberDto(1L, "김승진"));
+        Problem problem = problemService.registerProblem(problemMapper.toEntity(requestDto, member), requestDto);
+        client.getMemberProblem(new ContextRequest(Authorization, problem.getId()));
 
         return ResponseEntity.ok().body(ResponseDto.of(
                 HttpStatus.OK,
-                SuccessMessage.SUCCESS_REGISTER_PROBLEM,
-                problemService.registerProblem(problemMapper.toEntity(requestDto, member), requestDto)
-        ));
+                SuccessMessage.SUCCESS_REGISTER_PROBLEM, problemMapper.toDto(problem)));
     }
 
     @PutMapping("/{problemId}/step")
     public ResponseEntity<?> updateStep(@PathVariable Long problemId, @RequestBody @Valid ProblemStepUpdateDto updateDto, @RequestHeader String Authorization) {
         CircuitBreaker circuitbreaker = circuitBreakerFactory.create("circuitbreaker");
-        MemberDto member = circuitbreaker.run(() -> client.getMemberContext(Authorization), throwable -> new MemberDto(1L, "김승진"));
+        circuitbreaker.run(() -> client.getMemberContext(Authorization), throwable -> new MemberDto(1L, "김승진"));
 
-        problemService.updateStep(problemId, updateDto.getStep());
+        Problem problem = problemService.updateStep(problemId, updateDto.getStep());
+        client.getMemberProblem(new ContextRequest(Authorization, problem.getId()));
 
         return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_UPDATE_PROBLEM));
     }

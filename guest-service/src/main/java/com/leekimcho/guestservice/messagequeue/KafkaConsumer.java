@@ -10,8 +10,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -22,7 +24,8 @@ public class KafkaConsumer {
 
     private final GuestBookRepository repository;
 
-    @KafkaListener(topics = "member-topic")
+    @Transactional
+    @KafkaListener(topics = "guest-topic")
     public void updateMember(String kafkaMessage) {
         log.info("kafka Message -> {}", kafkaMessage);
 
@@ -34,12 +37,17 @@ public class KafkaConsumer {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        Long memberId = (Long)map.get("memberId");
+        Integer intMemberId = (Integer)map.get("memberId");
         String username = (String)map.get("username");
+        Integer guestId = (Integer)map.get("id");
+        Long memberId = intMemberId.longValue();
 
-        GuestBook guestBook = repository.findByNickname(username).orElseThrow(EntityNotFoundException::new);
-        guestBook.setMemberId(memberId);
-        repository.save(guestBook);
+        List<GuestBook> guestBook = repository.findAllByNickname(username);
+        guestBook.stream().forEach(guest -> {
+            guest.setMemberId(memberId);
+            repository.save(guest);
+        });
+
     }
 
 }

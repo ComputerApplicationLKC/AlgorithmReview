@@ -1,7 +1,6 @@
 package com.leekimcho.problemservice.domain.problem.service;
 
 import com.leekimcho.problemservice.common.advice.exception.EntityNotFoundException;
-import com.leekimcho.problemservice.common.dto.MemberDto;
 import com.leekimcho.problemservice.domain.problem.dto.request.ProblemRequestDto;
 import com.leekimcho.problemservice.domain.problem.entity.Problem;
 import com.leekimcho.problemservice.domain.problem.entity.ProblemTag;
@@ -29,7 +28,6 @@ public class ProblemService {
     private final ProblemRepository problemRepository;
     private final TagRepository tagRepository;
     private final ProblemQueryRepository problemQueryRepository;
-
     private final ReviewMapper reviewMapper;
 
     @Transactional(readOnly = true)
@@ -56,7 +54,7 @@ public class ProblemService {
     }
 
     @Transactional
-    public Long registerProblem(Problem problem, ProblemRequestDto registerDto) {
+    public Problem registerProblem(Problem problem, ProblemRequestDto registerDto) {
         Review review = reviewMapper.toEntity(problem, registerDto);
 
         List<ProblemTag> tagList = registerDto.getTagList().stream()
@@ -69,14 +67,15 @@ public class ProblemService {
         problem.setReviewAndTagList(review, tagList);
         problemRepository.save(problem);
 
-        return problem.getId();
+        return problem;
     }
 
     @Transactional
-    public void updateStep(Long problemId, int step) {
+    public Problem updateStep(Long problemId, int step) {
         Problem updateProblem = findById(problemId);
         updateProblem.updateStep(step);
-        problemRepository.save(updateProblem);
+        Problem problem = problemRepository.save(updateProblem);
+        return problem;
     }
 
     @Transactional

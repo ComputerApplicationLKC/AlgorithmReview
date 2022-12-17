@@ -1,10 +1,8 @@
 package com.leekimcho.guestservice.controller;
 
 import com.leekimcho.guestservice.client.ServiceClient;
-import com.leekimcho.guestservice.dto.GuestRequestDto;
-import com.leekimcho.guestservice.dto.GuestResponseDto;
-import com.leekimcho.guestservice.dto.MemberDto;
-import com.leekimcho.guestservice.dto.ResponseDto;
+import com.leekimcho.guestservice.dto.*;
+import com.leekimcho.guestservice.entity.GuestBook;
 import com.leekimcho.guestservice.mapper.GuestMapper;
 import com.leekimcho.guestservice.service.GuestBookService;
 import lombok.RequiredArgsConstructor;
@@ -57,9 +55,11 @@ public class GuestController {
     @PostMapping
     public ResponseEntity<?> saveGuestBook(@RequestBody @Valid GuestRequestDto requestDto) {
         CircuitBreaker circuitbreaker = circuitBreakerFactory.create("circuitbreaker");
-        circuitbreaker.run(() -> client.getMemberContext(email), throwable -> new MemberDto(1L, ""));
+        MemberDto member = circuitbreaker.run(() -> client.getMemberContext(email), throwable -> new MemberDto(1L, "김승진"));
+        requestDto.setMemberId(member.getMemberId());
+        GuestBook guestBook = guestBookService.saveGuestBook(guestMapper.toEntity(requestDto));
+        client.getMemberGuest(new ContextRequest(email, guestBook.getId()));
 
-        guestBookService.saveGuestBook(guestMapper.toEntity(requestDto));
         return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_REGISTER_GUEST));
     }
 

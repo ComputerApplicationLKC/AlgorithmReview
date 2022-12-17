@@ -2,7 +2,9 @@ package com.leekimcho.problemservice.domain.review.controller;
 
 import com.leekimcho.problemservice.client.ServiceClient;
 import com.leekimcho.problemservice.common.ResponseDto;
+import com.leekimcho.problemservice.common.dto.ContextRequest;
 import com.leekimcho.problemservice.common.dto.MemberDto;
+import com.leekimcho.problemservice.common.dto.MemberIdDto;
 import com.leekimcho.problemservice.domain.review.dto.ReviewRequestDto;
 import com.leekimcho.problemservice.domain.review.mapper.ReviewMapper;
 import com.leekimcho.problemservice.domain.review.service.ReviewService;
@@ -30,9 +32,9 @@ public class ReviewController {
     @PostMapping("/problems/{problemId}/reviews")
     public ResponseEntity<?> saveReview(@PathVariable("problemId") Long problemId, @RequestBody @Valid ReviewRequestDto requestDto, @RequestHeader String Authorization) {
         CircuitBreaker circuitbreaker = circuitBreakerFactory.create("circuitbreaker");
-        MemberDto member = circuitbreaker.run(() -> client.getMemberContext(Authorization), throwable -> new MemberDto(1L, "김승진"));
+        MemberIdDto member = circuitbreaker.run(() -> client.getMemberProblem(new ContextRequest(Authorization, problemId)), throwable -> new MemberIdDto(1L, 1L, "김승진"));
 
-        reviewService.registerReview(problemId, requestDto, member);
+        reviewService.registerReview(problemId, requestDto, new MemberDto(member.getMemberId(), member.getUsername()));
 
         return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_REGISTER_REVIEW));
     }
@@ -43,9 +45,9 @@ public class ReviewController {
                                           @RequestBody @Valid ReviewRequestDto requestDto,
                                           @RequestHeader String Authorization) {
         CircuitBreaker circuitbreaker = circuitBreakerFactory.create("circuitbreaker");
-        MemberDto member = circuitbreaker.run(() -> client.getMemberContext(Authorization), throwable -> new MemberDto(1L, "김승진"));
+        MemberIdDto member = circuitbreaker.run(() -> client.getMemberProblem(new ContextRequest(Authorization, problemId)), throwable -> new MemberIdDto(1L, 1L, "김승진"));
 
-        reviewService.updateReview(reviewId, reviewMapper.toEntity(reviewId, requestDto, member));
+        reviewService.updateReview(reviewId, reviewMapper.toEntity(reviewId, requestDto, new MemberDto(member.getMemberId(), member.getUsername())));
         return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_UPDATE_REVIEW));
     }
 
