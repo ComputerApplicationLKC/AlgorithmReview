@@ -1,63 +1,61 @@
-# 조욱희
-# https://manpages.ubuntu.com/manpages/bionic/man1/docker-container-stats.1.html 참조
-from subprocess import Popen,PIPE
-import time
+from subprocess import Popen, PIPE
 import os
+import threading
+import time
 
-def restrict_mem(temp):
-    temp = temp.split()
+def memory_dynamic(Container_name, upper, mem_unit):
+    updateCommand = "docker update --memory " + "\"" + upper + mem_unit + "\"" + " --memory-swap " + "\"" + upper + mem_unit + "\"" + " " + Container_name
+    print(updateCommand)
+    os.system(updateCommand)
+    return
 
-    mem = temp[-2].decode('utf-8') # mem
-    mem = mem[:-1]
-    cpu = temp[2].decode('utf-8') # cpu
+def memory_unit_conversion(mem_unit):
+    if(mem_unit=="GiB"):
+        mem_unit="gb"
+        if(mem_unit=="MiB"):
+            mem_unit="mb"
+            
+            return mem_unit
+
+
+def extractResourceUsage(out):
+    out = out.split()
+
+    memory = out[-2].decode('utf-8') # memory
+    memory = memory[:-1]
+    cpu = out[2].decode('utf-8') # cpu
     cpu = cpu[:-1]
-    Con_name = temp[1].decode('utf-8') # Container_name
-    mem_limit = temp[5].decode('utf-8') # mem_limit
-    unit = temp[5].decode('utf-8')[-3:] # mem_unit
+    Container_id = out[0].decode('utf-8') # Container_id
+    Container_name = out[1].decode('utf-8') # Container_name
+    mem_limit = out[5].decode('utf-8') # memory_limit
+    mem_unit = out[5].decode('utf-8')[-3:] # memory_unit
 
-    unit = unit_change(unit) # mem_unit 변환
+    mem_unit = memory_unit_conversion(mem_unit) # mem_unit 변환
 
     try:
-        if(mem != ''):
-            if(float(mem) > 80.0): # 자원 할당
-                restrict_mem(Con_name, str(int(float(mem_limit[:-3]) + 5.0)), unit)
-            elif(float(mem) < 20.0): # 자원 회수
-                restrict_mem(Con_name, str(int(float(mem_limit[:-3]) - 5.0)), unit)
+        if(memory != ''):
+            if(float(memory) > 80.0): # 자원 할당
+                memory_dynamic(Container_name, str(int(float(mem_limit[:-3]) + 5.0)), mem_unit)
+            elif(float(memory) < 20.0): # 자원 회수
+                memory_dynamic(Container_name, str(int(float(mem_limit[:-3]) - 5.0)), mem_unit)
     except:
-        return None
+        return
 
-    return None
-
-
-def mem(con_name,unit):
-    cmd_update_mem_swap = "docker update --mem " + '--' + unit + "--mem-swap " + '--' +con_name
-    time(0.5)
-    print(cmd_update_mem_swap)
-    os.system(cmd_update_mem_swap)
-
-    return None
-
-def unit_change(unit):
-    if unit=="MiB":
-        unit="mb"
-    elif unit=="GiB":
-        unit="gb"
-
-    return unit
+    return
 
 
 
-def run(cmd):
-
-    # python에서 호출한 외부 스크립트의 exit code, stdout, stderr 내용을 변수에 쉽게 저장
-    process = Popen(cmd,stdout=PIPE,stderr=PIPE,shell=True)
-    
+def run(command):
+    process = Popen(command, stdout=PIPE, shell=True)
     while True:
-        trace = process.stdout.readline().rstrip() # 줄
-        return trace
+        line = process.stdout.readline().rstrip()
+        if not line:
+            break
+        yield line
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     for path in run("docker stats --format \"table {{.Container}}\t{{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.NetIO}}\t{{.BlockIO}}\t{{.MemPerc}}\t{{.PIDs}}\""):
-        restrict_mem(path) # path 출력
-        time.sleep(4) 
+        extractResourceUsage(path)
+        time.sleep(5)
+        # print path (result equals 'docker stats')
