@@ -77,7 +77,7 @@ public class ProblemController {
 
         return ResponseEntity.ok().body(ResponseDto.of(
                 HttpStatus.OK,
-                SuccessMessage.SUCCESS_REGISTER_PROBLEM, problemMapper.toDto(problem)));
+                SuccessMessage.SUCCESS_REGISTER_PROBLEM, problem.getId()));
     }
 
     @PutMapping("/{problemId}/step")

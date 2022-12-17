@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +26,7 @@ public class KafkaConsumer {
     private final ProblemRepository problemRepository;
     private final ReviewRepository reviewRepository;
 
+    @Transactional
     @KafkaListener(topics = "problem-topic")
     public void updateMember(String kafkaMessage) {
         log.info("kafka Message -> {}", kafkaMessage);
@@ -49,9 +51,14 @@ public class KafkaConsumer {
             writer.setUsername(username);
             problemRepository.save(problem);
 
+            if (problem.getReviewList().isEmpty()) {
+                return;
+            }
+
             problem.getReviewList().stream().forEach(review -> {
-                review.getMember().setMemberId(intMemberId.longValue());
-                review.getMember().setUsername(username);
+                MemberDto member = review.getMember();
+                member.setMemberId(intMemberId.longValue());
+                member.setUsername(username);
                 reviewRepository.save(review);
             });
         }

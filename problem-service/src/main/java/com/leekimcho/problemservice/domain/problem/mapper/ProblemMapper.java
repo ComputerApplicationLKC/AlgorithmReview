@@ -28,7 +28,6 @@ public class ProblemMapper {
                 .link(problem.getLink())
                 .reviewList(problem.getReviewList())
                 .tagList(problem.getTagList())
-                .content(problem.getReviewList().get(0).getContent())
                 .build();
     }
 

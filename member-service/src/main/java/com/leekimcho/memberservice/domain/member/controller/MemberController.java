@@ -92,19 +92,13 @@ public class MemberController {
             this.username = member.getUsername();
         }
 
-        public MemberDto(Long memberId, String username) {
-            this.memberId = memberId;
-            this.username = username;
-        }
-
     }
 
-    @Data
     public static class MemberIdDto extends MemberDto{
         private Long id;
 
         public MemberIdDto(Member member, Long id) {
-            super(member.getId(), member.getUsername());
+            super(member);
             this.id = id;
         }
 
