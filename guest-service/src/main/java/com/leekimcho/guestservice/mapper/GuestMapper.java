@@ -3,15 +3,26 @@ package com.leekimcho.guestservice.mapper;
 import com.leekimcho.guestservice.dto.GuestRequestDto;
 import com.leekimcho.guestservice.dto.GuestResponseDto;
 import com.leekimcho.guestservice.entity.GuestBook;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.springframework.stereotype.Component;
 
-@Mapper(componentModel = "spring")
-public interface GuestMapper {
+@Component
+public class GuestMapper {
 
-    @Mapping(target = "id", ignore = true)
-    GuestBook toEntity(GuestRequestDto guestRequestDto);
+    public GuestBook toEntity(GuestRequestDto guestRequestDto) {
+        return GuestBook.builder()
+                .content(guestRequestDto.getContent())
+                .memberId(guestRequestDto.getMemberId())
+                .nickname(guestRequestDto.getNickname())
+                .build();
+    }
 
-    GuestResponseDto toDto(GuestBook guestBook);
+    public GuestResponseDto toDto(GuestBook guestBook) {
+        return GuestResponseDto.builder()
+                .id(guestBook.getId())
+                .content(guestBook.getContent())
+                .nickname(guestBook.getNickname())
+                .createdDate(guestBook.getCreatedDate().toLocalDate())
+                .build();
+    }
 
 }

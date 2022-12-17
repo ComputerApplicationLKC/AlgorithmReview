@@ -15,4 +15,6 @@ public class GuestRequestDto {
     @NotBlank
     private String content;
 
+    private Long memberId;
+
 }
