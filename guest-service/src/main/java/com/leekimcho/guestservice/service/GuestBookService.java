@@ -28,9 +28,10 @@ public class GuestBookService {
     }
 
     @Transactional
-    public void saveGuestBook(GuestBook guestBook) {
+    public GuestBook saveGuestBook(GuestBook guestBook) {
         log.info("[" + guestBook.getNickname() + "] " + guestBook.getContent());
-        guestBookRepository.save(guestBook);
+        GuestBook save = guestBookRepository.save(guestBook);
+        return save;
     }
 
     @Transactional

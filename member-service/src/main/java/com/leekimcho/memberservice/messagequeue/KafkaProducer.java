@@ -15,7 +15,7 @@ public class KafkaProducer {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
 
-    public MemberController.MemberDto send(String topic, MemberController.MemberDto memberDto) {
+    public MemberController.MemberIdDto send(String topic, MemberController.MemberIdDto memberDto) {
         ObjectMapper mapper = new ObjectMapper();
         String jsonInString = "";
         try {

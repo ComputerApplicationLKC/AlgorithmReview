@@ -21,6 +21,8 @@ public class ProblemDto {
 
     private int step;
 
+    private String content;
+
     @JsonIgnoreProperties({"problem"})
     private List<Review> reviewList;
 

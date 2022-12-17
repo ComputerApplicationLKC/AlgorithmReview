@@ -12,9 +12,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -24,7 +26,8 @@ public class KafkaConsumer {
     private final ProblemRepository problemRepository;
     private final ReviewRepository reviewRepository;
 
-    @KafkaListener(topics = "member-topic")
+    @Transactional
+    @KafkaListener(topics = "problem-topic")
     public void updateMember(String kafkaMessage) {
         log.info("kafka Message -> {}", kafkaMessage);
 
@@ -36,20 +39,29 @@ public class KafkaConsumer {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        Long memberId = (Long)map.get("memberId");
+        Integer intMemberId = (Integer)map.get("memberId");
         String username = (String)map.get("username");
-        Problem problem = problemRepository.findById((Long)map.get("problemId")).orElseThrow(EntityNotFoundException::new);
+        Integer intProblemId = (Integer)map.get("id");
+        Optional<Problem> oProblem = problemRepository.findById(intProblemId.longValue());
 
-        MemberDto writer = problem.getWriter();
-        writer.setMemberId(memberId);
-        writer.setUsername(username);
-        problemRepository.save(problem);
+        if(oProblem.isPresent()) {
+            Problem problem = oProblem.get();
+            MemberDto writer = problem.getWriter();
+            writer.setMemberId(intMemberId.longValue());
+            writer.setUsername(username);
+            problemRepository.save(problem);
 
-        problem.getReviewList().stream().forEach(review -> {
-            review.getMember().setMemberId(memberId);
-            review.getMember().setUsername(username);
-            reviewRepository.save(review);
-        });
+            if (problem.getReviewList().isEmpty()) {
+                return;
+            }
+
+            problem.getReviewList().stream().forEach(review -> {
+                MemberDto member = review.getMember();
+                member.setMemberId(intMemberId.longValue());
+                member.setUsername(username);
+                reviewRepository.save(review);
+            });
+        }
     }
 
 }

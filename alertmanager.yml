@@ -1,6 +1,6 @@
 # 김승진
 global:
-  slack_api_url: "https://hooks.slack.com/services/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"
+  slack_api_url: "https://hooks.slack.com/services/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"
 
 route:
   receiver: 'slack-notifications'
