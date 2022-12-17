@@ -201,7 +201,9 @@ services:
       - zookeeper
       - api-gateway
     networks:
-      - app-ti=-09networks:
+      - app-tier
+
+networks:
   app-tier:
     driver: bridge
 
