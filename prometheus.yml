@@ -1,4 +1,4 @@
-# 김승진
+# 김승진 작성
 global:
   scrape_interval: 15s
   evaluation_interval: 15s
@@ -16,20 +16,26 @@ scrape_configs:
     static_configs:
     - targets: ['prometheus:9090']
 
+  - job_name: 'api-gateway'
+    scrape_interval: 5s
+    metrics_path: '/api/actuator/prometheus'
+    static_configs:
+    - targets: ['api-gateway:8000']
+
   - job_name: 'member'
-    scrape_interval: 15s
+    scrape_interval: 5s
     metrics_path: '/api/member-service/actuator/prometheus'
     static_configs:
     - targets: ['api-gateway:8000']
 
   - job_name: 'problem'
-    scrape_interval: 15s
+    scrape_interval: 5s
     metrics_path: '/api/problem-service/actuator/prometheus'
     static_configs:
     - targets: ['api-gateway:8000']
 
   - job_name: 'guest'
-    scrape_interval: 15s
+    scrape_interval: 5s
     metrics_path: '/api/guest-service/actuator/prometheus'
     static_configs:
     - targets: ['api-gateway:8000']

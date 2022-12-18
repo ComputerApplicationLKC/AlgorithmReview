@@ -1,3 +1,5 @@
+# 김승진 작성
+
 import subprocess, os
 from time import sleep
 

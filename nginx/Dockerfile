@@ -1,3 +1,5 @@
+# 김승진 작성
+
 FROM nginx:latest
 
 RUN rm /etc/nginx/conf.d/default.conf
