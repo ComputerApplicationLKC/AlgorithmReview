@@ -3,14 +3,18 @@
 import subprocess, os
 from time import sleep
 
-def checkHttp(array: list, string: str):
+def checkHttp(string: str):
     http_error_con = []
     for i in string.split('\n'):
         if 'Server Error' in i:
-            http_error_con.append(i.split('"')[1].strip('/api/').split('-')[0])
+            tmpString = i.split('"')[1].strip('/api/').split('-')[0]
+            if tmpString.strip() == "":
+                http_error_con.append('api-gateway')
+            else:
+                http_error_con.append(tmpString)
         elif 'statuscode and service ->' in i:
             i = i.split('->')[1:]
-            if 500 <= i[0].split()[0].strip() < 600:
+            if 500 <= int(i[0].split()[0].strip()) < 600:
                 http_error_con.append(i[1].split('-')[0])
     return http_error_con
 
@@ -22,14 +26,16 @@ def startCon(container):
     print(container, "restarted")
 
 def if5xx():
+    print("5xx http status code detected")
     for _ in range(3):
         output = checkLogs(['docker','ps','-a', '-q', '-f' 'status=exited', '--format', '{{.Names}}'])
         
         for container in output.split('\n'):
-            if not container == 'frontend':
+            if container != 'frontend' and container.strip():
                 startCon(container)
         sleep(3.3)
         
 while True:
-    sleep(10) if not checkHttp(list(), checkLogs(['docker','logs', 'api-gateway', '--since', '10s'])) else if5xx()
+    print('Scenario3 Running')
+    sleep(10) if not checkHttp(checkLogs(['docker','logs', 'api-gateway', '--since', '10s'])) else if5xx()
     
