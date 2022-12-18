@@ -6,6 +6,10 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 
+/**
+ * 김승진 작성
+ */
+
 @Getter @Builder @Setter
 public class GuestRequestDto {
 

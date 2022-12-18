@@ -7,6 +7,9 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * 김승진 작성
+ */
 
 @AllArgsConstructor
 @NoArgsConstructor

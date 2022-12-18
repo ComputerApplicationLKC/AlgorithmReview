@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
+/**
+ * 김승진 작성
+ */
+
 @Slf4j
 @RequiredArgsConstructor
 @Service

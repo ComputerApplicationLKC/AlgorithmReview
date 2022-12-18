@@ -4,6 +4,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * 김승진 작성
+ */
+
 @Data @NoArgsConstructor
 public class Result<T> {
     private Code code;

@@ -13,6 +13,9 @@ import java.util.List;
 
 import static com.leekimcho.problemservice.domain.problem.entity.QProblemTag.problemTag;
 
+/**
+ * 김승진 작성
+ */
 
 @Repository
 public class TagQueryRepository extends QuerydslRepositorySupport {

@@ -5,6 +5,10 @@ import com.leekimcho.guestservice.dto.GuestResponseDto;
 import com.leekimcho.guestservice.entity.GuestBook;
 import org.springframework.stereotype.Component;
 
+/**
+ * 김승진 작성
+ */
+
 @Component
 public class GuestMapper {
 

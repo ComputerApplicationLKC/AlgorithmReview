@@ -4,6 +4,10 @@ import lombok.*;
 
 import javax.persistence.Embeddable;
 
+/**
+ * 김승진 작성
+ */
+
 @Embeddable
 @Getter @Setter
 @AllArgsConstructor

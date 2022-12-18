@@ -9,6 +9,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
+/**
+ * 김승진 작성
+ */
+
 @Builder
 @Getter
 @NoArgsConstructor

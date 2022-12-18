@@ -5,6 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * 김승진 작성
+ */
+
 @Getter
 @Setter
 @AllArgsConstructor

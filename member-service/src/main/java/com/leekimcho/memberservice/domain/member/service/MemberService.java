@@ -8,6 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+/**
+ * 김승진 작성
+ */
+
 @Service
 @RequiredArgsConstructor
 public class MemberService {

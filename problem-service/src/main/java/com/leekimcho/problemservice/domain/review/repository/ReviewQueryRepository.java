@@ -11,6 +11,10 @@ import java.util.List;
 
 import static com.leekimcho.problemservice.domain.review.entity.QReview.review;
 
+/**
+ * 김승진 작성
+ */
+
 
 @Repository
 public class ReviewQueryRepository extends QuerydslRepositorySupport {

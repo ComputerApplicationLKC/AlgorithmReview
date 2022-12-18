@@ -7,6 +7,10 @@ import lombok.Setter;
 
 import javax.persistence.Embeddable;
 
+/**
+ * 김승진 작성
+ */
+
 @Getter
 @Setter
 @AllArgsConstructor

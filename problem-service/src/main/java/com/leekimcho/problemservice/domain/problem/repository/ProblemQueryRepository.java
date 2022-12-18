@@ -14,6 +14,10 @@ import java.util.List;
 import static com.leekimcho.problemservice.domain.problem.entity.QProblem.problem;
 import static com.leekimcho.problemservice.domain.problem.entity.QProblemTag.problemTag;
 
+/**
+ * 김승진 작성
+ */
+
 
 @Repository
 public class ProblemQueryRepository extends QuerydslRepositorySupport {

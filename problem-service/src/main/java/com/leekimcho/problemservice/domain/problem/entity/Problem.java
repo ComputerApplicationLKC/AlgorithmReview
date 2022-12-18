@@ -11,6 +11,10 @@ import java.util.List;
 
 import static java.util.Collections.singletonList;
 
+/**
+ * 김승진 작성
+ */
+
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter

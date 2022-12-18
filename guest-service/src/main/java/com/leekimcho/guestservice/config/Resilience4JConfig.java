@@ -1,4 +1,4 @@
-package com.leekimcho.problemservice.config;
+package com.leekimcho.guestservice.config;
 
 import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
 import io.github.resilience4j.timelimiter.TimeLimiterConfig;

@@ -3,7 +3,6 @@ package com.leekimcho.problemservice.messagequeue;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.leekimcho.problemservice.common.advice.exception.EntityNotFoundException;
 import com.leekimcho.problemservice.common.dto.MemberDto;
 import com.leekimcho.problemservice.domain.problem.entity.Problem;
 import com.leekimcho.problemservice.domain.problem.repository.ProblemRepository;
@@ -17,6 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+
+/**
+ * 김승진 작성
+ */
 
 @Service
 @Slf4j

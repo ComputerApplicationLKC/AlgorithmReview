@@ -9,6 +9,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+/**
+ * 김승진 작성
+ */
+
 @EnableEurekaClient
 @EnableFeignClients
 @EnableJpaAuditing

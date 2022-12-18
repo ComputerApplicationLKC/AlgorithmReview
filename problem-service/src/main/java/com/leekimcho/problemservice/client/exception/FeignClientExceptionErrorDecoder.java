@@ -11,6 +11,10 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+/**
+ * 김승진 작성
+ */
+
 @Component
 @RequiredArgsConstructor
 @Slf4j

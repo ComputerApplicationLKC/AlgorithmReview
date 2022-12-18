@@ -21,6 +21,10 @@ import javax.persistence.EntityNotFoundException;
 import static com.leekimcho.memberservice.global.advice.message.SuccessMessage.SUCCESS_AUTHORIZATION;
 import static com.leekimcho.memberservice.global.advice.message.SuccessMessage.SUCCESS_ISSUE_TOKEN;
 
+/**
+ * 김승진 작성
+ */
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController

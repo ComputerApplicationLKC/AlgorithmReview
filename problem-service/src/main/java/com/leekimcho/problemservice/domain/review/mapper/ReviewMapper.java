@@ -8,6 +8,10 @@ import com.leekimcho.problemservice.domain.review.dto.SearchDto;
 import com.leekimcho.problemservice.domain.review.entity.Review;
 import org.springframework.stereotype.Component;
 
+/**
+ * 김승진 작성
+ */
+
 @Component
 public class ReviewMapper {
 
