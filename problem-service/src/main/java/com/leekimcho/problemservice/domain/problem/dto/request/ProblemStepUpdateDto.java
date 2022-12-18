@@ -4,6 +4,10 @@ import lombok.Getter;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * 김승진 작성
+ */
+
 @Getter
 public class ProblemStepUpdateDto {
 

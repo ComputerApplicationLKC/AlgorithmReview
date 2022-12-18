@@ -8,6 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+/**
+ * 김승진 작성
+ */
+
 @Service
 @Slf4j
 @RequiredArgsConstructor

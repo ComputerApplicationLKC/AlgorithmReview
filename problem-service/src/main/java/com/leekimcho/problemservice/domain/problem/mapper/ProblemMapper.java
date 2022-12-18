@@ -7,6 +7,9 @@ import com.leekimcho.problemservice.domain.problem.dto.response.ProblemOnlyDto;
 import com.leekimcho.problemservice.domain.problem.entity.Problem;
 import org.springframework.stereotype.Component;
 
+/**
+ * 김승진 작성
+ */
 
 @Component
 public class ProblemMapper {

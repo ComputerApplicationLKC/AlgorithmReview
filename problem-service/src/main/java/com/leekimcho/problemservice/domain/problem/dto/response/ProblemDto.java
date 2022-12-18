@@ -7,6 +7,10 @@ import lombok.*;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * 김승진 작성
+ */
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter

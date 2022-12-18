@@ -2,6 +2,10 @@ package com.leekimcho.memberservice.global.exception;
 
 import lombok.Getter;
 
+/**
+ * 김승진 작성
+ */
+
 @Getter
 public class BusinessException extends RuntimeException {
 

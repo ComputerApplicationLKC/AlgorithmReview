@@ -1,5 +1,9 @@
 package com.leekimcho.problemservice.common;
 
+/**
+ * 김승진 작성
+ */
+
 public class SuccessMessage {
 
     public static String SUCCESS_REGISTER_PROBLEM = "문제 등록 성공입니다.";

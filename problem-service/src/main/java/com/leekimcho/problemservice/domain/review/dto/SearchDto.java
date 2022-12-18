@@ -6,6 +6,10 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
+/**
+ * 김승진 작성
+ */
+
 @Getter @Setter @Builder
 public class SearchDto {
 

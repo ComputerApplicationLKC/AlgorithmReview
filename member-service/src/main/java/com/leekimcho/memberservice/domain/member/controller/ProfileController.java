@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 
+/**
+ * 김승진 작성
+ */
+
 @RequiredArgsConstructor
 @RequestMapping("/api/member-service")
 @RestController

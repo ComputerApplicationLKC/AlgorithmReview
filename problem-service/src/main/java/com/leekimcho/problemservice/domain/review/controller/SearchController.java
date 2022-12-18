@@ -17,6 +17,9 @@ import java.util.stream.Collectors;
 
 import static com.leekimcho.problemservice.common.SuccessMessage.SUCCESS_GET_SEARCH_LIST;
 
+/**
+ * 김승진 작성
+ */
 
 @RequiredArgsConstructor
 @RestController

@@ -7,6 +7,10 @@ import org.springframework.context.annotation.Configuration;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+/**
+ * 김승진 작성
+ */
+
 @Configuration
 public class QuerydslConfig {
 

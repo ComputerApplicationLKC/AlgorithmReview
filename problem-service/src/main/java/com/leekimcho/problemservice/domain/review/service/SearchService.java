@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * 김승진 작성
+ */
+
 @RequiredArgsConstructor
 @Service
 public class SearchService {

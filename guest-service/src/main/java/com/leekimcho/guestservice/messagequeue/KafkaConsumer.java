@@ -3,7 +3,6 @@ package com.leekimcho.guestservice.messagequeue;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.leekimcho.guestservice.common.advice.exception.EntityNotFoundException;
 import com.leekimcho.guestservice.entity.GuestBook;
 import com.leekimcho.guestservice.repository.GuestBookRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+
+/**
+ * 김승진 작성
+ */
 
 @Service
 @Slf4j

@@ -6,6 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * 김승진 작성
+ */
+
 @Repository
 public interface TagRepository extends JpaRepository<Tag, Long> {
 

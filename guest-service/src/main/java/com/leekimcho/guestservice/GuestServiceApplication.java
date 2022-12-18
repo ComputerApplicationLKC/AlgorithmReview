@@ -9,6 +9,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 
+/**
+ * 김승진 작성
+ */
+
 @EnableJpaAuditing
 @EnableFeignClients
 @EnableEurekaClient

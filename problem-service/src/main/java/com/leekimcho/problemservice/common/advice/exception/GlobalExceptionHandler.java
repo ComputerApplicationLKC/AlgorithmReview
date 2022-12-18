@@ -14,6 +14,10 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import javax.servlet.ServletException;
 import java.security.SignatureException;
 
+/**
+ * 김승진 작성
+ */
+
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {

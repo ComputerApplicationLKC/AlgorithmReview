@@ -13,6 +13,10 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
+/**
+ * 김승진 작성
+ */
+
 @Slf4j
 @Aspect
 @RequiredArgsConstructor

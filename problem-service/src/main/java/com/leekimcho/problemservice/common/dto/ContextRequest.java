@@ -6,6 +6,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * 김승진 작성
+ */
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

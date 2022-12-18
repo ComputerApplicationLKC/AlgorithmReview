@@ -3,6 +3,10 @@ package com.leekimcho.guestservice.common.advice.exception;
 import com.leekimcho.guestservice.common.advice.ExceptionCode;
 import lombok.Getter;
 
+/**
+ * 김승진 작성
+ */
+
 @Getter
 public class BusinessException extends RuntimeException {
 

@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 김승진 작성
+ */
+
 @Slf4j
 @RequiredArgsConstructor
 @Service

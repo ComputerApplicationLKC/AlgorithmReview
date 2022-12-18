@@ -1,5 +1,9 @@
 package com.leekimcho.guestservice.common;
 
+/**
+ * 김승진 작성
+ */
+
 public class SuccessMessage {
 
     public static String SUCCESS_REGISTER_GUEST = "방명록 등록 성공입니다.";
