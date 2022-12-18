@@ -61,7 +61,7 @@ spring:
         - id: member-service
           uri: lb://MEMBER-SERVICE
           predicates:
-            - Path=/member-service/actuator/**
+            - Path=/actuator/**
 
         - id: guest-service
           uri: lb://GUEST-SERVICE
@@ -70,7 +70,7 @@ spring:
         - id: guest-service
           uri: lb://GUEST-SERVICE
           predicates:
-            - Path=/guest-service/actuator/**
+            - Path=/actuator/**
 
         - id: problem-service
           uri: lb://PROBLEM-SERVICE
@@ -79,7 +79,7 @@ spring:
         - id: problem-service
           uri: lb://PROBLEM-SERVICE
           predicates:
-            - Path=/problem-service/actuator/**
+            - Path=/actuator/**
 
 management:
   endpoints:
