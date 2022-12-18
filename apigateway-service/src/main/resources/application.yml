@@ -61,7 +61,11 @@ spring:
         - id: member-service
           uri: lb://MEMBER-SERVICE
           predicates:
-            - Path=/actuator/**
+            - Path=/api/member-service/actuator/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/api/member-service(?<segment>.*), /$\{segment}
 
         - id: guest-service
           uri: lb://GUEST-SERVICE
@@ -70,7 +74,11 @@ spring:
         - id: guest-service
           uri: lb://GUEST-SERVICE
           predicates:
-            - Path=/actuator/**
+            - Path=/api/guest-service/actuator/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/api/guest-service(?<segment>.*), /$\{segment}
 
         - id: problem-service
           uri: lb://PROBLEM-SERVICE
@@ -79,11 +87,15 @@ spring:
         - id: problem-service
           uri: lb://PROBLEM-SERVICE
           predicates:
-            - Path=/actuator/**
+            - Path=/api/problem-service/actuator/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/api/problem-service(?<segment>.*), /$\{segment}
 
 management:
   endpoints:
     web:
       exposure:
         include: prometheus
-      base-path: /actuator
+      base-path: /api/actuator
