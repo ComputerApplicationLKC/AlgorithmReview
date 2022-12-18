@@ -26,9 +26,8 @@ def if5xx():
         for container in output.split('\n'):
             if not container == 'frontend':
                 startCon(container)
-        sleep(3)
+        sleep(3.3)
         
 while True:
-    con = checkHttp(list(), checkLogs(['docker','logs', 'api-gateway', '--since', '10s']))
-    sleep(10) if not con else if5xx()
+    sleep(10) if not checkHttp(list(), checkLogs(['docker','logs', 'api-gateway', '--since', '10s'])) else if5xx()
     
