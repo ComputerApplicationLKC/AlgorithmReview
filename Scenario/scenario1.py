@@ -12,10 +12,10 @@ def memory_dynamic(Container_name, upper, mem_unit):
 def memory_unit_conversion(mem_unit):
     if(mem_unit=="GiB"):
         mem_unit="gb"
-        if(mem_unit=="MiB"):
-            mem_unit="mb"
+    if(mem_unit=="MiB"):
+        mem_unit="mb"
             
-            return mem_unit
+    return mem_unit
 
 
 def extractResourceUsage(out):
