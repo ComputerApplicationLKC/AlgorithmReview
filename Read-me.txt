@@ -1,12 +1,6 @@
-# 김승진 작성
 
-시나리오 제외한 서비스 실행 방법
-- run_web.sh 실행
 
-시나리오1, 2, 3 실행 방법
-- run_scenario.sh 실행
-
-# 이정권
+# 이정권 작성
 
 시나리오 2
 
@@ -14,3 +8,17 @@ docker ps -a 명령어 결과 가져오기
 docker ps -a 명령어 parsing
 돌면서 이상징후 캐치
 Exited 포함된 컨테이너 발견시 컨테이너 재시작
+
+# 김승진 작성
+
+시나리오 3
+
+1. 터미널에서 Scenario 폴더로 이동
+2. python HttpStatusCheck.py 실행
+3. 다른 터미널 실행
+4. docker stop problem 실행 (problem 대신 member, guest도 가능)
+5. 웹 메인 페이지에서 새로고침 (problem에 500번대 코드 나오게 함)
+6. 정상 작동 확인
+
+시나리오 제외한 서비스 실행 방법
+- run_web.sh 실행
