@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 
 /**
  * 김승진 작성
@@ -20,11 +21,11 @@ public class ProblemTag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Problem.class)
     @JoinColumn(name = "problem_id")
     private Problem problem;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Tag.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "tag_id")
     private Tag tag;
 
@@ -32,4 +33,10 @@ public class ProblemTag {
         this.problem = problem;
         this.tag = tag;
     }
+
+    public void setProblemTagNull() {
+        this.problem.setTagList(new ArrayList<>());
+        this.tag.setProblemListNull(problem.getId());
+    }
+
 }

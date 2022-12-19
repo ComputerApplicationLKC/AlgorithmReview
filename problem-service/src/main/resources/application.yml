@@ -7,6 +7,10 @@ spring:
   application:
     name: problem-service
 
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+
   cloud:
     inetutils:
       ignored-interfaces:

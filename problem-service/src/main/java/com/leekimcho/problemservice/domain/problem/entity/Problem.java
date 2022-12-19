@@ -17,7 +17,7 @@ import static java.util.Collections.singletonList;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Getter
+@Getter @Setter
 @Entity
 @Builder
 public class Problem extends BaseEntity {
@@ -38,7 +38,7 @@ public class Problem extends BaseEntity {
 
     @Builder.Default
     @OrderBy("createdDate desc")
-    @OneToMany(mappedBy = "problem", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "problem", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviewList = new ArrayList<>();
 
     @Builder.Default

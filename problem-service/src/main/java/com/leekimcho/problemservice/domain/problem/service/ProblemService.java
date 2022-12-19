@@ -7,6 +7,7 @@ import com.leekimcho.problemservice.domain.problem.entity.ProblemTag;
 import com.leekimcho.problemservice.domain.problem.entity.Tag;
 import com.leekimcho.problemservice.domain.problem.repository.ProblemQueryRepository;
 import com.leekimcho.problemservice.domain.problem.repository.ProblemRepository;
+import com.leekimcho.problemservice.domain.problem.repository.ProblemTagRepository;
 import com.leekimcho.problemservice.domain.problem.repository.TagRepository;
 import com.leekimcho.problemservice.domain.review.entity.Review;
 import com.leekimcho.problemservice.domain.review.mapper.ReviewMapper;
@@ -18,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
+
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -33,6 +36,7 @@ public class ProblemService {
     private final TagRepository tagRepository;
     private final ProblemQueryRepository problemQueryRepository;
     private final ReviewMapper reviewMapper;
+    private final ProblemTagRepository problemTagRepository;
 
     @Transactional(readOnly = true)
     public List<Problem> getProblemListByStepOrTag(LocalDateTime modifiedDate, Long cursorId, int step, String tagName, Pageable page) {
@@ -66,7 +70,7 @@ public class ProblemService {
                         .map(
                                 tag -> new ProblemTag(problem, tag)).orElseGet(
                                 () -> new ProblemTag(problem, new Tag(tagName))
-                        )).collect(toList());
+                        )).collect(Collectors.toSet()).stream().collect(Collectors.toList());
 
         problem.setReviewAndTagList(review, tagList);
         problemRepository.save(problem);
@@ -84,6 +88,11 @@ public class ProblemService {
 
     @Transactional
     public void deleteProblem(Long problemId) {
+        List<ProblemTag> problemTagList = problemTagRepository.findByProblem(problemRepository.findById(problemId).orElseThrow(EntityNotFoundException::new));
+        problemTagList.stream().forEach(problemTag -> {
+            problemTag.setProblemTagNull();
+            problemTagRepository.delete(problemTag);
+        });
         problemRepository.deleteById(problemId);
     }
 
