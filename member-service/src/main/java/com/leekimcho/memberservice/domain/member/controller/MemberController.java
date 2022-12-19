@@ -98,11 +98,15 @@ public class MemberController {
 
     }
 
-    public static class MemberIdDto extends MemberDto{
+    @Data
+    public static class MemberIdDto{
+        private Long memberId;
+        private String username;
         private Long id;
 
         public MemberIdDto(Member member, Long id) {
-            super(member);
+            this.memberId = member.getId();
+            this.username = member.getUsername();
             this.id = id;
         }
 

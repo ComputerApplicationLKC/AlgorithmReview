@@ -44,26 +44,28 @@ public class KafkaConsumer {
         }
         Integer intMemberId = (Integer)map.get("memberId");
         String username = (String)map.get("username");
-        Integer intProblemId = (Integer)map.get("id");
-        Optional<Problem> oProblem = problemRepository.findById(intProblemId.longValue());
+        if (map.containsKey("id")) {
+            Integer intProblemId = (Integer)map.get("id");
+            Optional<Problem> oProblem = problemRepository.findById(intProblemId.longValue());
 
-        if(oProblem.isPresent()) {
-            Problem problem = oProblem.get();
-            MemberDto writer = problem.getWriter();
-            writer.setMemberId(intMemberId.longValue());
-            writer.setUsername(username);
-            problemRepository.save(problem);
+            if(oProblem.isPresent()) {
+                Problem problem = oProblem.get();
+                MemberDto writer = problem.getWriter();
+                writer.setMemberId(intMemberId.longValue());
+                writer.setUsername(username);
+                problemRepository.save(problem);
 
-            if (problem.getReviewList().isEmpty()) {
-                return;
+                if (problem.getReviewList().isEmpty()) {
+                    return;
+                }
+
+                problem.getReviewList().stream().forEach(review -> {
+                    MemberDto member = review.getMember();
+                    member.setMemberId(intMemberId.longValue());
+                    member.setUsername(username);
+                    reviewRepository.save(review);
+                });
             }
-
-            problem.getReviewList().stream().forEach(review -> {
-                MemberDto member = review.getMember();
-                member.setMemberId(intMemberId.longValue());
-                member.setUsername(username);
-                reviewRepository.save(review);
-            });
         }
     }
 
