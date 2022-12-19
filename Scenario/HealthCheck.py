@@ -5,6 +5,7 @@ import time
 
 while True:
     result = subprocess.check_output(['docker','ps','-a']).decode()
+
     result = [i.strip() for i in result.split('\n') if i != '']
 
     docker_health = []
@@ -14,6 +15,6 @@ while True:
     for container in docker_health:
         if 'Exited' in container[4]:
             if not container[5]=='frontend':
+                print("\ncontainer restart ")
                 os.system('docker start ' + container[5])
-                print(container[5], 'started')
     time.sleep(5)
