@@ -1,21 +1,21 @@
 # 이정권 작성
 
-import subprocess
-import os
 import time
+import os
+import subprocess as sb
 
-while True:
-    result = subprocess.check_output(['docker','ps','-a']).decode()
 
-    result = [i.strip() for i in result.split('\n') if i != '']
+while(1):
+    docker_ps = sb.check_output(['docker','ps','-a']).decode()
+    docker_ps = [x.strip() for x in docker_ps.split('\n') if x != '']
 
-    docker_health = []
-    for i in result[1:]:
-        docker_health.append([k.strip() for k in i.split('   ') if k != ''])
+    docker_list = []
+    for x in docker_ps[1:]:
+        docker_list.append([y.strip() for y in x.split('   ') if y != ''])
 
-    for container in docker_health:
+    for container in docker_list:
         if 'Exited' in container[4]:
             if not container[5]=='frontend':
                 print("\ncontainer restart ")
                 os.system('docker start ' + container[5])
-    time.sleep(5)
+    time.sleep(2)
