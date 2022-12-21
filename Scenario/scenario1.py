@@ -11,31 +11,28 @@ def run(process):
 
 def getUsage(result):
     result = result.split()
-
-    cpu = result[2].decode('utf-8') 
-    cpu = cpu[:-1]
-    Container_name = result[1].decode('utf-8')
-
+    
+    con = result[1].decode('utf-8')
     memory = result[-2].decode('utf-8')
     memory = memory[:-1]
-    mem_limit = result[5].decode('utf-8')
-    mem_unit = result[5].decode('utf-8')[-3:] 
+    limit = result[5].decode('utf-8')
+    unit = result[5].decode('utf-8')[-3:] 
 
-    if 'i' in mem_unit:
-        mem_unit = mem_unit[0] + mem_unit[2]
-        mem_unit.lower()
+    if 'i' in unit:
+        unit = unit[0] + unit[2]
+        unit.lower()
 
     if(memory != ''):
         if(float(memory) > 80.0): 
-            print(Container_name, 'upper 80%')
-            c = "docker update --memory " + "\"" + str(int(float(mem_limit[:-3]) + 4.0)) + \
-                mem_unit + "\"" + " --memory-swap " + "\"" + str(int(float(mem_limit[:-3]) + 4.0)) + mem_unit + "\"" + " " + Container_name
+            print(con, 'upper 80%')
+            c = "docker update --memory " + "\"" + str(int(float(limit[:-3]) + 4.0)) + \
+                unit + "\"" + " --memory-swap " + "\"" + str(int(float(limit[:-3]) + 4.0)) + unit + "\"" + " " + con
             os.system(c)
 
         elif(float(memory) < 20.0): 
-            print(Container_name, 'under 20%')
-            c = "docker update --memory " + "\"" + str(int(float(mem_limit[:-3]) - 4.0)) + \
-                mem_unit + "\"" + " --memory-swap " + "\"" + str(int(float(mem_limit[:-3]) - 4.0)) + mem_unit + "\"" + " " + Container_name
+            print(con, 'under 20%')
+            c = "docker update --memory " + "\"" + str(int(float(limit[:-3]) - 4.0)) + \
+                unit + "\"" + " --memory-swap " + "\"" + str(int(float(limit[:-3]) - 4.0)) + unit + "\"" + " " + con
             os.system(c)
 
 while True:

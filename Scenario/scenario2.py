@@ -18,4 +18,4 @@ while(1):
         print('restarted')
         os.system('docker start ' + con[5])
 
-    time.sleep(2)gi
+    time.sleep(2)

@@ -1,7 +1,7 @@
 # 조욱희 작성
 
 시나리오 1
-1. docker-compose 실행
+1. docker-compose 실행
 2. 터미널에서 Scenario 폴더로 이동
 3. 다른 터미널 실행
 4. docker stats로 도커 자원이 할당이 됐나를 확인
@@ -14,7 +14,7 @@
 시나리오 2
 
 1. 터미널에서 Scenario 폴더로 이동
-2. python Healthcheck.py 실행
+2. python scenario2.py 실행
 3. 다른 터미널 실행
 4. ex)docker stop guest 실행
 5. localhost:8761에서 guest 없음을 확인
@@ -29,9 +29,9 @@
 시나리오 3
 
 1. 터미널에서 Scenario 폴더로 이동
-2. python HttpStatusCheck.py 실행
+2. python scenario3.py 실행
 3. 다른 터미널 실행
-4. docker stop problem 실행 (problem 대신 member, guest도 가능)
+4. docker stop problem 실행 (problem 대신 member, guest도 가능하지만, problem이 고의로 오류 내기 쉬움)
 5. 웹 메인 페이지에서 새로고침 (problem에 500번대 코드 나오게 함)
 6. 정상 작동 확인
 
