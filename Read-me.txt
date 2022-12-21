@@ -38,6 +38,11 @@
 
 시나리오 제외한 서비스 실행 방법
 - run_web.sh 실행
+
+- 관리자 권한 얻는 방법
+1. member-service에 src -> main -> resources -> data.sql 에 본인 이름, 비밀번호, 이메일로 수정
+2. guest-service에 src -> main -> resources -> application.yml 맨 밑 본인 이메일로 수정
+
 - http://localhost → 웹페이지
 - http://localhost:8761 → 스프링 유레카 디스커버리 서버
 - http://localhost:9411 → 집킨 (분산 추적)
