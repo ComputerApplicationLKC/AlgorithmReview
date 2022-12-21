@@ -1,4 +1,6 @@
+# 조욱희 작성
 
+<<<<<<< Updated upstream
 # 조욱희 작성
 
 시나리오 1
@@ -11,6 +13,16 @@
 5. docker update —memory "1gb" —memory-swap "1gb" exercise exercise 컨테이너 메모리 lgb로 낮춤
 6. 다시 콘솔확인 
 
+=======
+시나리오 1
+1. AlgorithmReview 컨테이너 실행
+2. 터미널에서 Scenario 폴더로 이동
+3. 다른 터미널 실행
+4. docker stats로 도커 자원이 할당이 됐나를 확인
+2. python scenario1.py 동적 할당 모듈 실행
+5. docker update --memory "1gb" --memory-swap "1gb" exercise exercise 컨테이너 메모리 lgb로 낮춤
+6. 다시 콘솔확인 
+>>>>>>> Stashed changes
 
 # 이정권 작성
 
