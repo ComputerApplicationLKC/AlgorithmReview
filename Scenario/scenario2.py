@@ -15,7 +15,7 @@ while(1):
         docker_list.append([y.strip() for y in x.split('   ') if y != ''])
         
     for con in filter(lambda docker: 'Exited' in docker[4] and docker[5] != 'frontend', docker_list):
-        print(con[5], 'restarted')
+        print('restarted')
         os.system('docker start ' + con[5])
 
-    time.sleep(2)
+    time.sleep(2)gi
