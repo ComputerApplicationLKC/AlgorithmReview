@@ -31,9 +31,29 @@
 1. 터미널에서 Scenario 폴더로 이동
 2. python scenario3.py 실행
 3. 다른 터미널 실행
-4. docker stop problem 실행 (problem 대신 member, guest도 가능하지만, problem이 고의로 오류 내기 쉬움)
+4. docker stop problem 실행 (problem 대신 member, guest도 가능하지만, problem이 고의로 500번대 오류 내기 수월)
 5. 웹 메인 페이지에서 새로고침 (problem에 500번대 코드 나오게 함)
 6. 정상 작동 확인
 
+
 시나리오 제외한 서비스 실행 방법
 - run_web.sh 실행
+- http://localhost → 웹페이지
+- http://localhost:8761 → 스프링 유레카 디스커버리 서버
+- http://localhost:9411 → 집킨 (분산 추적)
+- http://localhost:3000 → 그라파나 (모니터링 시각화)
+- http://localhost:9090 → 프로메테우스 (모니터링)
+
+
+- 그라파나의 경우
+1. id = admin, pw = admin으로 접속
+2. 비밀번호 변경 skip
+3. 좌측 하단 설정(configuration)
+4. Add data Source -> Prometheus 더블클릭
+5. URL에 http://prometheus:9090 입력
+6. 하단의 save & test
+7. 좌측 상단의 네모4개 모양의 Dashboard -> import
+8. Upload Json -> 프로젝트 디렉토리의 
+    JVM (Micrometer)-1671638890010.json, Prometheus 2.0 Overview-1671638929637.json, Spring Cloud Gateway - new-1671640500378.json
+    를 선택 및 Select a Prometheus Data source 에서 Prometheus 선택
+9. 8번이 안될 시 json 파일 대신 4701, 3662를 import via grafana.com에 입력 후 Select a Prometheus Data source 에서 Prometheus 선택
