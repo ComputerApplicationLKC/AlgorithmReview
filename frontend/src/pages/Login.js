@@ -1,10 +1,8 @@
-import React from 'react';
-import GoogleLoginBtn from "../components/GoogleLogin"
+import React from "react"; // 조욱희 작성
+import GoogleLoginBtn from "../components/GoogleLogin";
 
 const Login = () => {
-    return (
-        <GoogleLoginBtn href="/" />
-    )
-}
+  return <GoogleLoginBtn href="/" />; // 구글로그인버튼으로 페이지네이션
+};
 
-export default Login
+export default Login;
