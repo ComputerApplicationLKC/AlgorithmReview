@@ -26,18 +26,22 @@ def getUsage(result):
         if(float(memory) > 80.0): 
             print(con, 'upper 80%')
             c = "docker update --memory " + "\"" + str(int(float(limit[:-3]) + 4.0)) + \
-                unit + "\"" + " --memory-swap " + "\"" + str(int(float(limit[:-3]) + 4.0)) + unit + "\"" + " " + con
+                unit + "\"" + " --memory-swap " + "\"" + \
+                    str(int(float(limit[:-3]) + 4.0)) + unit + "\"" + " " + con
             os.system(c)
 
         elif(float(memory) < 20.0): 
             print(con, 'under 20%')
             c = "docker update --memory " + "\"" + str(int(float(limit[:-3]) - 4.0)) + \
-                unit + "\"" + " --memory-swap " + "\"" + str(int(float(limit[:-3]) - 4.0)) + unit + "\"" + " " + con
+                unit + "\"" + " --memory-swap " + "\"" + \
+                    str(int(float(limit[:-3]) - 4.0)) + unit + "\"" + " " + con
             os.system(c)
 
 while True:
     print('Scenario1 running')
-    p = Popen("docker stats --format \"table {{.Container}}\t{{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.NetIO}}\t{{.BlockIO}}\t{{.MemPerc}}\t{{.PIDs}}\"", stdout=PIPE, shell=True)
+    p = Popen("docker stats --format \"table \
+        {{.Container}}\t{{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.NetIO}}\t{{.BlockIO}}\t{{.MemPerc}}\t{{.PIDs}}\"",\
+            stdout=PIPE, shell=True)
     for path in run(p):
         getUsage(path)
         time.sleep(5)
