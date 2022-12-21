@@ -58,7 +58,5 @@
 5. URL에 http://prometheus:9090 입력
 6. 하단의 save & test
 7. 좌측 상단의 네모4개 모양의 Dashboard -> import
-8. Upload Json -> 프로젝트 디렉토리의 
-    JVM (Micrometer)-1671638890010.json, Prometheus 2.0 Overview-1671638929637.json, Spring Cloud Gateway - new-1671640500378.json
-    를 선택 및 Select a Prometheus Data source 에서 Prometheus 선택
+8. Upload Json -> Grafana 디렉토리의 .json 파일들을 순서대로 하나씩 선택 및 Select a Prometheus Data source 에서 Prometheus 선택
 9. 8번이 안될 시 json 파일 대신 4701, 3662를 import via grafana.com에 입력 후 Select a Prometheus Data source 에서 Prometheus 선택
