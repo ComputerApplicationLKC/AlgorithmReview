@@ -51,6 +51,16 @@
 
 <br>
 
+```
+<접속 가능한 포트들>
+
+- http://localhost → 웹페이지
+- http://localhost:8761 → 스프링 유레카 디스커버리 서버
+- http://localhost:9411 → 집킨 (분산 추적)
+- http://localhost:3000 → 그라파나 (모니터링 시각화)
+- http://localhost:9090 → 프로메테우스 (모니터링)
+```
+
 ## 시나리오 설명
 
 ### 시나리오 1
